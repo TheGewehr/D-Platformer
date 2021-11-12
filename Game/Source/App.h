@@ -63,6 +63,7 @@ public:
 	{
 		return radtodeg;
 	}
+
 private:
 
 	// Load config file

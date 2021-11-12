@@ -56,6 +56,10 @@ public:
 		return true;
 	}
 
+	virtual void OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+	{
+	}
+
     // L02: DONE 2: Create new virtual methods to Load / Save state
 	virtual bool LoadState(pugi::xml_node&)
 	{
