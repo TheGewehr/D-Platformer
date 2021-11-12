@@ -1,6 +1,8 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "Player.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -46,7 +48,7 @@ bool Render::Awake(pugi::xml_node& config)
 		camera.w = app->win->screenSurface->w;
 		camera.h = app->win->screenSurface->h;
 		camera.x = 0;
-		camera.y = -48 * 14;
+		camera.y = 0;
 	}
 
 	return ret;
@@ -77,6 +79,10 @@ bool Render::PostUpdate()
 {
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
+
+	//camera.x = app->player->getX()+0.5*app->win->GetWidth();
+	//camera.y = app->player->getY() + 0.5 * app->win->GetHeight();
+
 	return true;
 }
 

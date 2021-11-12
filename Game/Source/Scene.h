@@ -2,9 +2,9 @@
 #define __SCENE_H__
 
 #include "Module.h"
-#include "p2List.h"
-#include "p2Point.h"
-#include "Physics.h"
+#include "List.h"
+#include "Point.h"
+#include "Defs.h"
 
 struct SDL_Texture;
 
@@ -31,90 +31,37 @@ public:
 
 	// Called before all Updates
 	bool PostUpdate();
-	uint jungleMusic = 0;
+
 	// Called before quitting
 	bool CleanUp();
 
-	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&) const;
-	SDL_Texture* bTexture = nullptr;
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+	{
 
-	float playerX = 0.0f;
-	float playerY = 0.0f;
-	bool freeCam = false;
+	}
+	//Collider* playerWall[100] = { nullptr };
+
 private:
 
-	SDL_Texture* texBackground;
-	SDL_Texture* character = nullptr;
-	p2List<PhysBody*> trespasableElements;
+	SDL_Texture* map;
 
-	SDL_Rect r_characterRun[7];
-	SDL_Rect r_characterJump[7];
-	int squareGround[44] = {
-		6,7,39,40,42,43,45,46,
-		58,59,60,61,62,63,64,65,
-		77,78,79,80,81,82,83,84,
-		85,86,87,88,96,97,100,101,
-		102,103,104,105,206,107,
-		108,109,116,117,119,120 
-	};
+	SDL_Texture* img;
 
-	int rightSlope_45[6] = 
-	{
-		0,48,
-		48,48,
-		48,0
-	};
-	int leftSlope_45[6] =
-	{
-		0,0,
-		0,48,
-		48,48
-	};
+	uint bonus_fx;
 
-	int rightSlope_30_1[6] =
-	{
-		0,48,
-		48,48,
-		48,32
+	SDL_Rect end_rect;
 
-	};
-	int leftSlope_30_1[6] =
-	{
-		48,16,
-		0,0,
-		0,16
-	};
-		
 
-	int rightSlope_30_2[6] =
-	{
-		0,32,
-		48,32,
-		48,16
-	};
+	List<PhysBody*> static_chains;
+	//p2List<PhysBody*> mapStaticBodies;
 
-	int leftSlope_30_2[6] =
-	{
-		48,32,
-		0,16,
-		0,32
-	};
-
-	int rightSlope_30_3[6] =
-	{
-		0,16,
-		48,16,
-		48,0
-	};
-
-	int leftSlope_30_3[6] =
-	{
-		0,48,
-		0,32,
-		48,48
-	};
-
+	PhysBody* sensor_loss=nullptr;
+	PhysBody* sensor_win = nullptr;
+	PhysBody* sensor_out = nullptr;
+	PhysBody* ricochet01 = nullptr;
+	PhysBody* ricochet02 = nullptr;
+	PhysBody* fliperLeft = nullptr;
+	PhysBody* fliperRight = nullptr;
 };
 
 #endif // __SCENE_H__
