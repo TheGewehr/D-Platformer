@@ -390,6 +390,9 @@ bool Physics::CleanUp()
 	return true;
 }
 
+
+///// Physbody
+
 void PhysBody::GetPosition(int& x, int& y) const
 {
 	b2Vec2 pos = body->GetPosition();
@@ -463,6 +466,7 @@ void Physics::BeginContact(b2Contact* contact)
 	if (physB && physB->listener != NULL)
 		physB->listener->OnCollision(physB, physA);
 }
+//
 
 b2Body* Physics::AddToWorld(b2BodyDef* body)
 {

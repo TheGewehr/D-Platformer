@@ -35,7 +35,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+	{
+
+	}
 	//Collider* playerWall[100] = { nullptr };
 
 private:

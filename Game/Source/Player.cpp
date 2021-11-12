@@ -25,17 +25,18 @@ bool Player::Awake()
 // Load assets
 bool Player::Start()
 {
+	int boxPlayer[8] = { 0,0,10,0,10,10,0,10 };
 	//textures
 	texture = app->tex->Load("Assets/textures/idle.png");
 
 	//player stats
-	startPosX = 48 * 4;
-	startPosY = 48 * 27;
+	startPosX = 1;
+	startPosY = 1;
 	speed = { 2,0 };
-	jumpForce = { 0,-25.f };
+	jumpForce = { 0,-3.0f };
 
 
-	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 23);
+	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
 	
 	
 

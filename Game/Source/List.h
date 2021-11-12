@@ -26,35 +26,6 @@ template<class tdata>
 class List
 {
 
-public:
-
-	ListItem<tdata>* start;
-	ListItem<tdata>* end;
-
-private:
-
-	unsigned int size;
-
-public:
-
-	// Constructor
-	inline List()
-	{
-		start = end = NULL;
-		size = 0;
-	}
-
-	// Destructor
-	~List()
-	{
-		clear();
-	}
-
-	// Get Size
-	unsigned int count() const
-	{
-		return size;
-	}
 
 public:
 
