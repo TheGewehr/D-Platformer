@@ -25,12 +25,12 @@ bool Player::Awake()
 // Load assets
 bool Player::Start()
 {
-	int boxPlayer[8] = { 0,0,10,0,10,10,0,10 };
+	
 	//textures
-	texture = app->tex->Load("Assets/textures/idle.png");
+	texture = app->tex->Load("Assets/sprites/GraveRobber.png");
 
 	//player stats
-	startPosX = 1;
+	startPosX = 10;
 	startPosY = 1;
 	speed = { 2,0 };
 	jumpForce = { 0,-3.0f };
@@ -101,8 +101,8 @@ bool Player::Update(float dt)
 	}
 
 
-	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 23 * 3.5f, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 24 * 3, NULL);
-	//app->render->DrawTexture(texture,300,100, NULL);
+	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 33 , NULL);
+	
 
 	return true;
 }
