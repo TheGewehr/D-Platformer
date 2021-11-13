@@ -5,7 +5,7 @@
 		<organization>UPC</organization>
 	</app>
 	<player>
-		<startPos x="544" y="401" />
+		<startPos x="240" y="428" />
 	</player>
 	<renderer>
 		<vsync value="false" />
