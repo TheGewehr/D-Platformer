@@ -37,6 +37,8 @@ bool Player::Start()
 
 
 	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
+	ColHitbox->id = 1;
+	ColHitbox->listener = app->scene;
 	
 	
 

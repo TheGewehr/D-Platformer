@@ -120,6 +120,9 @@ private:
 	float init;
 	float end;
 	float currentFPS;
+	//////////////
+	int start;
+	///////////////
 
 	// L01: DONE 2: Create new variables from pugui namespace
 	// NOTE: Redesigned LoadConfig() to avoid storing this variables

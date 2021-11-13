@@ -103,6 +103,12 @@ bool Scene::Start()
 	545, 286
 	};
 
+	// id's :
+	// 0 nothing
+	// 1 player
+	// 2 water
+	// 3 holes
+
 
 	static_chains.add(app->physics->CreateStaticChain(0, 0, map, 78));
 	static_chains.getLast()->data->id = 0;
@@ -120,10 +126,29 @@ bool Scene::Start()
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
 
+	
+	sensor_water01 = app->physics->CreateRectangleSensor(240, 455, 250, 60);
+	sensor_water01->id = 2;
+	sensor_water01->listener = this;
+
+	sensor_water02 = app->physics->CreateRectangleSensor(1000, 455, 300, 60);
+	sensor_water02->id = 2;
+	sensor_water02->listener = this;
+
+	sensor_fall01 = app->physics->CreateRectangleSensor(420, 550, 100, 60);
+	sensor_fall01->id = 3;
+	sensor_fall01->listener = this;
+
+	sensor_fall02 = app->physics->CreateRectangleSensor(660, 550, 110, 85);
+	sensor_fall02->id = 3;
+	sensor_fall02->listener = this;
+
 	// Uploading the assets
 	app->map->Load("hello.tmx");
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	img = app->tex->Load("Assets/background/Background.png");
+	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
+	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
 
 
 	if (app->player->Awake() == 0)
@@ -197,3 +222,28 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+	if (bodyB == nullptr)
+	{
+
+	}
+	else
+	{
+		if ((bodyA->id == 1) && (bodyB->id == 2))
+		{
+			// fall in water loose one life
+			app->audio->PlayFx(water_fx);
+		}
+		else if ((bodyA->id == 1) && (bodyB->id == 3))
+		{
+			// fall and loose
+			app->audio->PlayFx(fall_fx);
+			
+		}
+		
+	}
+
+}
+

@@ -35,10 +35,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void OnCollision(PhysBody* bodyA, PhysBody* bodyB)
-	{
-
-	}
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	
 	//Collider* playerWall[100] = { nullptr };
 
 private:
@@ -47,7 +45,10 @@ private:
 
 	SDL_Texture* img;
 
-	uint bonus_fx;
+	//uint jump_fx;
+	uint water_fx;
+	uint fall_fx;
+	//uint bonus_fx;
 
 	SDL_Rect end_rect;
 
@@ -55,13 +56,13 @@ private:
 	List<PhysBody*> static_chains;
 	//p2List<PhysBody*> mapStaticBodies;
 
-	PhysBody* sensor_loss=nullptr;
-	PhysBody* sensor_win = nullptr;
-	PhysBody* sensor_out = nullptr;
-	PhysBody* ricochet01 = nullptr;
-	PhysBody* ricochet02 = nullptr;
-	PhysBody* fliperLeft = nullptr;
-	PhysBody* fliperRight = nullptr;
+	PhysBody* sensor_fall01 =nullptr;
+	PhysBody* sensor_fall02 = nullptr;
+	PhysBody* sensor_water01 = nullptr;
+	PhysBody* sensor_water02 = nullptr;
+	//PhysBody* sensor_water03 = nullptr;
+
+
 };
 
 #endif // __SCENE_H__

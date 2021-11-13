@@ -34,6 +34,7 @@ public:
 	{
 		return ColSensor;
 	}
+
 	const float getX()
 	{
 		return x;
@@ -63,6 +64,8 @@ private:
 	PhysBody* ColHitbox;
 	PhysBody* ColSensor;
 	SDL_Texture* texture;
+
+	int lifes;
 	
 
 };
