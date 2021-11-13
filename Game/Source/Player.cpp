@@ -158,7 +158,7 @@ bool Player::Update(float dt)
 		}
 	}
 
-	// app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 33 , NULL);
+	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 33 , NULL);
 	
 	if (direction == 0)
 	{
