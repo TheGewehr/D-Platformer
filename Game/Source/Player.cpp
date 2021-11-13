@@ -26,59 +26,114 @@ Player::Player() : Module()
 	float deathSpeed = 0.1f;
 
 	// IDLE animation right
-	rightIdleAnim.PushBack({ 6, 15, 19, 33 });
-	rightIdleAnim.PushBack({ 54, 15, 19, 33 });
-	rightIdleAnim.PushBack({ 101, 15, 20, 33 });
-	rightIdleAnim.PushBack({ 149, 15, 19, 33 });
+	rightIdleAnim.PushBack({ 294, 15, 19, 33 });
+	rightIdleAnim.PushBack({ 342, 15, 19, 33 });
+	rightIdleAnim.PushBack({ 389, 15, 20, 33 });
+	rightIdleAnim.PushBack({ 437, 15, 19, 33 });
 	rightIdleAnim.loop = true;
 	rightIdleAnim.speed = idleSpeed;
 
+	// IDLE animation left
+	leftIdleAnim.PushBack({ 263, 15, 19, 33 });
+	leftIdleAnim.PushBack({ 215, 15, 19, 33 });
+	leftIdleAnim.PushBack({ 167, 15, 20, 33 });
+	leftIdleAnim.PushBack({ 119, 15, 19, 33 });
+	leftIdleAnim.loop = true;
+	leftIdleAnim.speed = idleSpeed;
+
 	// Walking animation right
-	walkingRigthAnim.PushBack({ 9, 63, 23, 33 });
-	walkingRigthAnim.PushBack({ 58, 62, 20, 34 });
-	walkingRigthAnim.PushBack({ 105, 61, 17, 35 });
-	walkingRigthAnim.PushBack({ 151, 63, 19, 33 });
-	walkingRigthAnim.PushBack({ 201, 62, 17, 34 });
-	walkingRigthAnim.PushBack({ 250, 61, 21, 35 });
+	walkingRigthAnim.PushBack({ 297, 63, 23, 33 });
+	walkingRigthAnim.PushBack({ 346, 62, 20, 34 });
+	walkingRigthAnim.PushBack({ 393, 61, 17, 35 });
+	walkingRigthAnim.PushBack({ 439, 63, 19, 33 });
+	walkingRigthAnim.PushBack({ 489, 62, 17, 34 });
+	walkingRigthAnim.PushBack({ 538, 61, 21, 35 });
 	walkingRigthAnim.loop = true;
 	walkingRigthAnim.speed = movement1Speed;
 
+	// Walking animation left
+	walkingLeftAnim.PushBack({ 256, 63, 23, 33 });
+	walkingLeftAnim.PushBack({ 210, 62, 20, 34 });
+	walkingLeftAnim.PushBack({ 166, 61, 17, 35 });
+	walkingLeftAnim.PushBack({ 118, 63, 19, 33 });
+	walkingLeftAnim.PushBack({ 70, 62, 17, 34 });
+	walkingLeftAnim.PushBack({ 17, 61, 21, 35 });
+	walkingLeftAnim.loop = true;
+	walkingLeftAnim.speed = movement1Speed;
+
 	// Running animation right
-	runningRigthAnim.PushBack({ 4, 111, 25, 33 });
-	runningRigthAnim.PushBack({ 56, 113, 25, 31 });
-	runningRigthAnim.PushBack({ 100, 113, 25, 31 });
-	runningRigthAnim.PushBack({ 148, 112, 26, 32 });
-	runningRigthAnim.PushBack({ 200, 113, 26, 31 });
-	runningRigthAnim.PushBack({ 244, 113, 26, 31 });
+	runningRigthAnim.PushBack({ 292, 111, 25, 33 });
+	runningRigthAnim.PushBack({ 344, 113, 25, 31 });
+	runningRigthAnim.PushBack({ 388, 113, 25, 31 });
+	runningRigthAnim.PushBack({ 436, 112, 26, 32 });
+	runningRigthAnim.PushBack({ 488, 113, 26, 31 });
+	runningRigthAnim.PushBack({ 532, 113, 26, 31 });
 	runningRigthAnim.loop = true;
 	runningRigthAnim.speed = movement2Speed;
 
+	// Running animation left
+	runningLeftAnim.PushBack({ 259, 111, 25, 33 });
+	runningLeftAnim.PushBack({ 207, 113, 25, 31 });
+	runningLeftAnim.PushBack({ 163, 113, 25, 31 });
+	runningLeftAnim.PushBack({ 114, 112, 26, 32 });
+	runningLeftAnim.PushBack({ 62, 113, 26, 31 });
+	runningLeftAnim.PushBack({ 18, 113, 26, 31 });
+	runningLeftAnim.loop = true;
+	runningLeftAnim.speed = movement2Speed;
+
 	// Jumping animation right
-	jumpingRigthAnim.PushBack({ 9, 209, 16, 31 });
-	jumpingRigthAnim.PushBack({ 54, 208, 18, 32 });
-	jumpingRigthAnim.PushBack({ 100, 206, 20, 34 });
-	jumpingRigthAnim.PushBack({ 148, 201, 19, 34 });
-	jumpingRigthAnim.PushBack({ 195, 198, 19, 39 });
-	jumpingRigthAnim.PushBack({ 243, 200, 20, 34 });
+	jumpingRigthAnim.PushBack({ 297, 209, 16, 31 });
+	jumpingRigthAnim.PushBack({ 342, 208, 18, 32 });
+	jumpingRigthAnim.PushBack({ 388, 206, 20, 34 });
+	jumpingRigthAnim.PushBack({ 436, 201, 19, 34 });
+	jumpingRigthAnim.PushBack({ 483, 198, 19, 39 });
+	jumpingRigthAnim.PushBack({ 531, 206, 20, 34 });
 	jumpingRigthAnim.loop = true;
 	jumpingRigthAnim.speed = movement1Speed;
 
+	// Jumping animation left
+	jumpingLeftAnim.PushBack({ 263, 209, 16, 31 });
+	jumpingLeftAnim.PushBack({ 216, 208, 18, 32 });
+	jumpingLeftAnim.PushBack({ 168, 206, 20, 34 });
+	jumpingLeftAnim.PushBack({ 121, 201, 19, 34 });
+	jumpingLeftAnim.PushBack({ 74, 198, 19, 39 });
+	jumpingLeftAnim.PushBack({ 25, 206, 20, 34 });
+	jumpingLeftAnim.loop = true;
+	jumpingLeftAnim.speed = movement1Speed;
+
 	// Getting hit right
-	hitFromRightAnim.PushBack({ 6, 255, 19, 33 });
-	hitFromRightAnim.PushBack({ 55, 255, 19, 33 });
-	hitFromRightAnim.PushBack({ 103, 255, 18, 33 });
+	hitFromRightAnim.PushBack({ 294, 255, 19, 33 });
+	hitFromRightAnim.PushBack({ 343, 255, 19, 33 });
+	hitFromRightAnim.PushBack({ 391, 255, 18, 33 });
 	hitFromRightAnim.loop = false;
 	hitFromRightAnim.speed = movement1Speed;
 
+	// Getting hit left
+	hitFromLeftAnim.PushBack({ 263, 255, 19, 33 });
+	hitFromLeftAnim.PushBack({ 214, 255, 19, 33 });
+	hitFromLeftAnim.PushBack({ 167, 255, 18, 33 });
+	hitFromLeftAnim.loop = false;
+	hitFromLeftAnim.speed = movement1Speed;
+
 	// Death animation right
-	deathFromRightAnim.PushBack({ 6, 303, 19, 33 });
-	deathFromRightAnim.PushBack({ 52, 308, 23, 28 });
-	deathFromRightAnim.PushBack({ 99, 312, 32, 24 });
-	deathFromRightAnim.PushBack({ 147, 318, 35, 18 });
-	deathFromRightAnim.PushBack({ 195, 321, 34, 15 });
-	deathFromRightAnim.PushBack({ 243, 324, 35, 12 });
+	deathFromRightAnim.PushBack({ 294, 303, 19, 33 });
+	deathFromRightAnim.PushBack({ 340, 308, 23, 28 });
+	deathFromRightAnim.PushBack({ 387, 312, 32, 24 });
+	deathFromRightAnim.PushBack({ 435, 318, 35, 18 });
+	deathFromRightAnim.PushBack({ 483, 321, 34, 15 });
+	deathFromRightAnim.PushBack({ 531, 324, 35, 12 });
 	deathFromRightAnim.loop = false;
 	deathFromRightAnim.speed = deathSpeed;
+
+	// Death animation left
+	deathFromLeftAnim.PushBack({ 263, 303, 19, 33 });
+	deathFromLeftAnim.PushBack({ 213, 308, 23, 28 });
+	deathFromLeftAnim.PushBack({ 157, 312, 32, 24 });
+	deathFromLeftAnim.PushBack({ 106, 318, 35, 18 });
+	deathFromLeftAnim.PushBack({ 59, 321, 34, 15 });
+	deathFromLeftAnim.PushBack({ 10, 324, 35, 12 });
+	deathFromLeftAnim.loop = false;
+	deathFromLeftAnim.speed = deathSpeed;
 }
 
 Player::~Player()
@@ -171,17 +226,31 @@ bool Player::Update(float dt)
 	
 	if (ColHitbox->body->GetLinearVelocity().x < 0)
 	{
-		x--;
-		direction = 1;
+		direction = 3;
 	}
 	else if (ColHitbox->body->GetLinearVelocity().x > 0)
 	{
-		x++;
-		direction = 1;
+		direction = 2;
 	}
+	/*
+	else if ((ColHitbox->body->GetLinearVelocity().x != 0) || (ColHitbox->body->GetLinearVelocity().y != 0))
+	{
+		if (direction == 2) {
+			direction = 4;
+		}
+		if (direction == 3) {
+			direction = 5;
+		}
+	}
+	*/
 	else if (ColHitbox->body->GetLinearVelocity().x == 0)
 	{
-		direction = 0;
+		if (direction == 2) {
+			direction = 0;
+		}
+		if (direction == 3) {
+			direction = 1;
+		}
 	}
 
 	/*
@@ -197,15 +266,31 @@ bool Player::Update(float dt)
 	}
 	else if (direction == 1)
 	{
-		currentAnimation = &runningRigthAnim;
+		currentAnimation = &leftIdleAnim;
 	}
 	else if (direction == 2)
 	{
-		currentAnimation = &jumpingRigthAnim;
+		currentAnimation = &runningRigthAnim;
 	}
 	else if (direction == 3)
 	{
+		currentAnimation = &runningLeftAnim;
+	}
+	else if (direction == 4)
+	{
+		currentAnimation = &jumpingRigthAnim;
+	}
+	else if (direction == 5)
+	{
+		currentAnimation = &jumpingLeftAnim;
+	}
+	else if (direction == 6)
+	{
 		currentAnimation = &deathFromRightAnim;
+	}
+	else if (direction == 7)
+	{
+		currentAnimation = &deathFromLeftAnim;
 	}
 
 	currentAnimation->Update();

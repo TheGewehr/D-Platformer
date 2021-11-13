@@ -87,22 +87,25 @@ public:
 	// Set of animations
 	// IDLE animations
 	Animation rightIdleAnim;
+	Animation leftIdleAnim;
 
 	// Walking Animations
 	Animation walkingRigthAnim;
+	Animation walkingLeftAnim;
 
 	// Running Animations
 	Animation runningRigthAnim;
+	Animation runningLeftAnim;
 
 	// Jumping Animations
 	Animation jumpingRigthAnim;
+	Animation jumpingLeftAnim;
 
 	// Damage Animatios
 	Animation hitFromRightAnim;
+	Animation hitFromLeftAnim;
 
 	// Death Animation
 	Animation deathFromRightAnim;
-
-
-
+	Animation deathFromLeftAnim;
 };
