@@ -18,6 +18,8 @@ Player::Player() : Module()
 {
 	name.Create("player");
 
+	texture = nullptr;
+
 	float animSpeed = 0.01f;
 
 	// IDLE animation right

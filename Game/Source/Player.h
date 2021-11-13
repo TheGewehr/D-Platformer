@@ -15,6 +15,23 @@ struct Vect2 {
 
 class Player : public Module
 {
+
+private:
+	float startPosX;
+	float startPosY;
+
+	float x, y;
+	b2Vec2 speed;
+	float maxXspeed;
+	b2Vec2 jumpForce;
+
+	PhysBody* ColHitbox;
+	PhysBody* ColSensor;
+
+	SDL_Texture* texture;
+
+	int lifes;
+
 public:
 	Player();
 	virtual ~Player();
@@ -51,7 +68,7 @@ public:
 	}
 
 	//The player spritesheet loaded into an SDL_Texture
-	SDL_Texture* texture = nullptr;
+	
 
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
@@ -86,22 +103,6 @@ public:
 	// Death Animation
 	Animation deathFromRightAnim;
 
-private:
-	float startPosX;
-	float startPosY;
-
-	float x, y;
-	b2Vec2 speed;
-	float maxXspeed;
-	b2Vec2 jumpForce;
-
-	PhysBody* ColHitbox;
-	PhysBody* ColSensor;
-
-	SDL_Texture* texture;
-
-	int lifes;
-	
 
 
 };
