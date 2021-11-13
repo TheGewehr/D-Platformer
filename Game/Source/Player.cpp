@@ -20,7 +20,10 @@ Player::Player() : Module()
 
 	texture = nullptr;
 
-	float animSpeed = 0.01f;
+	float idleSpeed = 0.1f;
+	float movement1Speed = 0.1f;
+	float movement2Speed = 0.2f;
+	float deathSpeed = 0.1f;
 
 	// IDLE animation right
 	rightIdleAnim.PushBack({ 6, 15, 19, 33 });
@@ -28,7 +31,7 @@ Player::Player() : Module()
 	rightIdleAnim.PushBack({ 101, 15, 20, 33 });
 	rightIdleAnim.PushBack({ 149, 15, 19, 33 });
 	rightIdleAnim.loop = true;
-	rightIdleAnim.speed = animSpeed;
+	rightIdleAnim.speed = idleSpeed;
 
 	// Walking animation right
 	walkingRigthAnim.PushBack({ 9, 63, 23, 33 });
@@ -38,7 +41,7 @@ Player::Player() : Module()
 	walkingRigthAnim.PushBack({ 201, 62, 17, 34 });
 	walkingRigthAnim.PushBack({ 250, 61, 21, 35 });
 	walkingRigthAnim.loop = true;
-	walkingRigthAnim.speed = animSpeed;
+	walkingRigthAnim.speed = movement1Speed;
 
 	// Running animation right
 	runningRigthAnim.PushBack({ 4, 111, 25, 33 });
@@ -48,7 +51,7 @@ Player::Player() : Module()
 	runningRigthAnim.PushBack({ 200, 113, 26, 31 });
 	runningRigthAnim.PushBack({ 244, 113, 26, 31 });
 	runningRigthAnim.loop = true;
-	runningRigthAnim.speed = animSpeed;
+	runningRigthAnim.speed = movement2Speed;
 
 	// Jumping animation right
 	jumpingRigthAnim.PushBack({ 9, 209, 16, 31 });
@@ -58,14 +61,14 @@ Player::Player() : Module()
 	jumpingRigthAnim.PushBack({ 195, 198, 19, 39 });
 	jumpingRigthAnim.PushBack({ 243, 200, 20, 34 });
 	jumpingRigthAnim.loop = true;
-	jumpingRigthAnim.speed = animSpeed;
+	jumpingRigthAnim.speed = movement1Speed;
 
 	// Getting hit right
 	hitFromRightAnim.PushBack({ 6, 255, 19, 33 });
 	hitFromRightAnim.PushBack({ 55, 255, 19, 33 });
 	hitFromRightAnim.PushBack({ 103, 255, 18, 33 });
 	hitFromRightAnim.loop = false;
-	hitFromRightAnim.speed = animSpeed;
+	hitFromRightAnim.speed = movement1Speed;
 
 	// Death animation right
 	deathFromRightAnim.PushBack({ 6, 303, 19, 33 });
@@ -75,7 +78,7 @@ Player::Player() : Module()
 	deathFromRightAnim.PushBack({ 195, 321, 34, 15 });
 	deathFromRightAnim.PushBack({ 243, 324, 35, 12 });
 	deathFromRightAnim.loop = false;
-	deathFromRightAnim.speed = animSpeed;
+	deathFromRightAnim.speed = deathSpeed;
 }
 
 Player::~Player()
@@ -137,10 +140,12 @@ bool Player::Update(float dt)
 
 	if (ColHitbox->body->GetLinearVelocity().x < 5.f)
 		ColHitbox->body->ApplyLinearImpulse(goRight * speed, ColHitbox->body->GetPosition(), true);
-	
-	if (ColHitbox->body->GetLinearVelocity().x > -5.f)
-		ColHitbox->body->ApplyLinearImpulse(-goLeft* speed, ColHitbox->body->GetPosition(), true);
 
+
+	if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
+		ColHitbox->body->ApplyLinearImpulse(-goLeft * speed, ColHitbox->body->GetPosition(), true);
+	
+		
 	b2Body* ground;
 	if (ColHitbox->body->GetContactList() != nullptr)
 	{
@@ -162,15 +167,37 @@ bool Player::Update(float dt)
 		}
 	}
 
-	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 33 , NULL);
+	// app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 33 , NULL);
 	
+	if (ColHitbox->body->GetLinearVelocity().x < 0)
+	{
+		x--;
+		direction = 1;
+	}
+	else if (ColHitbox->body->GetLinearVelocity().x > 0)
+	{
+		x++;
+		direction = 1;
+	}
+	else if (ColHitbox->body->GetLinearVelocity().x == 0)
+	{
+		direction = 0;
+	}
+
+	/*
+	if (???)
+	{
+		direction = 2;
+	}
+	*/
+
 	if (direction == 0)
 	{
 		currentAnimation = &rightIdleAnim;
 	}
 	else if (direction == 1)
 	{
-		currentAnimation = &walkingRigthAnim;
+		currentAnimation = &runningRigthAnim;
 	}
 	else if (direction == 2)
 	{
