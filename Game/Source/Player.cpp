@@ -303,7 +303,7 @@ bool Player::PostUpdate()
 {
 
 	//Drawing player
-	app->render->DrawTexture(texture, x, y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
 	return true;
 }
