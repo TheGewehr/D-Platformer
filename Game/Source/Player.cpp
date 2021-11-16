@@ -7,6 +7,7 @@
 #include "Physics.h"
 #include "Textures.h"
 #include"Render.h"
+#include"Window.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -153,8 +154,8 @@ bool Player::Start()
 	//player stats
 	startPosX = 10;
 	startPosY = 1;
-	speed = { 2,0 };
-	jumpForce = { 0,-3.0f };
+	speed = { 1.3,0 };
+	jumpForce = { 0,-2.6f };
 
 	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
 	ColHitbox->id = 1;
@@ -184,8 +185,11 @@ bool Player::CleanUp()
 bool Player::Update(float dt)
 {
 	//ColSensor->body->SetTransform(ColHitbox->body->GetPosition(), 0);
+	//app->render->viewport.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x);
+	//app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x);
 
 	b2Vec2 pos = { x,y };
+	b2Vec2 stopping = {0.0f,0.0f};
 
 	bool goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
@@ -193,15 +197,48 @@ bool Player::Update(float dt)
 	//LOG("v: %f", ColHitbox->body->GetLinearVelocity().x);
 	//ColHitbox->body->ApplyLinearImpulse(goRight * speed, ColHitbox->body->GetPosition(), true);
 
-	if (ColHitbox->body->GetLinearVelocity().x < 5.f)
-		ColHitbox->body->ApplyLinearImpulse(goRight * speed, ColHitbox->body->GetPosition(), true);
+	// x movement on ground
+
+	if (goRight == true)
+	{
+		if (ColHitbox->body->GetLinearVelocity().x < 5.f)
+			ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
+
+	}
+
+	if (goLeft == true)
+	{
+		if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
+			ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
+
+	}
+
+	// x movement on air
+
+	if (ColHitbox->body->GetLinearVelocity().x < -3)
+	{
+		stopping = { speed.x * 0.2f,0 };
+
+		ColHitbox->body->ApplyLinearImpulse(stopping, ColHitbox->body->GetPosition(), true);
+	}
+	
+	if (ColHitbox->body->GetLinearVelocity().x > 3 )
+	{
+		stopping = { speed.x * 0.2f,0 };
+
+		ColHitbox->body->ApplyLinearImpulse(-stopping, ColHitbox->body->GetPosition(), true);
+	}
+	
+
+	
 
 
-	if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
-		ColHitbox->body->ApplyLinearImpulse(-goLeft * speed, ColHitbox->body->GetPosition(), true);
+	//if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
+	//	ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
 	
 		
 	b2Body* ground;
+
 	if (ColHitbox->body->GetContactList() != nullptr)
 	{
 		ground = ColHitbox->body->GetContactList()->contact->GetFixtureA()->GetBody();
