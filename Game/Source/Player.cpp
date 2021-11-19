@@ -186,7 +186,7 @@ bool Player::Update(float dt)
 {
 	//ColSensor->body->SetTransform(ColHitbox->body->GetPosition(), 0);
 	//app->render->viewport.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x);
-	//app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x);
+    
 
 	b2Vec2 pos = { x,y };
 	b2Vec2 stopping = {0.0f,0.0f};
@@ -204,12 +204,16 @@ bool Player::Update(float dt)
 		if (ColHitbox->body->GetLinearVelocity().x < 5.f)
 			ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
 
+		app->render->camera.x += 1;
+
 	}
 
 	if (goLeft == true)
 	{
 		if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
 			ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
+
+		app->render->camera.x -= 1;
 
 	}
 

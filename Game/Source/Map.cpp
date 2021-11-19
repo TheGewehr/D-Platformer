@@ -101,6 +101,22 @@ iPoint Map::MapToWorld(int x, int y) const
 	ret.x = x * mapData.tileWidth;
 	ret.y = y * mapData.tileHeight;
 
+	//ret.x = app->render->camera.x+600;
+	//ret.y = app->render->camera.y + 200;
+
+	return ret;
+}
+
+iPoint Map::WorldToMap(int x, int y) const
+{
+	iPoint ret;
+
+	ret.x = x / mapData.tileWidth;
+	ret.y = y / mapData.tileHeight;
+
+	//ret.x = app->render->camera.x+600;
+	//ret.y = app->render->camera.y + 200;
+
 	return ret;
 }
 
