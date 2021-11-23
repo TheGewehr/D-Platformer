@@ -235,6 +235,7 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		{
 			// fall in water loose one life
 			app->audio->PlayFx(water_fx);
+			//app->player->life
 		}
 		else if ((bodyA->id == 1) && (bodyB->id == 3))
 		{
