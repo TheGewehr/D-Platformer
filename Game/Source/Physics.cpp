@@ -21,7 +21,7 @@ Physics::Physics()
 {
 	world = NULL;
 	mouse_joint = NULL;
-	debug = true;
+	debug = false;
 }
 
 // Destructor

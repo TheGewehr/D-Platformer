@@ -204,8 +204,7 @@ bool Player::Update(float dt)
 		if (ColHitbox->body->GetLinearVelocity().x < 5.f)
 			ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
 
-		app->render->camera.x += 1;
-
+		
 	}
 
 	if (goLeft == true)
@@ -213,9 +212,11 @@ bool Player::Update(float dt)
 		if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
 			ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
 
-		app->render->camera.x -= 1;
+		
 
 	}
+
+	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.5*app->win->GetWidth();
 
 	// x movement on air
 
