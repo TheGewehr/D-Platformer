@@ -39,6 +39,8 @@ bool Scene::Start()
 	app->physics->world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	app->physics->world->SetContactListener(app->physics);
 
+	app->player->SetPlayerLifes(3);
+
 	// List of points of Box2D
 	int map[78] = {
 	-2, -3,
@@ -149,6 +151,7 @@ bool Scene::Start()
 	img = app->tex->Load("Assets/background/Background.png");
 	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
 	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
+	win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
 
 
 	if (app->player->Awake() == 0)
@@ -233,14 +236,46 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	{
 		if ((bodyA->id == 1) && (bodyB->id == 2))
 		{
-			// fall in water loose one life
-			app->audio->PlayFx(water_fx);
-			//app->player->life
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+				// fall in water loose one life
+				app->audio->PlayFx(water_fx);
+				//app->player->life
+				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+
+				bodyA->body->ApplyLinearImpulse({ (app->player->GetColHitbox()->body->GetLinearVelocity().x) * -0.5f, -2.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+
+			}
+			else
+			{
+				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
+
+
+				//app->player->SetPlayerLifes(3);
+			}
 		}
 		else if ((bodyA->id == 1) && (bodyB->id == 3))
 		{
 			// fall and loose
-			app->audio->PlayFx(fall_fx);
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+				app->audio->PlayFx(fall_fx);
+
+				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+
+				bodyA->body->ApplyLinearImpulse({ (app->player->GetColHitbox()->body->GetLinearVelocity().x) * -0.5f, -5.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+
+			}
+			else
+			{
+
+				//app->player->currentAnimation=&app->player->deathFromRightAnim;
+
+
+				//app->player->SetPlayerLifes(3);
+			}
 			
 		}
 		

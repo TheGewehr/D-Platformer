@@ -48,6 +48,7 @@ private:
 	//uint jump_fx;
 	uint water_fx;
 	uint fall_fx;
+	uint win_fx;
 	//uint bonus_fx;
 
 	SDL_Rect end_rect;

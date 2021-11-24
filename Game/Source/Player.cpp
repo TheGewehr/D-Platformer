@@ -350,6 +350,16 @@ bool Player::PostUpdate()
 	return true;
 }
 
+int Player::GetPlayerLifes()
+{
+	return lifes;
+}
+
+void Player::SetPlayerLifes(int l)
+{
+	lifes = l;
+}
+
 bool Player::LoadState(pugi::xml_node& data)
 {
 	startPosX = data.child("startPos").attribute("x").as_float(0);

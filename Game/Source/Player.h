@@ -46,6 +46,9 @@ public:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
 	bool CleanUp();
+	int GetPlayerLifes();
+	void SetPlayerLifes(int l);
+
 
 	PhysBody* GetColHitbox() const
 	{
