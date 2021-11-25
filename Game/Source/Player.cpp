@@ -165,6 +165,10 @@ bool Player::Start()
 	int y_ = (int)y;
 	ColHitbox->GetPosition(x_, y_);
 
+	lifes = 3;
+	isAlive = true;
+	deathAnimAllowed = false;
+
 	//ColSensor = app->physics->CreateRectangle(x, y, 46, 50);
 	//ColSensor->body->GetFixtureList()->SetSensor(true);
 	//ColSensor->body->SetType(b2_kinematicBody);
@@ -198,21 +202,32 @@ bool Player::Update(float dt)
 	//ColHitbox->body->ApplyLinearImpulse(goRight * speed, ColHitbox->body->GetPosition(), true);
 
 	// x movement on ground
-
-	if (goRight == true)
+	if (lifes <= 0)
 	{
-		if (ColHitbox->body->GetLinearVelocity().x < 5.f)
-			ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
-
-		
+		isAlive = false;
 	}
 
-	if (goLeft == true)
+	if (isAlive != false)
 	{
-		if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
-			ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
+		if (goRight == true)
+		{
+			if (ColHitbox->body->GetLinearVelocity().x < 5.f)
+				ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
 
-		
+
+		}
+
+		if (goLeft == true)
+		{
+			if (ColHitbox->body->GetLinearVelocity().x > -5.f)
+				ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
+
+
+
+		}
+	}	
+	else
+	{
 
 	}
 
@@ -266,42 +281,76 @@ bool Player::Update(float dt)
 
 	// app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 33 , NULL);
 	
-	if (ColHitbox->body->GetLinearVelocity().x < 0)
+	if (isAlive == true)
 	{
-		direction = 3;
+		if (ColHitbox->body->GetLinearVelocity().x < 0)
+		{
+			direction = 3;
+		}
+		else if (ColHitbox->body->GetLinearVelocity().x > 0)
+		{
+			direction = 2;
+		}
+
+		else if ((ColHitbox->body->GetLinearVelocity().y != 0))
+		{
+			if (direction == 0) {
+				direction = 4;
+			}
+			if (direction == 1) {
+				direction = 5;
+			}
+			if (direction == 2) {
+				direction = 4;
+			}
+			if (direction == 3) {
+				direction = 5;
+			}
+		}
+
+		else if ((ColHitbox->body->GetLinearVelocity().x == 0) && (ColHitbox->body->GetLinearVelocity().y == 0))
+		{
+			if (direction == 2) {
+				direction = 0;
+			}
+			if (direction == 3) {
+				direction = 1;
+			}
+			if (direction == 4) {
+				direction = 0;
+			}
+			if (direction == 5) {
+				direction = 1;
+			}
+		}
 	}
-	else if (ColHitbox->body->GetLinearVelocity().x > 0)
+	else
 	{
-		direction = 2;
-	}
-	/*
-	else if ((ColHitbox->body->GetLinearVelocity().x != 0) || (ColHitbox->body->GetLinearVelocity().y != 0))
-	{
-		if (direction == 2) {
-			direction = 4;
+		if (deathAnimAllowed == true)
+		{
+			if (direction == 0) {
+				direction = 6;
+			}
+			if (direction == 1) {
+				direction = 7;
+			}
+			if (direction == 2) {
+				direction = 0;
+			}
+			if (direction == 3) {
+				direction = 1;
+			}
+			if (direction == 4) {
+				direction = 0;
+			}
+			if (direction == 5) {
+				direction = 1;
+			}
 		}
-		if (direction == 3) {
-			direction = 5;
-		}
-	}
-	*/
-	else if (ColHitbox->body->GetLinearVelocity().x == 0)
-	{
-		if (direction == 2) {
-			direction = 0;
-		}
-		if (direction == 3) {
-			direction = 1;
-		}
+		
 	}
 
-	/*
-	if (???)
-	{
-		direction = 2;
-	}
-	*/
-
+	
 	if (direction == 0)
 	{
 		currentAnimation = &rightIdleAnim;

@@ -31,6 +31,8 @@ private:
 	SDL_Texture* texture;
 
 	int lifes;
+	bool isAlive;
+	
 
 public:
 	Player();
@@ -111,4 +113,6 @@ public:
 	// Death Animation
 	Animation deathFromRightAnim;
 	Animation deathFromLeftAnim;
+
+	bool deathAnimAllowed;
 };
