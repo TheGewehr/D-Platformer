@@ -118,21 +118,21 @@ Player::Player() : Module()
 
 	// Death animation right
 	deathFromRightAnim.PushBack({ 294, 303, 19, 33 });
-	deathFromRightAnim.PushBack({ 340, 308, 23, 28 });
-	deathFromRightAnim.PushBack({ 387, 312, 32, 24 });
-	deathFromRightAnim.PushBack({ 435, 318, 35, 18 });
-	deathFromRightAnim.PushBack({ 483, 321, 34, 15 });
-	deathFromRightAnim.PushBack({ 531, 324, 35, 12 });
+	deathFromRightAnim.PushBack({ 340, 303, 23, 33 });
+	deathFromRightAnim.PushBack({ 387, 303, 32, 33 });
+	deathFromRightAnim.PushBack({ 435, 303, 35, 33 });
+	deathFromRightAnim.PushBack({ 483, 303, 34, 33 });
+	deathFromRightAnim.PushBack({ 531, 303, 35, 33 });
 	deathFromRightAnim.loop = false;
 	deathFromRightAnim.speed = deathSpeed;
 
 	// Death animation left
 	deathFromLeftAnim.PushBack({ 263, 303, 19, 33 });
-	deathFromLeftAnim.PushBack({ 213, 308, 23, 28 });
-	deathFromLeftAnim.PushBack({ 157, 312, 32, 24 });
-	deathFromLeftAnim.PushBack({ 106, 318, 35, 18 });
-	deathFromLeftAnim.PushBack({ 59, 321, 34, 15 });
-	deathFromLeftAnim.PushBack({ 10, 324, 35, 12 });
+	deathFromLeftAnim.PushBack({ 213, 303, 23, 33 });
+	deathFromLeftAnim.PushBack({ 157, 303, 32, 33 });
+	deathFromLeftAnim.PushBack({ 106, 303, 35, 33 });
+	deathFromLeftAnim.PushBack({ 59, 303, 34, 33 });
+	deathFromLeftAnim.PushBack({ 10, 303, 35, 33 });
 	deathFromLeftAnim.loop = false;
 	deathFromLeftAnim.speed = deathSpeed;
 }
@@ -269,13 +269,17 @@ bool Player::Update(float dt)
 			b2Vec2 xVel = { 0,ColHitbox->body->GetLinearVelocity().y };
 			if (!goLeft && !goRight) ColHitbox->body->SetLinearVelocity(xVel);
 
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+			if (app->player->isAlive == true)
 			{
-				b2Vec2 yVel = { ColHitbox->body->GetLinearVelocity().y,0 };
-				ColHitbox->body->SetLinearVelocity(yVel);
-				ColHitbox->body->ApplyLinearImpulse(jumpForce, ColHitbox->body->GetPosition(), true);
-				ColHitbox->body->SetLinearDamping(0);
+				if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+				{
+					b2Vec2 yVel = { ColHitbox->body->GetLinearVelocity().y,0 };
+					ColHitbox->body->SetLinearVelocity(yVel);
+					ColHitbox->body->ApplyLinearImpulse(jumpForce, ColHitbox->body->GetPosition(), true);
+					ColHitbox->body->SetLinearDamping(0);
+				}
 			}
+			
 		}
 	}
 

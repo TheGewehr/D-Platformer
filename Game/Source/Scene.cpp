@@ -110,6 +110,7 @@ bool Scene::Start()
 	// 1 player
 	// 2 water
 	// 3 holes
+	// 4 win
 
 
 	static_chains.add(app->physics->CreateStaticChain(0, 0, map, 78));
@@ -133,7 +134,7 @@ bool Scene::Start()
 	sensor_water01->id = 2;
 	sensor_water01->listener = this;
 
-	sensor_water02 = app->physics->CreateRectangleSensor(1000, 455, 300, 60);
+	sensor_water02 = app->physics->CreateRectangleSensor(1060, 455, 500, 60);
 	sensor_water02->id = 2;
 	sensor_water02->listener = this;
 
@@ -144,6 +145,11 @@ bool Scene::Start()
 	sensor_fall02 = app->physics->CreateRectangleSensor(660, 550, 110, 85);
 	sensor_fall02->id = 3;
 	sensor_fall02->listener = this;
+
+	sensor_win = app->physics->CreateRectangleSensor(870, 380, 20, 85);
+	sensor_win->id = 4;
+	sensor_win->listener = this;
+
 
 	// Uploading the assets
 	app->map->Load("hello.tmx");
@@ -294,6 +300,18 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				//app->player->SetPlayerLifes(3);
 			}
+
+		}
+		else if ((bodyA->id == 1) && (bodyB->id == 4))
+		{
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+				app->audio->PlayFx(win_fx);
+
+			}
+			else
+			{}
 
 		}
 		
