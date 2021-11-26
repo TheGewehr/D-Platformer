@@ -168,6 +168,7 @@ bool Player::Start()
 	lifes = 3;
 	isAlive = true;
 	deathAnimAllowed = false;
+	win = false;
 
 	//ColSensor = app->physics->CreateRectangle(x, y, 46, 50);
 	//ColSensor->body->GetFixtureList()->SetSensor(true);
@@ -207,7 +208,7 @@ bool Player::Update(float dt)
 		isAlive = false;
 	}
 
-	if (isAlive != false)
+	if (isAlive != false && win == false)
 	{
 		if (goRight == true)
 		{
@@ -411,6 +412,16 @@ int Player::GetPlayerLifes()
 void Player::SetPlayerLifes(int l)
 {
 	lifes = l;
+}
+
+bool Player::GetPlayerWin()
+{
+	return win;
+}
+
+void Player::SetPlayerWin(bool b)
+{
+	win = b;
 }
 
 bool Player::LoadState(pugi::xml_node& data)

@@ -308,6 +308,7 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			if (app->player->GetPlayerLifes() > 0)
 			{
 				app->audio->PlayFx(win_fx);
+				app->player->SetPlayerWin(true);
 
 			}
 			else

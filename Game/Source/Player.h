@@ -32,6 +32,7 @@ private:
 
 	int lifes;
 	bool isAlive;
+	bool win;
 	
 
 public:
@@ -50,6 +51,8 @@ public:
 	bool CleanUp();
 	int GetPlayerLifes();
 	void SetPlayerLifes(int l);
+	bool GetPlayerWin();
+	void SetPlayerWin(bool b);
 
 
 	PhysBody* GetColHitbox() const
