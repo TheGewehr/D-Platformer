@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Physics.h"
 #include "Map.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
 
@@ -307,6 +308,7 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (app->player->GetPlayerLifes() > 0)
 			{
+				Mix_HaltMusic();
 				app->audio->PlayFx(win_fx);
 				app->player->SetPlayerWin(true);
 
