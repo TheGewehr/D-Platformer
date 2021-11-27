@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <config>
+
+  <app framerate_cap="60" Capto30="false">
+    <title> Spennish Flea World</title>
+    <organization>UPC</organization>
+  </app>
 	<app>
 		<title>Game Development Testbed</title>
 		<organization>UPC</organization>

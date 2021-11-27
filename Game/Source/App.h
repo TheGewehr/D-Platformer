@@ -6,6 +6,9 @@
 
 #include "PugiXml/src/pugixml.hpp"
 
+#include "PerfTimer.h"
+#include "Timer.h"
+
 #define CONFIG_FILENAME		"config.xml"
 #define SAVE_STATE_FILENAME "save_game.xml"
 
@@ -19,6 +22,8 @@ class Scene;
 class Map;
 class Physics;
 class Player;
+//class Timer;
+//class PerfTimer;
 
 class App
 {
@@ -54,6 +59,7 @@ public:
     // L02: DONE 1: Create methods to request Load / Save
 	void LoadGameRequest();
 	void SaveGameRequest() const;
+
 	float DEGTORAD() const
 	{
 		return degtorad;
@@ -63,6 +69,9 @@ public:
 	{
 		return radtodeg;
 	}
+
+	bool	vSyncBool;
+	bool	Capto30;
 
 private:
 
@@ -88,6 +97,10 @@ private:
 	// Load / Save
 	bool LoadGame();
 	bool SaveGame() const;
+
+	void CalculateFramerate();
+	void DisplayFrameRateInfo();
+
 
 	
 
@@ -136,6 +149,33 @@ private:
 	// L02: DONE 1: Create variables to control when to execute the request load / save
 	mutable bool saveGameRequested;
 	bool loadGameRequested;
+
+
+
+
+	float avg_fps;
+	float seconds_since_startup;
+	uint last_frame_ms;
+	uint frames_on_last_update;
+
+
+	
+	PerfTimer ptimer;
+	PerfTimer DelayTimer;
+	uint frame_count = 0;
+	Timer startup_time;
+	Timer frame_time;
+	Timer last_sec_frame_time;
+
+
+	uint last_sec_frame_count = 0;
+	uint prev_last_sec_frame_count = 0;
+
+	uint framerateCap;
+	uint deltaTime;
+
+
+	
 };
 
 extern App* app;

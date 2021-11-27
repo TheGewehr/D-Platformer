@@ -19,6 +19,8 @@
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
+	PERF_START(ptimer);
+	
 
 	win = new Window();
 	input = new Input();
@@ -44,6 +46,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
+
+	PERF_PEEK(ptimer);
 }
 
 // Destructor
@@ -70,6 +74,9 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
+
+	PERF_START(ptimer);
+
 	pugi::xml_document configFile;
 	pugi::xml_node config;
 	pugi::xml_node configApp;
@@ -87,7 +94,11 @@ bool App::Awake()
 		// L01: DONE 4: Read the title from the config file
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
+		framerateCap = config.child("app").attribute("framerate_cap").as_uint();
+		Capto30 = config.child("app").attribute("Capto30").as_bool();
+		vSyncBool = config.child("renderer").child("vsync").attribute("value").as_bool();
 	}
+
 
 	if (ret == true)
 	{
@@ -105,12 +116,17 @@ bool App::Awake()
 		}
 	}
 
+	PERF_PEEK(ptimer);
+
 	return ret;
 }
 
 // Called before the first frame
 bool App::Start()
 {
+
+	PERF_START(ptimer);
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -120,6 +136,9 @@ bool App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
+
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -144,6 +163,18 @@ bool App::Update()
 		ret = PostUpdate();
 	end = SDL_GetTicks();
 
+	if (input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		Capto30 = !Capto30;
+		if (Capto30 == true)
+		{
+			framerateCap = 30;
+		}
+		else
+		{
+			framerateCap = 60;
+		}
+	}
 
 	long elapsedTime = (float)(end - init);
 	(float)SDL_GetPerformanceFrequency();
@@ -156,6 +187,8 @@ bool App::Update()
 	{
 		SDL_Delay(fabs(floor((long)frameSpeed - elapsedTime)));
 	}
+
+	DisplayFrameRateInfo();
 
 	FinishUpdate();
 	return ret;
@@ -178,6 +211,13 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+	LOG("differential time %f ", dt);
+
+	frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -188,11 +228,14 @@ void App::FinishUpdate()
 		LoadGame();
 	if (saveGameRequested == true) 
 		SaveGame();
+
+	CalculateFramerate();
 }
 
 // Call modules before each loop iteration
 bool App::PreUpdate()
 {
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -258,6 +301,9 @@ bool App::PostUpdate()
 // Called before quitting
 bool App::CleanUp()
 {
+
+	PERF_START(ptimer);
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.end;
@@ -267,6 +313,8 @@ bool App::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -367,5 +415,63 @@ bool App::SaveGame() const
 	return ret;
 }
 
+void App::CalculateFramerate() {
 
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	avg_fps = float(frame_count) / startup_time.ReadSec();
+	seconds_since_startup = startup_time.ReadSec();
+	last_frame_ms = frame_time.Read();
+	frames_on_last_update = prev_last_sec_frame_count;
+
+
+
+	if (Capto30 == true) 
+	{
+
+		deltaTime = 1000 / framerateCap;
+
+		int delay = deltaTime - last_frame_ms;
+
+		DelayTimer.Start();
+		if (delay > 0)
+			SDL_Delay((uint32)delay);
+
+
+		LOG("we waited %u and got back %f", delay, DelayTimer.ReadMs());
+	}
+}
+
+void App::DisplayFrameRateInfo() {
+
+
+	if (Capto30) 
+	{
+		static char title[256];
+
+
+		sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu  CapedTo30:On vSync:Off",
+			avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+
+		app->win->SetTitle(title);
+	}
+
+	else {
+
+		static char title[256];
+		sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu  CapedTo30:Off  vSync:Off",
+			avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+
+		app->win->SetTitle(title);
+
+
+	}
+
+}
 
