@@ -428,6 +428,7 @@ bool Player::LoadState(pugi::xml_node& data)
 {
 	startPosX = data.child("startPos").attribute("x").as_float(0);
 	startPosY = data.child("startPos").attribute("y").as_float(0);
+	lifes = data.child("lifes").attribute("value").as_int();
 
 	b2Vec2 v = { PIXEL_TO_METERS( startPosX), PIXEL_TO_METERS(startPosY )};
 	ColHitbox->body->SetTransform(v, 0);
@@ -439,9 +440,11 @@ bool Player::LoadState(pugi::xml_node& data)
 bool Player::SaveState(pugi::xml_node& data) const
 {
 
-	LOG("saving camera pos");
+	LOG("saving player pos");
 	data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().x));
 	data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().y));
+	data.child("lifes").attribute("value").set_value(lifes);
+
 	return true;
 }
 

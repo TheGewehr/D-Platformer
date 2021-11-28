@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "Player.h"
+#include "PathFinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,6 +32,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	physics = new Physics();
 	player = new Player();
+	pathfinding = new PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(player);
+	AddModule(pathfinding);
 	
 
 	// Render last to swap buffer

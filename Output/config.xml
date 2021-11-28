@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <config>
-
-  <app framerate_cap="60" Capto30="false">
-    <title> Spennish Flea World</title>
-    <organization>UPC</organization>
-  </app>
+	<app framerate_cap="60" Capto30="false">
+		<title> Spennish Flea World</title>
+		<organization>UPC</organization>
+	</app>
 	<app>
 		<title>Game Development Testbed</title>
 		<organization>UPC</organization>
 	</app>
 	<player>
-		<startPos x="879" y="401" />
+		<startPos x="13" y="401" />
 		<startPos x="240" y="428" />
+		<lifes value="3" />
 	</player>
 	<renderer>
 		<vsync value="false" />
-		<camera x="339" y="0" />
+		<camera x="-527" y="0" />
 	</renderer>
 	<window>
 		<resolution width="1080" height="720" scale="1" />

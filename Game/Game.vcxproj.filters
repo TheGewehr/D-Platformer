@@ -46,6 +46,9 @@
     <ClCompile Include="Source\PerfTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PathFinding.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -121,6 +124,9 @@
       <Filter>Heather Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\PerfTimer.h">
+      <Filter>Heather Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PathFinding.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
   </ItemGroup>

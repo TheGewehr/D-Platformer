@@ -24,6 +24,7 @@ class Physics;
 class Player;
 //class Timer;
 //class PerfTimer;
+class PathFinding;
 
 class App
 {
@@ -116,6 +117,7 @@ public:
 	Map* map;
 	Physics* physics;
 	Player* player;
+	PathFinding* pathfinding;
 
 private:
 
