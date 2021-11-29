@@ -81,9 +81,6 @@
     <ClInclude Include="Source\p2List.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\p2Point.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Source\App.h">
       <Filter>Heather Files</Filter>
     </ClInclude>

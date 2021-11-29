@@ -1,6 +1,6 @@
 #pragma once
 #include "Module.h"
-#include "p2Point.h"
+#include "Point.h"
 #include "App.h"
 #include "Physics.h"
 #include "Input.h"

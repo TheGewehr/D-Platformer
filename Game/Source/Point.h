@@ -38,7 +38,7 @@ public:
 	// Math ------------------------------------------------
 	Point operator -(const Point &v) const
 	{
-		p2Vector2 r;
+		Vector2 r;
 
 		r.x = x - v.x;
 		r.y = y - v.y;
@@ -48,7 +48,7 @@ public:
 
 	Point operator + (const Point &v) const
 	{
-		p2Vector2 r;
+		Vector2 r;
 
 		r.x = x + v.x;
 		r.y = y + v.y;
@@ -127,5 +127,79 @@ public:
 
 typedef Point<int> iPoint;
 typedef Point<float> fPoint;
+
+template<class TYPE>
+class Vector : public Point<TYPE>
+{
+public:
+
+	Vector() : Point()
+	{}
+
+	Vector(const Point& p) : Point(p)
+	{}
+
+	Vector(TYPE x, TYPE y) : Point(x, y)
+	{}
+
+	void Normalize()
+	{
+		float m = x * x + y * y;
+		if (m > 0.0f)
+		{
+			float inv_m = 1 / sqrtf(m);
+			x *= inv_m;
+			y *= inv_m;
+		}
+	}
+
+	float Length() const
+	{
+		return sqrtf(float((x * x) + (y * y)));
+	}
+
+	Vector operator -(const TYPE v) const
+	{
+		p2Vector<TYPE> r;
+
+		r.x = x - v.x;
+		r.y = y - v.y;
+
+		return(r);
+	}
+
+	Vector& operator*=(float a)
+	{
+		x *= a;
+		y *= a;
+		return(*this);
+	}
+
+	Vector& operator*(float a)
+	{
+		Vector<TYPE> r;
+
+		r.x = x * a;
+		r.y = y * a;
+
+		return r;
+	}
+
+	Vector& operator/=(float a)
+	{
+		float f = 1.0f / a;
+		x *= f;
+		y *= f;
+		return(*this);
+	}
+
+	TYPE dot(const Vector<TYPE>& v) const
+	{
+		return(x * v.x + y * v.y);
+	}
+};
+
+typedef Vector<int> iVector;
+typedef Vector<float> fVector;
 
 #endif // __POINT_H__

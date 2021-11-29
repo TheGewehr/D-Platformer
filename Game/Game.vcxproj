@@ -115,7 +115,6 @@
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\p2DynArray.h" />
     <ClInclude Include="Source\p2List.h" />
-    <ClInclude Include="Source\p2Point.h" />
     <ClInclude Include="Source\Point.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Audio.h" />

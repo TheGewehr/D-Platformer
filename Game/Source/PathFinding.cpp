@@ -125,24 +125,24 @@ uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
 	// north
 	cell.create(pos.x, pos.y + 1);
 	if (app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	// south
-	cell.Create(pos.x, pos.y - 1);
+	cell.create(pos.x, pos.y - 1);
 	if (app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	// east
-	cell.Create(pos.x + 1, pos.y);
+	cell.create(pos.x + 1, pos.y);
 	if (app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	// west
-	cell.Create(pos.x - 1, pos.y);
+	cell.create(pos.x - 1, pos.y);
 	if (app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
-	return listToFill.list.Count();
+	return listToFill.list.count();
 }
 
 // PathNode -------------------------------------------------------------------------

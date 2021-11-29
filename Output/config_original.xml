@@ -9,6 +9,8 @@
   <player>
     <startPos x="192" y="1296" />
     <lifes value ="3" />
+    <isAlive value ="true" />
+    <deathAnimation value ="false" />
   </player>
     
   <renderer>
