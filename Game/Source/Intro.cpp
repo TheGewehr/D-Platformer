@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "Physics.h"
 #include "Window.h"
-#include "Scene.h"
+#include "Intro.h"
 #include "Player.h"
 #include "Physics.h"
 #include "Map.h"
@@ -16,17 +16,17 @@
 #include "Defs.h"
 
 
-Scene::Scene() : Module()
+Intro::Intro() : Module()
 {
 	name.Create("scene");
 }
 
 // Destructor
-Scene::~Scene()
+Intro::~Intro()
 {}
 
 // Called before render is available
-bool Scene::Awake()
+bool Intro::Awake()
 {
 	//LOG("Loading Scene");
 	bool ret = true;
@@ -35,7 +35,7 @@ bool Scene::Awake()
 }
 
 // Called before the first frame
-bool Scene::Start()
+bool Intro::Start()
 {
 	app->physics->world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	app->physics->world->SetContactListener(app->physics);
@@ -271,13 +271,13 @@ bool Scene::Start()
 }
 
 // Called each loop iteration
-bool Scene::PreUpdate()
+bool Intro::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool Scene::Update(float dt)
+bool Intro::Update(float dt)
 {
 	app->render->DrawTexture(img, 0, 0, NULL);
 
@@ -311,7 +311,7 @@ bool Scene::Update(float dt)
 }
 
 // Called each loop iteration
-bool Scene::PostUpdate()
+bool Intro::PostUpdate()
 {
 	bool ret = true;
 
@@ -326,14 +326,14 @@ bool Scene::PostUpdate()
 
 
 // Called before quitting
-bool Scene::CleanUp()
+bool Intro::CleanUp()
 {
 	//LOG("Freeing scene");
 
 	return true;
 }
 
-void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+void Intro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	if (bodyB == nullptr)
 	{
@@ -383,14 +383,14 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				//app->player->SetPlayerLifes(3);
 			}
-			
+
 		}
 		else if ((bodyA->id == 1) && (bodyB->id == 0))
 		{
-			
+
 			if (app->player->GetPlayerLifes() > 0)
 			{
-				
+
 
 			}
 			else
@@ -414,11 +414,11 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			}
 			else
-			{}
+			{
+			}
 
 		}
-		
+
 	}
 
 }
-
