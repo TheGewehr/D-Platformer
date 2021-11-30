@@ -270,7 +270,7 @@ bool Player::Update(float dt)
 			b2Vec2 xVel = { 0,ColHitbox->body->GetLinearVelocity().y };
 			if (!goLeft && !goRight) ColHitbox->body->SetLinearVelocity(xVel);
 
-			if (app->player->isAlive == true)
+			if (isAlive != false && win == false)
 			{
 				if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 				{
