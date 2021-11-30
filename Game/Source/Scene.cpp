@@ -113,8 +113,8 @@ bool Scene::Start()
 	2399, 600,
 	2496, 600,
 	2496, 288,
-	2563, 288,
-	2563, -3
+	2570, 288,
+	2570, -3
 	};
 
 	int platform01[8] = {
@@ -138,6 +138,48 @@ bool Scene::Start()
 	545, 286
 	};
 
+	int platform04[8] = {
+	1664, 288,
+	1664, 319,
+	1695, 319,
+	1695, 288
+	};
+
+	int platform05[8] = {
+	1760, 288,
+	1760, 319,
+	1791, 319,
+	1791, 288
+	};
+
+	int platform06[8] = {
+	2048, 128,
+	2048, 159,
+	2079, 159,
+	2079, 128
+	};
+
+	int platform07[8] = {
+	2176, 128,
+	2176, 159,
+	2207, 159,
+	2207, 128
+	};
+
+	int platform08[8] = {
+	2304, 128,
+	2304, 159,
+	2335, 159,
+	2335, 128
+	};
+
+	int platform09[8] = {
+	2432, 128,
+	2432, 159,
+	2463, 159,
+	2463, 128
+	};
+
 	// id's :
 	// 0 nothing
 	// 1 player
@@ -159,6 +201,25 @@ bool Scene::Start()
 	static_chains.getLast()->data->listener = this;
 
 	static_chains.add(app->physics->CreateStaticChain(0, 0, platform03, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform04, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform05, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform06, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform07, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform08, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform09, 8));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
 
