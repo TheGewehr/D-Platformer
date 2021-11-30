@@ -16,7 +16,7 @@
 #include "Defs.h"
 
 
-Scene2::Scene2() : Module()
+Scene2::Scene2(bool startEnabled) : Module()
 {
 	name.Create("scene");
 }
@@ -253,7 +253,7 @@ bool Scene2::Start()
 
 
 	// Uploading the assets
-	app->map->Load("level1.tmx");
+	app->map->Load("level2.tmx");
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	img = app->tex->Load("Assets/background/Background.png");
 	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");

@@ -115,9 +115,9 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
-	Intro* intro;
-	Scene1* scene1;
-	Scene2* scene2;
+	Intro* intro = nullptr;
+	Scene1* scene1 = nullptr;
+	Scene2* scene2 = nullptr;
 	Map* map;
 	Physics* physics;
 	Player* player;

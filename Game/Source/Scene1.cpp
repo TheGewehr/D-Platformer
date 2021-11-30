@@ -16,7 +16,7 @@
 #include "Defs.h"
 
 
-Scene1::Scene1() : Module()
+Scene1::Scene1(bool startEnabled) : Module()
 {
 	name.Create("scene");
 }

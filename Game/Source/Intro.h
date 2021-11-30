@@ -12,7 +12,7 @@ class Intro : public Module
 {
 public:
 
-	Intro();
+	Intro(bool startEnabled);
 
 	// Destructor
 	virtual ~Intro();

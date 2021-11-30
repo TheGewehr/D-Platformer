@@ -30,9 +30,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
-	intro = new Intro();
-	scene1 = new Scene1();
-	scene2 = new Scene2();
+	intro = new Intro(false);
+	scene1 = new Scene1(false);
+	scene2 = new Scene2(true);
 	map = new Map();
 	physics = new Physics();
 	player = new Player();
