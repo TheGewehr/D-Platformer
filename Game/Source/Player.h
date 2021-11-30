@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "Module.h"
 #include "Animation.h"
+#include "Timer.h"
 
 struct SDL_Texture;
 
@@ -33,7 +34,11 @@ private:
 	int lifes;
 	bool isAlive;
 	bool win;
-	
+
+	bool slowMoHability;
+
+	Timer slowMoHabilityTime;
+	Timer slowMoHabilityCooldown;	
 
 public:
 	Player();
@@ -53,6 +58,9 @@ public:
 	void SetPlayerLifes(int l);
 	bool GetPlayerWin();
 	void SetPlayerWin(bool b);
+	bool GetPlayerSlowMo();
+	void SetPlayerSlowMo(bool b);
+	
 
 
 	PhysBody* GetColHitbox() const

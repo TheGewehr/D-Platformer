@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Physics.h"
 #include "Point.h"
+#include "Player.h"
 #include "math.h"
 #include "Point.h"
 #include "Log.h"
@@ -43,7 +44,15 @@ bool Physics::Start()
 
 bool Physics::PreUpdate()
 {
-	world->Step(1.0f / 60.0f, 6, 2);
+	if (app->player->GetPlayerSlowMo() == false)
+	{
+		world->Step(app->GetDeltaTime(), 6, 2);
+	}
+	else
+	{
+		world->Step(app->GetDeltaTime()*0.2f, 6, 2);
+	}
+	
 
 	for (b2Contact* c = world->GetContactList(); c; c = c->GetNext())
 	{
