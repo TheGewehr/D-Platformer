@@ -61,9 +61,8 @@ private:
 	PhysBody* sensor_fall02 = nullptr;
 	PhysBody* sensor_water01 = nullptr;
 	PhysBody* sensor_water02 = nullptr;
+	PhysBody* sensor_water03 = nullptr;
 	PhysBody* sensor_win = nullptr;
-
-
 };
 
 #endif // __SCENE_H__
