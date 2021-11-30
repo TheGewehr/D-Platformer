@@ -50,7 +50,7 @@ bool Physics::PreUpdate()
 	}
 	else
 	{
-		world->Step(app->GetDeltaTime()*0.5f, 6, 2);
+		world->Step(app->GetDeltaTime()*0.2f, 6, 2);
 	}
 	
 

@@ -36,7 +36,9 @@ private:
 	bool win;
 
 	bool slowMoHability;
-	
+
+	Timer slowMoHabilityTime;
+	Timer slowMoHabilityCooldown;	
 
 public:
 	Player();
