@@ -1,5 +1,5 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __INTRO_H__
+#define __INTRO_H__
 
 #include "Module.h"
 #include "List.h"
@@ -8,14 +8,14 @@
 
 struct SDL_Texture;
 
-class Scene : public Module
+class Intro : public Module
 {
 public:
 
-	Scene();
+	Intro(bool startEnabled);
 
 	// Destructor
-	virtual ~Scene();
+	virtual ~Intro();
 
 	// Called before render is available
 	bool Awake();
@@ -36,7 +36,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
-	
+
 	//Collider* playerWall[100] = { nullptr };
 
 private:
@@ -57,7 +57,7 @@ private:
 	List<PhysBody*> static_chains;
 	//p2List<PhysBody*> mapStaticBodies;
 
-	PhysBody* sensor_fall01 =nullptr;
+	PhysBody* sensor_fall01 = nullptr;
 	PhysBody* sensor_fall02 = nullptr;
 	PhysBody* sensor_fall03 = nullptr;
 	PhysBody* sensor_water01 = nullptr;
@@ -66,4 +66,4 @@ private:
 	PhysBody* sensor_win = nullptr;
 };
 
-#endif // __SCENE_H__
+#endif // __SCENE2_H__

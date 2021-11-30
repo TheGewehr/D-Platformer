@@ -93,6 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Intro.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -102,12 +103,14 @@
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\Scene1.cpp" />
     <ClCompile Include="Source\Render.cpp" />
+    <ClCompile Include="Source\Scene2.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Intro.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\PathFinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
@@ -116,12 +119,13 @@
     <ClInclude Include="Source\p2DynArray.h" />
     <ClInclude Include="Source\p2List.h" />
     <ClInclude Include="Source\Point.h" />
-    <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\Scene1.h" />
     <ClInclude Include="Source\Audio.h" />
     <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
+    <ClInclude Include="Source\Scene2.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Window.h" />

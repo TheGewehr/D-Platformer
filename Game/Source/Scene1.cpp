@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "Physics.h"
 #include "Window.h"
-#include "Scene.h"
+#include "Scene1.h"
 #include "Player.h"
 #include "Physics.h"
 #include "Map.h"
@@ -16,17 +16,17 @@
 #include "Defs.h"
 
 
-Scene::Scene() : Module()
+Scene1::Scene1(bool startEnabled) : Module()
 {
 	name.Create("scene");
 }
 
 // Destructor
-Scene::~Scene()
+Scene1::~Scene1()
 {}
 
 // Called before render is available
-bool Scene::Awake()
+bool Scene1::Awake()
 {
 	//LOG("Loading Scene");
 	bool ret = true;
@@ -35,7 +35,7 @@ bool Scene::Awake()
 }
 
 // Called before the first frame
-bool Scene::Start()
+bool Scene1::Start()
 {
 	app->physics->world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	app->physics->world->SetContactListener(app->physics);
@@ -232,8 +232,8 @@ bool Scene::Start()
 	sensor_water02->listener = this;
 
 	sensor_water03 = app->physics->CreateRectangleSensor(1727, 420, 265, 60);
-	sensor_water03->id = 2;
-	sensor_water03->listener = this;
+	sensor_water02->id = 2;
+	sensor_water02->listener = this;
 
 	sensor_fall01 = app->physics->CreateRectangleSensor(420, 550, 100, 60);
 	sensor_fall01->id = 3;
@@ -243,11 +243,11 @@ bool Scene::Start()
 	sensor_fall02->id = 3;
 	sensor_fall02->listener = this;
 
-	sensor_fall03 = app->physics->CreateRectangleSensor(2255, 550, 523, 100);
-	sensor_fall03->id = 3;
-	sensor_fall03->listener = this;
+	sensor_fall02 = app->physics->CreateRectangleSensor(2255, 550, 523, 100);
+	sensor_fall02->id = 3;
+	sensor_fall02->listener = this;
 
-	sensor_win = app->physics->CreateRectangleSensor(2540, 280, 20, 85);
+	sensor_win = app->physics->CreateRectangleSensor(870, 380, 20, 85);
 	sensor_win->id = 4;
 	sensor_win->listener = this;
 
@@ -271,13 +271,13 @@ bool Scene::Start()
 }
 
 // Called each loop iteration
-bool Scene::PreUpdate()
+bool Scene1::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool Scene::Update(float dt)
+bool Scene1::Update(float dt)
 {
 	app->render->DrawTexture(img, 0, 0, NULL);
 
@@ -311,7 +311,7 @@ bool Scene::Update(float dt)
 }
 
 // Called each loop iteration
-bool Scene::PostUpdate()
+bool Scene1::PostUpdate()
 {
 	bool ret = true;
 
@@ -326,18 +326,14 @@ bool Scene::PostUpdate()
 
 
 // Called before quitting
-bool Scene::CleanUp()
+bool Scene1::CleanUp()
 {
 	//LOG("Freeing scene");
-	while (app->physics->GetWorld()->GetBodyList()->GetNext() != nullptr)
-	{
-		app->physics->world->DestroyBody(app->physics->GetWorld()->GetBodyList());
-	}
 
 	return true;
 }
 
-void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+void Scene1::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	if (bodyB == nullptr)
 	{
@@ -425,4 +421,3 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 
 }
-

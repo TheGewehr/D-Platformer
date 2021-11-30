@@ -3,12 +3,12 @@
 #include "Player.h"
 #include "Input.h"
 #include "p2List.h"
-#include "Scene.h"
+#include "Scene1.h"
+#include "Scene2.h"
 #include "Physics.h"
 #include "Textures.h"
 #include"Render.h"
 #include"Window.h"
-
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -159,7 +159,7 @@ bool Player::Start()
 
 	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
 	ColHitbox->id = 1;
-	ColHitbox->listener = app->scene;
+	ColHitbox->listener = app->scene1;
 	
 	int x_ = (int)x;
 	int y_ = (int)y;
