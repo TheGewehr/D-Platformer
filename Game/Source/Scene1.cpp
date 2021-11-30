@@ -232,8 +232,8 @@ bool Scene1::Start()
 	sensor_water02->listener = this;
 
 	sensor_water03 = app->physics->CreateRectangleSensor(1727, 420, 265, 60);
-	sensor_water02->id = 2;
-	sensor_water02->listener = this;
+	sensor_water03->id = 2;
+	sensor_water03->listener = this;
 
 	sensor_fall01 = app->physics->CreateRectangleSensor(420, 550, 100, 60);
 	sensor_fall01->id = 3;
@@ -243,11 +243,11 @@ bool Scene1::Start()
 	sensor_fall02->id = 3;
 	sensor_fall02->listener = this;
 
-	sensor_fall02 = app->physics->CreateRectangleSensor(2255, 550, 523, 100);
-	sensor_fall02->id = 3;
-	sensor_fall02->listener = this;
+	sensor_fall03 = app->physics->CreateRectangleSensor(2255, 550, 523, 100);
+	sensor_fall03->id = 3;
+	sensor_fall03->listener = this;
 
-	sensor_win = app->physics->CreateRectangleSensor(870, 380, 20, 85);
+	sensor_win = app->physics->CreateRectangleSensor(2580, 310, 20, 85);
 	sensor_win->id = 4;
 	sensor_win->listener = this;
 
