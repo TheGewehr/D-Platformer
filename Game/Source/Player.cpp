@@ -169,11 +169,9 @@ bool Player::Start()
 	isAlive = true;
 	deathAnimAllowed = false;
 	win = false;
+	slowMoHability = false;
 
-	//ColSensor = app->physics->CreateRectangle(x, y, 46, 50);
-	//ColSensor->body->GetFixtureList()->SetSensor(true);
-	//ColSensor->body->SetType(b2_kinematicBody);
-
+	
 	LOG("Loading player");
 	return true;
 }
@@ -198,7 +196,7 @@ bool Player::Update(float dt)
 
 	bool goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
-
+	bool qHability = (app->input->GetKey(SDL_SCANCODE_Q) == KEY_UP);
 	//LOG("v: %f", ColHitbox->body->GetLinearVelocity().x);
 	//ColHitbox->body->ApplyLinearImpulse(goRight * speed, ColHitbox->body->GetPosition(), true);
 
@@ -226,12 +224,26 @@ bool Player::Update(float dt)
 
 
 		}
+
+		if (qHability == true)
+		{
+			if (slowMoHability == true)
+			{
+				slowMoHability = false;
+			}
+			else
+			{
+				slowMoHability = true;
+			}
+			// añadir un timer de 5 segundos y cambiar el cap a 30 o menos (que se vea muy slow motion), y despues restaurar todo
+		}
 	}	
 	else
 	{
 
 	}
 
+	
 	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.5*app->win->GetWidth();
 
 	// x movement on air
@@ -401,6 +413,15 @@ bool Player::Update(float dt)
 	currentAnimation->Update();
 
 	return true;
+}
+
+bool Player::GetPlayerSlowMo()
+{
+	return slowMoHability;
+}
+void Player::SetPlayerSlowMo(bool b)
+{
+	slowMoHability = b;
 }
 
 // Called each loop iteration

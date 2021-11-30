@@ -165,19 +165,22 @@ bool App::Update()
 	if(ret == true)
 		ret = PostUpdate();
 	end = SDL_GetTicks();
-
+	
 	if (input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
 		Capto30 = !Capto30;
 		if (Capto30 == true)
 		{
 			framerateCap = 30;
+			
 		}
 		else
 		{
 			framerateCap = 60;
 		}
 	}
+
+	
 
 	long elapsedTime = (float)(end - init);
 	(float)SDL_GetPerformanceFrequency();
@@ -207,6 +210,18 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 
 	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
 	else ret = configFile.child("config");
+
+	return ret;
+}
+
+pugi::xml_node App::LoadSave(pugi::xml_document& saveFile) const
+{
+	pugi::xml_node ret;
+
+	pugi::xml_parse_result result = saveFile.load_file(SAVE_STATE_FILENAME);
+
+	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", SAVE_STATE_FILENAME, result.description());
+	else ret = saveFile.child("config");
 
 	return ret;
 }
@@ -370,9 +385,9 @@ bool App::LoadGame()
 {
 	bool ret = false;
 
-	pugi::xml_document configFile;
-	pugi::xml_node config;
-	config = LoadConfig(configFile);
+	pugi::xml_document saveFile;
+	pugi::xml_node save;
+	save = LoadSave(saveFile);
 
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -381,7 +396,7 @@ bool App::LoadGame()
 	{
 		SString name = item->data->name;
 		LOG("name: %s", name.GetString());
-		ret = item->data->LoadState(config.child(name.GetString()));
+		ret = item->data->LoadState(save.child(name.GetString()));
 		item = item->next;
 	}
 	
@@ -396,9 +411,10 @@ bool App::SaveGame() const
 {
 	bool ret = true;
 
-	pugi::xml_document configFile;
-	pugi::xml_node config;
-	config = LoadConfig(configFile);
+	pugi::xml_document saveFile;
+	pugi::xml_node save;
+	
+	save = LoadSave(saveFile);
 
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -407,11 +423,11 @@ bool App::SaveGame() const
 	{
 		SString name = item->data->name;
 		LOG("name: %s", name.GetString());
-		ret = item->data->SaveState(config.child(name.GetString()));
+		ret = item->data->SaveState(save.child(name.GetString()));
 		item = item->next;
 	}
 
-	ret = configFile.save_file("config.xml");
+	ret = saveFile.save_file("save_game.xml");
 
 	saveGameRequested = false;
 
@@ -459,7 +475,7 @@ void App::DisplayFrameRateInfo() {
 		static char title[256];
 
 
-		sprintf_s(title, 256, "Average FPS: %.2f Last Frame ms: %02u Last sec frames: %i  Time since start: %.3f Frame Count: %lu  Caped To 30 : On  vSync : Off",
+		sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu  CapedTo30:On  vSync:Off",
 			avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 
 		app->win->SetTitle(title);

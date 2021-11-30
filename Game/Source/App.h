@@ -61,6 +61,11 @@ public:
 	void LoadGameRequest();
 	void SaveGameRequest() const;
 
+	float GetDeltaTime()
+	{
+		return dt;
+	}
+
 	float DEGTORAD() const
 	{
 		return degtorad;
@@ -79,6 +84,7 @@ private:
 	// Load config file
 	// NOTE: It receives config document
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+	pugi::xml_node LoadSave(pugi::xml_document&) const;
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
