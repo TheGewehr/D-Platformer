@@ -43,7 +43,7 @@ bool Scene::Start()
 	app->player->SetPlayerLifes(3);
 
 	// List of points of Box2D
-	int map[78] = {
+	int map[142] = {
 	-2, -3,
 	-2, 417,
 	127, 417,
@@ -78,17 +78,49 @@ bool Scene::Start()
 	1278, 442,
 	1280, 417,
 	1312, 417,
-	1439, 289,
-	1599, 289,
-	1788, 100,
-	1590, -97,
-	245, -128
+	1439, 288,
+	1504, 288,
+	1600, 383,
+	1600, 413,
+	1855, 413,
+	1855, 385,
+	1951, 288,
+	2015 ,288,
+	2015, 600,
+	2112, 600,
+	2112, 319,
+	2080, 319,
+	2080, 288,
+	2175, 288,
+	2175, 319,
+	2143, 319,
+	2143, 600,
+	2240, 600,
+	2240, 319,
+	2208, 319,
+	2208, 288,
+	2303, 288,
+	2303, 319,
+	2271, 319,
+	2271, 600,
+	2368, 600,
+	2368, 319,
+	2336, 319,
+	2336, 288,
+	2431, 288,
+	2431, 319,
+	2399, 319,
+	2399, 600,
+	2496, 600,
+	2496, 288,
+	2570, 288,
+	2570, -3
 	};
 
 	int platform01[8] = {
 	129, 289,
-	351, 289,
-	351, 317,
+	383, 288,
+	383, 317,
 	129, 317
 	};
 
@@ -106,6 +138,48 @@ bool Scene::Start()
 	545, 286
 	};
 
+	int platform04[8] = {
+	1664, 288,
+	1664, 319,
+	1695, 319,
+	1695, 288
+	};
+
+	int platform05[8] = {
+	1760, 288,
+	1760, 319,
+	1791, 319,
+	1791, 288
+	};
+
+	int platform06[8] = {
+	2048, 128,
+	2048, 159,
+	2079, 159,
+	2079, 128
+	};
+
+	int platform07[8] = {
+	2176, 128,
+	2176, 159,
+	2207, 159,
+	2207, 128
+	};
+
+	int platform08[8] = {
+	2304, 128,
+	2304, 159,
+	2335, 159,
+	2335, 128
+	};
+
+	int platform09[8] = {
+	2432, 128,
+	2432, 159,
+	2463, 159,
+	2463, 128
+	};
+
 	// id's :
 	// 0 nothing
 	// 1 player
@@ -114,7 +188,7 @@ bool Scene::Start()
 	// 4 win
 
 
-	static_chains.add(app->physics->CreateStaticChain(0, 0, map, 78));
+	static_chains.add(app->physics->CreateStaticChain(0, 0, map, 142));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
 
@@ -130,12 +204,34 @@ bool Scene::Start()
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
 
-	
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform04, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform05, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform06, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform07, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform08, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+	static_chains.add(app->physics->CreateStaticChain(0, 0, platform09, 8));
+	static_chains.getLast()->data->id = 0;
+	static_chains.getLast()->data->listener = this;
+
 	sensor_water01 = app->physics->CreateRectangleSensor(240, 455, 250, 60);
 	sensor_water01->id = 2;
 	sensor_water01->listener = this;
 
 	sensor_water02 = app->physics->CreateRectangleSensor(1060, 455, 500, 60);
+	sensor_water02->id = 2;
+	sensor_water02->listener = this;
+
+	sensor_water03 = app->physics->CreateRectangleSensor(1727, 420, 265, 60);
 	sensor_water02->id = 2;
 	sensor_water02->listener = this;
 
@@ -147,13 +243,17 @@ bool Scene::Start()
 	sensor_fall02->id = 3;
 	sensor_fall02->listener = this;
 
+	sensor_fall02 = app->physics->CreateRectangleSensor(2255, 550, 523, 100);
+	sensor_fall02->id = 3;
+	sensor_fall02->listener = this;
+
 	sensor_win = app->physics->CreateRectangleSensor(870, 380, 20, 85);
 	sensor_win->id = 4;
 	sensor_win->listener = this;
 
 
 	// Uploading the assets
-	app->map->Load("hello.tmx");
+	app->map->Load("level1.tmx");
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	img = app->tex->Load("Assets/background/Background.png");
 	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
