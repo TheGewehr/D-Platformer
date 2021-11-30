@@ -189,18 +189,14 @@ bool Player::CleanUp()
 // Update: draw background
 bool Player::Update(float dt)
 {
-	//ColSensor->body->SetTransform(ColHitbox->body->GetPosition(), 0);
-	//app->render->viewport.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x);
-    
-
+	
 	b2Vec2 pos = { x,y };
 	b2Vec2 stopping = {0.0f,0.0f};
 
 	bool goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 	bool qHability = (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN);
-	//LOG("v: %f", ColHitbox->body->GetLinearVelocity().x);
-	//ColHitbox->body->ApplyLinearImpulse(goRight * speed, ColHitbox->body->GetPosition(), true);
+	
 
 	// x movement on ground
 	if (lifes <= 0)
@@ -214,31 +210,25 @@ bool Player::Update(float dt)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x < 5.f)
 				ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
-
-
 		}
 
 		if (goLeft == true)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x > -5.f)
 				ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
-
-
-
 		}
 
-		if (qHability == true && slowMoHabilityCooldown.ReadSec() > 20)
+		if (qHability == true)
 		{
 			if (slowMoHability == true)
 			{
-				slowMoHability = false;
+				slowMoHability = false;				
 			}
 			else
 			{
-				slowMoHability = true;
-				slowMoHabilityTime.Start();
+				slowMoHability = true;				
 			}
-			// añadir un timer de 5 segundos y cambiar el cap a 30 o menos (que se vea muy slow motion), y despues restaurar todo
+			
 		}
 	}	
 	else
@@ -246,13 +236,9 @@ bool Player::Update(float dt)
 
 	}
 
-	//if (slowMoHabilityTime.ReadSec() > 5)
-	//{
-	//	slowMoHability = false;
-	//
-	//	// slowMoHabilityTime. = 0.0f;
-	//	slowMoHabilityCooldown.Start();
-	//}
+	
+
+	
 	
 	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.5*app->win->GetWidth();
 
@@ -276,8 +262,6 @@ bool Player::Update(float dt)
 	
 
 
-	//if (ColHitbox->body->GetLinearVelocity().x > -5.f) 
-	//	ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
 	
 		
 	b2Body* ground;
@@ -306,7 +290,6 @@ bool Player::Update(float dt)
 		}
 	}
 
-	// app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 33 , NULL);
 	
 	if (isAlive == true)
 	{

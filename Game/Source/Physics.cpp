@@ -44,6 +44,7 @@ bool Physics::Start()
 
 bool Physics::PreUpdate()
 {
+	// slow motion
 	if (app->player->GetPlayerSlowMo() == false)
 	{
 		world->Step(app->GetDeltaTime(), 6, 2);
@@ -281,7 +282,7 @@ b2World* Physics::GetWorld()
 // 
 bool Physics::PostUpdate()
 {
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		if (debug == true)
 		{

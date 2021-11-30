@@ -78,6 +78,7 @@ public:
 
 	bool	vSyncBool;
 	bool	Capto30;
+	uint framerateCap;
 
 private:
 
@@ -179,7 +180,7 @@ private:
 	uint last_sec_frame_count = 0;
 	uint prev_last_sec_frame_count = 0;
 
-	uint framerateCap;
+	
 	uint deltaTime;
 
 
