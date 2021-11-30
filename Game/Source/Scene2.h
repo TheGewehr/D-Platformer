@@ -59,6 +59,7 @@ private:
 
 	PhysBody* sensor_fall01 = nullptr;
 	PhysBody* sensor_fall02 = nullptr;
+	PhysBody* sensor_fall03 = nullptr;
 	PhysBody* sensor_water01 = nullptr;
 	PhysBody* sensor_water02 = nullptr;
 	PhysBody* sensor_water03 = nullptr;

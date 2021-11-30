@@ -14,7 +14,24 @@
 #include <iostream>
 
 #include "Defs.h"
+#include "Log.h"
 
+//#include "App.h"
+//#include "Window.h"
+//#include "Input.h"
+//#include "Render.h"
+//#include "Textures.h"
+//#include "Audio.h"
+//#include "Intro.h"
+//#include "Scene1.h"
+//#include "Scene2.h"
+//#include "Map.h"
+//#include "Physics.h"
+//#include "Player.h"
+//#include "PathFinding.h"
+
+//#include "Defs.h"
+//#include "Log.h"
 
 Scene1::Scene1(bool startEnabled) : Module()
 {
@@ -247,11 +264,11 @@ bool Scene1::Start()
 	sensor_fall03->id = 3;
 	sensor_fall03->listener = this;
 
-	sensor_win = app->physics->CreateRectangleSensor(2580, 310, 20, 85);
-	sensor_win->id = 4;
-	sensor_win->listener = this;
-
-
+	//sensor_win = app->physics->CreateRectangleSensor(2580, 310, 20, 85);
+	//sensor_win->id = 4;
+	//sensor_win->listener = this;
+	//
+	
 	// Uploading the assets
 	app->map->Load("level1.tmx");
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
