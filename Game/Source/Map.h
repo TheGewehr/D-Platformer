@@ -40,6 +40,34 @@ enum MapTypes
 	MAPTYPE_STAGGERED
 };
 
+struct Properties
+{
+	struct Property
+	{
+		SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		ListItem<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	// L06: DONE 7: Method to ask for the value of a custom property
+	int GetProperty(const char* name, int default_value = 0) const;
+
+	List<Property*> list;
+};
+
 // L04: TODO 1: Create a struct for the map layer
 struct MapLayer
 {
@@ -47,6 +75,8 @@ struct MapLayer
 	int width;
 	int height;
 	uint* data;
+
+	Properties properties;
 
 	MapLayer() : data(NULL)
 	{}
@@ -103,6 +133,8 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
 private:
 
 	bool LoadMap(pugi::xml_node mapFile);
@@ -116,12 +148,19 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadAllLayers(pugi::xml_node mapNode);
 
+	// L06: TODO 6: Load a group of properties 
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+	// L06: DONE 3: Pick the right Tileset based on a tile id
+	TileSet* GetTilesetFromTileId(int id) const;
+
 public:
 
     // L03: DONE 1: Add your struct for map info
 	MapData mapData;
 
 private:
+	pugi::xml_document mapFile;
 
     SString folder;
     bool mapLoaded;
