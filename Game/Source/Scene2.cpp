@@ -3,6 +3,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Render.h"
+#include "PathFinding.h"
 #include "Physics.h"
 #include "Window.h"
 #include "Scene2.h"
@@ -259,6 +260,19 @@ bool Scene2::Start()
 	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
 	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
 	win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
+
+	if (app->map->Load("level1_walk.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+
+		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
+
+	pathTex = app->tex->Load("Assets/sprites/PathTexture.png");
+	originTex = app->tex->Load("Assets/sprites/Cross.png");
 
 
 	if (app->player->Awake() == 0)

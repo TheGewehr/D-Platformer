@@ -44,6 +44,8 @@ private:
 	SDL_Texture* map;
 
 	SDL_Texture* img;
+	SDL_Texture* pathTex;
+	SDL_Texture* originTex;
 
 	//uint jump_fx;
 	uint water_fx;

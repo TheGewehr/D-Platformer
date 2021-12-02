@@ -171,7 +171,7 @@ bool Player::Start()
 	win = false;
 	slowMoHability = false;
 
-	slowMoHabilityCooldown.Start();
+	
 
 	
 	LOG("Loading player");

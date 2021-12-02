@@ -24,6 +24,8 @@ class Scene2;
 class Map;
 class Physics;
 class Player;
+class FlyingEnemy;
+
 //class Timer;
 //class PerfTimer;
 class PathFinding;
@@ -129,6 +131,7 @@ public:
 	Physics* physics;
 	Player* player;
 	PathFinding* pathfinding;
+	FlyingEnemy* flyingenemy;
 
 private:
 

@@ -11,6 +11,7 @@
 #include "Physics.h"
 #include "Player.h"
 #include "PathFinding.h"
+#include "FlyingEnemy.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -37,6 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new Physics();
 	player = new Player();
 	pathfinding = new PathFinding();
+	flyingenemy = new FlyingEnemy();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

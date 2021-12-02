@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Physics.h"
 #include "Map.h"
+#include "PathFinding.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
@@ -268,6 +269,18 @@ bool Scene1::Start()
 	//sensor_win->id = 4;
 	//sensor_win->listener = this;
 	//
+	if (app->map->Load("level2_walk.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+
+		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
+
+	pathTex = app->tex->Load("Assets/sprites/PathTexture.png");
+	originTex = app->tex->Load("Assets/sprites/Cross.png");
 	
 	// Uploading the assets
 	app->map->Load("level1.tmx");
