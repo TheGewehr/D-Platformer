@@ -269,7 +269,7 @@ bool Scene1::Start()
 	//sensor_win->id = 4;
 	//sensor_win->listener = this;
 	//
-	if (app->map->Load("level2_walk.tmx") == true)
+	if (app->map->Load("level1_walk.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
@@ -283,7 +283,7 @@ bool Scene1::Start()
 	originTex = app->tex->Load("Assets/sprites/Cross.png");
 	
 	// Uploading the assets
-	app->map->Load("level1.tmx");
+	//app->map->Load("level1.tmx");
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	img = app->tex->Load("Assets/background/Background.png");
 	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
@@ -365,89 +365,5 @@ bool Scene1::CleanUp()
 
 void Scene1::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	if (bodyB == nullptr)
-	{
-
-	}
-	else
-	{
-		if ((bodyA->id == 1) && (bodyB->id == 2))
-		{
-
-			if (app->player->GetPlayerLifes() > 0)
-			{
-				// fall in water loose one life
-				app->audio->PlayFx(water_fx);
-				//app->player->life
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
-
-				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
-
-			}
-			else
-			{
-				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
-
-
-				//app->player->SetPlayerLifes(3);
-			}
-		}
-		else if ((bodyA->id == 1) && (bodyB->id == 3))
-		{
-			// fall and loose
-
-			if (app->player->GetPlayerLifes() > 0)
-			{
-				app->audio->PlayFx(fall_fx);
-
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
-
-				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
-
-			}
-			else
-			{
-
-				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-
-
-				//app->player->SetPlayerLifes(3);
-			}
-			
-		}
-		else if ((bodyA->id == 1) && (bodyB->id == 0))
-		{
-			
-			if (app->player->GetPlayerLifes() > 0)
-			{
-				
-
-			}
-			else
-			{
-
-				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-				app->player->deathAnimAllowed = true;
-
-				//app->player->SetPlayerLifes(3);
-			}
-
-		}
-		else if ((bodyA->id == 1) && (bodyB->id == 4))
-		{
-
-			if (app->player->GetPlayerLifes() > 0)
-			{
-				Mix_HaltMusic();
-				app->audio->PlayFx(win_fx);
-				app->player->SetPlayerWin(true);
-
-			}
-			else
-			{}
-
-		}
-		
-	}
-
+	
 }

@@ -354,7 +354,7 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
 }
 
 
-bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, int navLayerId) const 
 {
 	bool ret = false;
 	ListItem<MapLayer*>* item;
@@ -364,38 +364,56 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	{
 		MapLayer* layer = item->data;
 
-		if (layer->properties.GetProperty("Navigation", 0) == 0)
-			continue;
-
-		uchar* map = new uchar[layer->width * layer->height];
-		memset(map, 1, layer->width * layer->height);
-
-		for (int y = 0; y < mapData.height; ++y)
+		if (layer->properties.GetProperty("Navigation", navLayerId) == 1) // si uno entonces falso y devuelve uno y viceversa
 		{
-			for (int x = 0; x < mapData.width; ++x)
+
+			uchar* mapa = new uchar[layer->width * layer->height];
+			memset(mapa, 1, layer->width * layer->height);
+
+			for (int y = 0; y < mapData.height; ++y)
 			{
-				int i = (y * layer->width) + x;
-
-				int tileId = layer->Get(x, y);
-				TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
-
-				if (tileset != NULL)
+				for (int x = 0; x < mapData.width; ++x)
 				{
-					map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+					int i = (y * layer->width) + x;
+
+					int tileId = layer->Get(x, y);
+					TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
+
+					if (tileset != NULL)
+					{
+						mapa[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+					}
 				}
 			}
+			*buffer = mapa;
+			width = mapData.width;
+			height = mapData.height;
+			ret = true;
+			break;
 		}
 
-		*buffer = map;
-		width = mapData.width;
-		height = mapData.height;
-		ret = true;
+		
 
 		break;
 	}
 
 	return ret;
 }
+
+int Properties::GetProperty(const char* value, int defaultValue) const
+{
+	ListItem<Property*>* item = list.start;
+
+	while (item)
+	{
+		if (item->data->name == value)
+			return item->data->value;
+		item = item->next;
+	}
+
+	return defaultValue;
+}
+
 
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {

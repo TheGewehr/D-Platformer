@@ -9,14 +9,14 @@
 		<organization>UPC</organization>
 	</app>
 	<player>
-		<startPos x="858" y="401" />
-		<lifes value="3" />
+		<startPos x="2540" y="272" />
+		<lifes value="2" />
 		<isAlive value="true" />
 		<deathAnimation value="false" />
 	</player>
 	<renderer>
 		<vsync value="false" />
-		<camera x="318" y="0" />
+		<camera x="2000" y="0" />
 	</renderer>
 	<window>
 		<resolution width="1080" height="720" scale="1" />

@@ -38,6 +38,9 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	
 	//Collider* playerWall[100] = { nullptr };
+	uint water_fx;
+	uint fall_fx;
+	uint win_fx;
 
 private:
 
@@ -45,11 +48,10 @@ private:
 
 	SDL_Texture* img;
 
-	//uint jump_fx;
-	uint water_fx;
-	uint fall_fx;
-	uint win_fx;
-	//uint bonus_fx;
+	SDL_Texture* pathTex;
+	SDL_Texture* originTex;
+
+	
 
 	SDL_Rect end_rect;
 

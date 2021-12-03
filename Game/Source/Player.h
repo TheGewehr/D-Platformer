@@ -50,12 +50,14 @@ public:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
 	bool CleanUp();
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	int GetPlayerLifes();
 	void SetPlayerLifes(int l);
 	bool GetPlayerWin();
 	void SetPlayerWin(bool b);
 	bool GetPlayerSlowMo();
 	void SetPlayerSlowMo(bool b);
+
 	
 
 

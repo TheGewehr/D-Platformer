@@ -8,12 +8,14 @@
 #include "Physics.h"
 #include "Textures.h"
 #include"Render.h"
+#include"Audio.h"
 #include"Window.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
 #include <math.h>
 #include "SDL/include/SDL.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 
 Player::Player() : Module()
 {
@@ -157,9 +159,18 @@ bool Player::Start()
 	speed = { 1.3,0 };
 	jumpForce = { 0,-2.6f };
 
+	// id's :
+	// 0 nothing
+	// 1 player
+	// 2 water
+	// 3 holes
+	// 4 win
+	// 5 Flying Enemy
+	// 6 Walking Enemy
+
 	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
 	ColHitbox->id = 1;
-	ColHitbox->listener = app->scene1;
+	ColHitbox->listener = app->player;
 	
 	int x_ = (int)x;
 	int y_ = (int)y;
@@ -476,3 +487,92 @@ bool Player::SaveState(pugi::xml_node& data) const
 	return true;
 }
 
+void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+	if (bodyB == nullptr)
+	{
+
+	}
+	else
+	{
+		if ((bodyA->id == 1) && (bodyB->id == 2))
+		{
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+				// fall in water loose one life
+				app->audio->PlayFx(app->scene1->water_fx);
+				//app->player->life
+				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+
+				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+
+			}
+			else
+			{
+				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
+
+
+				//app->player->SetPlayerLifes(3);
+			}
+		}
+		else if ((bodyA->id == 1) && (bodyB->id == 3))
+		{
+			// fall and loose
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+				app->audio->PlayFx(app->scene1->fall_fx);
+
+				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+
+				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+
+			}
+			else
+			{
+
+				//app->player->currentAnimation=&app->player->deathFromRightAnim;
+
+
+				//app->player->SetPlayerLifes(3);
+			}
+
+		}
+		else if ((bodyA->id == 1) && (bodyB->id == 0))
+		{
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+
+
+			}
+			else
+			{
+
+				//app->player->currentAnimation=&app->player->deathFromRightAnim;
+				app->player->deathAnimAllowed = true;
+
+				//app->player->SetPlayerLifes(3);
+			}
+
+		}
+		else if ((bodyA->id == 1) && (bodyB->id == 4))
+		{
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+				Mix_HaltMusic();
+				app->audio->PlayFx(app->scene1->win_fx);
+				app->player->SetPlayerWin(true);
+
+			}
+			else
+			{
+			}
+
+		}
+
+	}
+
+}
