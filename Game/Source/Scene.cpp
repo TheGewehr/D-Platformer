@@ -17,23 +17,6 @@
 #include "Defs.h"
 #include "Log.h"
 
-//#include "App.h"
-//#include "Window.h"
-//#include "Input.h"
-//#include "Render.h"
-//#include "Textures.h"
-//#include "Audio.h"
-//#include "Intro.h"
-//#include "Scene1.h"
-//#include "Scene2.h"
-//#include "Map.h"
-//#include "Physics.h"
-//#include "Player.h"
-//#include "PathFinding.h"
-
-//#include "Defs.h"
-//#include "Log.h"
-
 Scene::Scene(bool startEnabled) : Module()
 {
 	name.Create("scene");

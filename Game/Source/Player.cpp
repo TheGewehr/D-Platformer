@@ -181,9 +181,6 @@ bool Player::Start()
 	win = false;
 	slowMoHability = false;
 
-	
-
-	
 	LOG("Loading player");
 	return true;
 }
@@ -564,14 +561,10 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 				Mix_HaltMusic();
 				app->audio->PlayFx(app->scene->win_fx);
 				app->player->SetPlayerWin(true);
-
 			}
 			else
 			{
 			}
-
 		}
-
 	}
-
 }
