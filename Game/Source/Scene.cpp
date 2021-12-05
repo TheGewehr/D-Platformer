@@ -192,19 +192,15 @@ bool Scene::Start()
 	static_chains.add(app->physics->CreateStaticChain(0, 0, map, 142));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
-
 	static_chains.add(app->physics->CreateStaticChain(0, 0, platform01, 8));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
-
 	static_chains.add(app->physics->CreateStaticChain(0, 0, platform02, 8));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
-
 	static_chains.add(app->physics->CreateStaticChain(0, 0, platform03, 8));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
-
 	static_chains.add(app->physics->CreateStaticChain(0, 0, platform04, 8));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
@@ -257,7 +253,7 @@ bool Scene::Start()
 		int w, h;
 		uchar* data = NULL;
 
-		if (app->map->CreateWalkabilityMap(w, h, &data, 34/*random, need to change*/)) app->pathfinding->SetMap(w, h, data);
+		if (app->map->CreateWalkabilityMap(w, h, &data, 2/*random, need to change*/)) app->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
 	}
@@ -336,13 +332,23 @@ bool Scene::PostUpdate()
 	return ret;
 }
 
-/*
+
 // Used to pass to the second level
 bool Scene::WinningCondition()
 {
-	
+	if (app->player->GetPlayerWin() == true)
+	{
+		if (app->player->GetPlayerLifes() > 0)
+		{
+			return true;
+		}
+	}
+	else 
+	{
+		return false;
+	}
 }
-*/
+
 
 // Called before quitting
 bool Scene::CleanUp()
