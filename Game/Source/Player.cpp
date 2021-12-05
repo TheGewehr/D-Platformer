@@ -3,8 +3,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "p2List.h"
-#include "Scene1.h"
-#include "Scene2.h"
+#include "Scene.h"
 #include "Physics.h"
 #include "Textures.h"
 #include"Render.h"
@@ -501,7 +500,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			if (app->player->GetPlayerLifes() > 0)
 			{
 				// fall in water loose one life
-				app->audio->PlayFx(app->scene1->water_fx);
+				app->audio->PlayFx(app->scene->water_fx);
 				//app->player->life
 				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
 
@@ -522,7 +521,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (app->player->GetPlayerLifes() > 0)
 			{
-				app->audio->PlayFx(app->scene1->fall_fx);
+				app->audio->PlayFx(app->scene->fall_fx);
 
 				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
 
@@ -563,7 +562,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			if (app->player->GetPlayerLifes() > 0)
 			{
 				Mix_HaltMusic();
-				app->audio->PlayFx(app->scene1->win_fx);
+				app->audio->PlayFx(app->scene->win_fx);
 				app->player->SetPlayerWin(true);
 
 			}

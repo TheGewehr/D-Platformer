@@ -3,31 +3,48 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Render.h"
-#include "PathFinding.h"
 #include "Physics.h"
 #include "Window.h"
-#include "Scene2.h"
+#include "Scene.h"
 #include "Player.h"
 #include "Physics.h"
 #include "Map.h"
+#include "PathFinding.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
 
 #include "Defs.h"
+#include "Log.h"
 
+//#include "App.h"
+//#include "Window.h"
+//#include "Input.h"
+//#include "Render.h"
+//#include "Textures.h"
+//#include "Audio.h"
+//#include "Intro.h"
+//#include "Scene1.h"
+//#include "Scene2.h"
+//#include "Map.h"
+//#include "Physics.h"
+//#include "Player.h"
+//#include "PathFinding.h"
 
-Scene2::Scene2(bool startEnabled) : Module()
+//#include "Defs.h"
+//#include "Log.h"
+
+Scene::Scene(bool startEnabled) : Module()
 {
 	name.Create("scene");
 }
 
 // Destructor
-Scene2::~Scene2()
+Scene::~Scene()
 {}
 
 // Called before render is available
-bool Scene2::Awake()
+bool Scene::Awake()
 {
 	//LOG("Loading Scene");
 	bool ret = true;
@@ -36,7 +53,7 @@ bool Scene2::Awake()
 }
 
 // Called before the first frame
-bool Scene2::Start()
+bool Scene::Start()
 {
 	app->physics->world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	app->physics->world->SetContactListener(app->physics);
@@ -187,8 +204,6 @@ bool Scene2::Start()
 	// 2 water
 	// 3 holes
 	// 4 win
-	// 5 Flying Enemy
-	// 6 Walking Enemy
 
 
 	static_chains.add(app->physics->CreateStaticChain(0, 0, map, 142));
@@ -250,19 +265,10 @@ bool Scene2::Start()
 	sensor_fall03->id = 3;
 	sensor_fall03->listener = this;
 
-	sensor_win = app->physics->CreateRectangleSensor(2540, 280, 20, 85);
-	sensor_win->id = 4;
-	sensor_win->listener = this;
-
-
-	// Uploading the assets
-	app->map->Load("level2.tmx");
-	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
-	img = app->tex->Load("Assets/background/Background.png");
-	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
-	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
-	win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
-
+	//sensor_win = app->physics->CreateRectangleSensor(2580, 310, 20, 85);
+	//sensor_win->id = 4;
+	//sensor_win->listener = this;
+	//
 	if (app->map->Load("level1_walk.tmx") == true)
 	{
 		int w, h;
@@ -275,6 +281,14 @@ bool Scene2::Start()
 
 	pathTex = app->tex->Load("Assets/sprites/PathTexture.png");
 	originTex = app->tex->Load("Assets/sprites/Cross.png");
+	
+	// Uploading the assets
+	//app->map->Load("level1.tmx");
+	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
+	img = app->tex->Load("Assets/background/Background.png");
+	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
+	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
+	win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
 
 
 	if (app->player->Awake() == 0)
@@ -287,13 +301,13 @@ bool Scene2::Start()
 }
 
 // Called each loop iteration
-bool Scene2::PreUpdate()
+bool Scene::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool Scene2::Update(float dt)
+bool Scene::Update(float dt)
 {
 	app->render->DrawTexture(img, 0, 0, NULL);
 
@@ -327,7 +341,7 @@ bool Scene2::Update(float dt)
 }
 
 // Called each loop iteration
-bool Scene2::PostUpdate()
+bool Scene::PostUpdate()
 {
 	bool ret = true;
 
@@ -342,15 +356,14 @@ bool Scene2::PostUpdate()
 
 
 // Called before quitting
-bool Scene2::CleanUp()
+bool Scene::CleanUp()
 {
 	//LOG("Freeing scene");
 
 	return true;
 }
 
-void Scene2::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	
-
 }

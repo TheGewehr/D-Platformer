@@ -8,14 +8,14 @@
 
 struct SDL_Texture;
 
-class Scene1 : public Module
+class Scene : public Module
 {
 public:
 
-	Scene1(bool startEnabled);
+	Scene(bool startEnabled);
 
 	// Destructor
-	virtual ~Scene1();
+	virtual ~Scene();
 
 	// Called before render is available
 	bool Awake();

@@ -5,8 +5,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Intro.h"
-#include "Scene1.h"
-#include "Scene2.h"
+#include "Scene.h"
 #include "Map.h"
 #include "Physics.h"
 #include "Player.h"
@@ -32,8 +31,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	intro = new Intro(false);
-	scene1 = new Scene1(false);
-	scene2 = new Scene2(true);
+	scene = new Scene(false);
 	map = new Map();
 	physics = new Physics();
 	player = new Player();
@@ -48,8 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(intro);
-	AddModule(scene1);
-	AddModule(scene2);
+	AddModule(scene);
 	AddModule(map);
 	AddModule(player);
 	AddModule(pathfinding);

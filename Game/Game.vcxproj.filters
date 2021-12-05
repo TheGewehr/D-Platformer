@@ -31,7 +31,7 @@
     <ClCompile Include="Source\Render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene1.cpp">
+    <ClCompile Include="Source\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Textures.cpp">
@@ -47,9 +47,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\PathFinding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Intro.cpp">
@@ -114,7 +111,7 @@
     <ClInclude Include="Source\Render.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene1.h">
+    <ClInclude Include="Source\Scene.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Textures.h">
@@ -133,9 +130,6 @@
       <Filter>Heather Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\PathFinding.h">
-      <Filter>Heather Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Intro.h">
