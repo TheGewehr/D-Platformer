@@ -354,7 +354,7 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
 }
 
 
-bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, int navLayerId) const 
+bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, int navLayerId) const
 {
 	bool ret = false;
 	ListItem<MapLayer*>* item;

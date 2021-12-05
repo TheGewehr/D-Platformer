@@ -32,6 +32,9 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	// Used to pass to the second level
+	bool WinningCondition();
+
 	// Called before quitting
 	bool CleanUp();
 

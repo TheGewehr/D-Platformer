@@ -257,7 +257,7 @@ bool Scene::Start()
 		int w, h;
 		uchar* data = NULL;
 
-		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
+		if (app->map->CreateWalkabilityMap(w, h, &data, 34/*random, need to change*/)) app->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
 	}
@@ -336,7 +336,13 @@ bool Scene::PostUpdate()
 	return ret;
 }
 
-
+/*
+// Used to pass to the second level
+bool Scene::WinningCondition()
+{
+	
+}
+*/
 
 // Called before quitting
 bool Scene::CleanUp()
