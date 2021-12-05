@@ -327,8 +327,6 @@ bool Scene::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-
-
 	return ret;
 }
 
@@ -336,7 +334,7 @@ bool Scene::PostUpdate()
 // Used to pass to the second level
 bool Scene::WinningCondition()
 {
-	if (app->player->GetPlayerWin() == true)
+	if (app->player->GetPlayerWin() == true/*????*/)
 	{
 		if (app->player->GetPlayerLifes() > 0)
 		{
