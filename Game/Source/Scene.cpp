@@ -220,6 +220,8 @@ bool Scene::Start()
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
 
+	// FlyingEnemiesList.add(new FlyingEnemy);
+
 	sensor_water01 = app->physics->CreateRectangleSensor(240, 455, 250, 60);
 	sensor_water01->id = 2;
 	sensor_water01->listener = this;
@@ -248,12 +250,13 @@ bool Scene::Start()
 	//sensor_win->id = 4;
 	//sensor_win->listener = this;
 	//
+
 	if (app->map->Load("level1_walk.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
 
-		if (app->map->CreateWalkabilityMap(w, h, &data, 2/*random, need to change*/)) app->pathfinding->SetMap(w, h, data);
+		if (app->map->CreateWalkabilityMap(w, h, &data, 1/*random, need to change*/)) app->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
 	}

@@ -1,5 +1,6 @@
 #include "FlyingEnemy.h"
 #include "App.h"
+#include "Map.h"
 #include "Log.h"
 #include "Player.h"
 #include "p2List.h"
@@ -36,7 +37,7 @@ bool FlyingEnemy::Awake()
 bool FlyingEnemy::Start()
 {
 	//textures
-	texture = app->tex->Load("Assets/sprites/GraveRobber.png");
+	texture = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//player stats
 	startPosX = 10;
@@ -59,6 +60,7 @@ bool FlyingEnemy::Start()
 	int x_ = (int)x;
 	int y_ = (int)y;
 	ColHitbox->GetPosition(x_, y_);
+	actualState = PATROLLING;
 
 	lifes = 2;
 	isAlive = true;
@@ -71,7 +73,71 @@ bool FlyingEnemy::Start()
 
 bool FlyingEnemy::Update(float dt)
 {
+	/*
+	int mouseX, mouseY;
+	app->input->GetMousePosition(mouseX, mouseY);
+	iPoint p = app->map->ScreenToWorld(mouseX, mouseY);
+	p = app->map->WorldToMap(p.x, p.y);
 
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (originSelected == true)
+		{
+			app->pathfinding->CreatePath(origin, p);
+			originSelected = false;
+		}
+		else
+		{
+			origin = p;
+			originSelected = true;
+		}
+	}
+	*/
+
+	DetectionRange = app->player->GetColHitbox()->body->GetPosition();
+	
+	if (isAlive == true)
+	{
+		if (((DetectionRange.x < 3000) && (DetectionRange.x > -3000)) && ((DetectionRange.y < 3000) && (DetectionRange.y > -3000)))
+		{
+			actualState = CHASING_PLAYER;
+		}
+		else
+		{
+			actualState = PATROLLING;
+		}
+	}
+	else
+	{
+		actualState = DEATH;
+	}
+
+	switch (actualState)
+	{
+	case CHASING_PLAYER:
+	{
+		// chase the player
+
+		// Make the pathfinding
+
+		// advance one tile
+
+	}break;
+	case PATROLLING:
+	{
+		//  Maintain the position
+
+	}break;
+	case DEATH:
+	{
+		deathAnimAllowed = true;
+		// dies and become a kinematic object
+	}break;
+	}
+
+	
+
+	
 
 	return true;
 }
@@ -79,13 +145,13 @@ bool FlyingEnemy::Update(float dt)
 bool FlyingEnemy::PostUpdate()
 {
 
-
+	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 17, &currentAnimation->GetCurrentFrame());
 	return true;
 }
 
 bool FlyingEnemy::CleanUp()
 {
-	LOG("Unloading player");
+	LOG("Unloading Enemy");
 
 	return true;
 }
@@ -100,10 +166,7 @@ void FlyingEnemy::SetEnemyLifes(int l)
 	lifes = l;
 }
 
-FLYING_ENEMY_STATE FlyingEnemy::GetEnemyState()
-{
-	return actualState;
-}
+
 
 void FlyingEnemy::SetEnemyState(FLYING_ENEMY_STATE state)
 {
@@ -122,4 +185,21 @@ bool FlyingEnemy::SaveState(pugi::xml_node&) const
 
 
 	return true;
+}
+
+void FlyingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+	if (bodyB == nullptr)
+	{
+
+	}
+	else
+	{
+		if ((bodyA->id == 5) && (bodyB->id == 1))
+		{
+
+		  // is hitted by the player
+			
+		}
+	}
 }

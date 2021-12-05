@@ -9,12 +9,12 @@
 
 struct SDL_Texture;
 
-enum class FLYING_ENEMY_STATE
-{
-	PATROLLING,
-	CHASING_PLAYER,
-	DEATH
-};
+//enum class FLYING_ENEMY_STATE
+//{
+//	PATROLLING,
+//	CHASING_PLAYER,
+//	DEATH
+//};
 
 class FlyingEnemy : public Module
 {
@@ -28,13 +28,22 @@ private:
 	float maxXspeed;
 
 	PhysBody* ColHitbox;
-	PhysBody* ColSensor;
+	b2Vec2 DetectionRange;
 
 	SDL_Texture* texture;
-	FLYING_ENEMY_STATE actualState;
+	
 
 	int lifes;
 	bool isAlive;
+
+	enum FLYING_ENEMY_STATE
+	{
+		PATROLLING,
+		CHASING_PLAYER,
+		DEATH
+	};
+
+	FLYING_ENEMY_STATE actualState;
 
 public:
 	FlyingEnemy();
@@ -54,6 +63,9 @@ public:
 	void SetEnemyLifes(int l);
 	FLYING_ENEMY_STATE GetEnemyState();
 	void SetEnemyState(FLYING_ENEMY_STATE state);
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
+	// Make a Function to Create an enemy that returns a FlyingEnemy to store in the Flying ennemy List
 	
 
 
@@ -63,20 +75,6 @@ public:
 		return ColHitbox;
 	}
 
-	PhysBody* GetColSensor() const
-	{
-		return ColSensor;
-	}
-
-	const float getX()
-	{
-		return x;
-	}
-
-	const float getY()
-	{
-		return y;
-	}
 
 	//The player spritesheet loaded into an SDL_Texture
 

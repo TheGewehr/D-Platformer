@@ -353,6 +353,8 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
 	return ret;
 }
 
+// 1 is the id of the flying enemy
+
 
 bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, int navLayerId) const
 {
@@ -364,10 +366,10 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, int navL
 	{
 		MapLayer* layer = item->data;
 
-		if (layer->properties.GetProperty("Navigation", navLayerId) == 1) // si uno entonces falso y devuelve uno y viceversa
+		if (layer->properties.GetProperty("Navigation", navLayerId) == 1) // If we have the properties that we want then true
 		{
 
-			uchar* mapa = new uchar[layer->width * layer->height];
+			uchar* mapa = new uchar[layer->width * layer->height]; // sring that store tiles
 			memset(mapa, 1, layer->width * layer->height);
 
 			for (int y = 0; y < mapData.height; ++y)
@@ -381,18 +383,16 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, int navL
 
 					if (tileset != NULL)
 					{
-						mapa[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+						mapa[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1; // store tiles id's at their position
 					}
 				}
 			}
-			*buffer = mapa;
+			*buffer = mapa; // then return the string for the pathfinding
 			width = mapData.width;
 			height = mapData.height;
 			ret = true;
 			break;
-		}
-
-		
+		}	
 
 		break;
 	}

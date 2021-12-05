@@ -5,6 +5,7 @@
 #include "List.h"
 #include "Point.h"
 #include "Defs.h"
+#include "FlyingEnemy.h"
 
 struct SDL_Texture;
 
@@ -61,6 +62,7 @@ private:
 
 	List<PhysBody*> static_chains;
 	//p2List<PhysBody*> mapStaticBodies;
+	List<FlyingEnemy*> FlyingEnemiesList;
 
 	PhysBody* sensor_fall01 =nullptr;
 	PhysBody* sensor_fall02 = nullptr;
