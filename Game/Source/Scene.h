@@ -7,6 +7,7 @@
 #include "Defs.h"
 #include "FlyingEnemy.h"
 
+int currentLevel;
 struct SDL_Texture;
 
 class Scene : public Module
@@ -34,7 +35,10 @@ public:
 	bool PostUpdate();
 
 	// Used to pass to the second level
-	bool WinningCondition();
+	bool PassLevelCondition();
+
+	// Win and Loss screens and consequences
+	bool WinLoseCondition();
 
 	// Called before quitting
 	bool CleanUp();
