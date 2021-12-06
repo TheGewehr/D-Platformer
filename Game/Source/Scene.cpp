@@ -43,7 +43,19 @@ bool Scene::Start()
 
 	app->player->SetPlayerLifes(3);
 
-	// List of points of Box2D
+	// Level 1 Box2D points
+	if (currentLevel != 2)
+	{
+		// Show level 1 Box2D points
+	}
+	
+	// Level 2 Box2D points
+	if (currentLevel == 2)
+	{
+		// Show level 2 Box2D points
+	}
+
+	// List of Box2D points
 	int map[142] = {
 	-2, -3,
 	-2, 417,
@@ -182,13 +194,13 @@ bool Scene::Start()
 	};
 
 	// id's :
-	// 0 nothing
+	// 0 map
 	// 1 player
 	// 2 water
 	// 3 holes
 	// 4 win
 
-
+	// map
 	static_chains.add(app->physics->CreateStaticChain(0, 0, map, 142));
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
@@ -222,6 +234,7 @@ bool Scene::Start()
 
 	FlyingEnemiesList.add(app->flyingenemy->CreateFlyingEnemy(50,50));
 
+	// water
 	sensor_water01 = app->physics->CreateRectangleSensor(240, 455, 250, 60);
 	sensor_water01->id = 2;
 	sensor_water01->listener = this;
@@ -234,6 +247,7 @@ bool Scene::Start()
 	sensor_water03->id = 2;
 	sensor_water03->listener = this;
 
+	// holes
 	sensor_fall01 = app->physics->CreateRectangleSensor(420, 550, 100, 60);
 	sensor_fall01->id = 3;
 	sensor_fall01->listener = this;
@@ -246,10 +260,10 @@ bool Scene::Start()
 	sensor_fall03->id = 3;
 	sensor_fall03->listener = this;
 
-	//sensor_win = app->physics->CreateRectangleSensor(2580, 310, 20, 85);
-	//sensor_win->id = 4;
-	//sensor_win->listener = this;
-	//
+	// win
+	sensor_win = app->physics->CreateRectangleSensor(2580, 310, 20, 85);
+	sensor_win->id = 4;
+	sensor_win->listener = this;
 
 	if (app->map->Load("level1_walk.tmx") == true)
 	{
@@ -265,19 +279,17 @@ bool Scene::Start()
 	originTex = app->tex->Load("Assets/sprites/Cross.png");
 	
 	// Uploading the assets
-	//app->map->Load("level1.tmx");
+	// app->map->Load("level1.tmx");
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	img = app->tex->Load("Assets/background/Background.png");
 	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
 	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
 	win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
 
-
 	if (app->player->Awake() == 0)
 	{
 		app->player->Awake();
 	}
-
 
 	return true;
 }
@@ -300,7 +312,6 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		app->SaveGameRequest();
 
-
 	//std::cout << "    " << app->player->xposition << "      " << app->player->yposition <<std::endl;
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
@@ -309,13 +320,12 @@ bool Scene::Update(float dt)
 	app->map->Draw();
 
 	// L03: DONE 7: Set the window title with map/tileset info
-	//SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
+	// SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 	//	app->map->mapData.width, app->map->mapData.height,
 	//	app->map->mapData.tileWidth, app->map->mapData.tileHeight,
 	//	app->map->mapData.tilesets.count());
 	//
-	//app->win->SetTitle(title.GetString());
-
+	//  app->win->SetTitle(title.GetString());
 
 	//app->collisions->AddCollider();
 
@@ -335,9 +345,9 @@ bool Scene::PostUpdate()
 
 
 // Used to pass to the second level
-bool Scene::WinningCondition()
+bool Scene::PassLevelCondition()
 {
-	if (app->player->GetPlayerWin() == true/*????*/)
+	if (app->player->GetPlayerWin() == true)
 	{
 		if (app->player->GetPlayerLifes() > 0)
 		{
@@ -350,6 +360,21 @@ bool Scene::WinningCondition()
 	}
 }
 
+// Win and Loss screens and consequences
+bool Scene::WinLoseCondition()
+{
+	if (PassLevelCondition() == true)
+	{
+		// Show winning screen
+		// Destroy all the chains
+		currentLevel = 2;
+	}
+	else if (app->player->GetPlayerLifes() < 1)
+	{
+		// Show loosing screen
+		// Press x to restart the level
+	}
+}
 
 // Called before quitting
 bool Scene::CleanUp()
