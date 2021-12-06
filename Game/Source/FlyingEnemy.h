@@ -5,6 +5,7 @@
 #include "Physics.h"
 #include "Input.h"
 #include "Module.h"
+#include "Textures.h"
 #include "Animation.h"
 
 struct SDL_Texture;
@@ -16,36 +17,54 @@ struct SDL_Texture;
 //	DEATH
 //};
 
+
+enum FLYING_ENEMY_STATE
+{
+	PATROLLING,
+	CHASING_PLAYER,
+	DEATH
+};
+
 class FlyingEnemy : public Module
 {
 
 private:
-	float startPosX;
-	float startPosY;
+	
 
 	float x, y;
-	b2Vec2 speed;
+	b2Vec2 speed = { 1.3,0 };
 	float maxXspeed;
 
-	PhysBody* ColHitbox;
+	
 	b2Vec2 DetectionRange;
 
 	SDL_Texture* texture;
 	
+	
+
+	//enemy stats
+	//startPosX = 10;
+	//startPosY = 1;
+	
+
+	
+
+	
+
+public:
+
+
 
 	int lifes;
 	bool isAlive;
 
-	enum FLYING_ENEMY_STATE
-	{
-		PATROLLING,
-		CHASING_PLAYER,
-		DEATH
-	};
+	float startPosX;
+	float startPosY;
 
 	FLYING_ENEMY_STATE actualState;
 
-public:
+	PhysBody* ColHitbox;
+
 	FlyingEnemy();
 	virtual ~FlyingEnemy();
 
@@ -61,19 +80,15 @@ public:
 	bool CleanUp();
 	int GetEnemyLifes();
 	void SetEnemyLifes(int l);
-	FLYING_ENEMY_STATE GetEnemyState();
 	void SetEnemyState(FLYING_ENEMY_STATE state);
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
+	// FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition);
+
 
 	// Make a Function to Create an enemy that returns a FlyingEnemy to store in the Flying ennemy List
 	
 
-
-
-	PhysBody* GetColHitbox() const
-	{
-		return ColHitbox;
-	}
 
 
 	//The player spritesheet loaded into an SDL_Texture
@@ -93,9 +108,33 @@ public:
 		}
 	}
 
+
+
+	FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition)
+	{
+		FlyingEnemy enemy;
+
+		enemy.startPosX = xPosition;
+		enemy.startPosY = yPosition;
+
+		enemy.ColHitbox = app->physics->CreateCircle(enemy.startPosX, enemy.startPosY, 6);
+		enemy.ColHitbox->id = 5;
+		enemy.ColHitbox->listener = app->flyingenemy;
+
+		enemy.actualState = PATROLLING;
+
+		enemy.lifes = 2;
+		enemy.isAlive = true;
+		enemy.deathAnimAllowed = false;
+
+
+
+		return &enemy;
+	}
+
 	//// Set of animations
 	//// IDLE animations
-	//Animation rightIdleAnim;
+	Animation rightIdleAnim;
 	//Animation leftIdleAnim;
 	//
 	//// Walking Animations
