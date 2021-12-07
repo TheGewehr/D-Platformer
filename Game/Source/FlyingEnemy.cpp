@@ -131,7 +131,7 @@ bool FlyingEnemy::Update(float dt)
 	}
 	else
 	{
-		actualState = DEATH;
+		actualState = PATROLLING;
 	}
 
 	switch (actualState)
