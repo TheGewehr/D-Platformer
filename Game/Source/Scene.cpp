@@ -368,13 +368,16 @@ bool Scene::WinLoseCondition()
 		// Show winning screen
 		// Destroy all the chains
 		currentLevel = 2;
+		return true;
 	}
 	else if (app->player->GetPlayerLifes() < 1)
 	{
 		// Show loosing screen
 		// Press x to restart the level
+		return false;
 	}
 }
+
 
 // Called before quitting
 bool Scene::CleanUp()

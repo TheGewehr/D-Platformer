@@ -7,7 +7,6 @@
 #include "Defs.h"
 #include "FlyingEnemy.h"
 
-int currentLevel;
 struct SDL_Texture;
 
 class Scene : public Module
@@ -50,8 +49,10 @@ public:
 	uint fall_fx;
 	uint win_fx;
 
-private:
 
+	int currentLevel;
+
+private:
 	SDL_Texture* map;
 
 	SDL_Texture* img;
@@ -59,10 +60,7 @@ private:
 	SDL_Texture* pathTex;
 	SDL_Texture* originTex;
 
-	
-
 	SDL_Rect end_rect;
-
 
 	List<PhysBody*> static_chains;
 	//p2List<PhysBody*> mapStaticBodies;
