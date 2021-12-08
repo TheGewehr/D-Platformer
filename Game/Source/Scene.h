@@ -43,6 +43,8 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
+	FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition);
 	
 	//Collider* playerWall[100] = { nullptr };
 	uint water_fx;

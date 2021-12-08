@@ -50,6 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(player);
 	AddModule(pathfinding);
+	AddModule(flyingenemy);
 	
 
 	// Render last to swap buffer

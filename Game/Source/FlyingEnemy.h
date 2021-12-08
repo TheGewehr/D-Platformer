@@ -110,27 +110,8 @@ public:
 
 
 
-	FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition)
-	{
-		FlyingEnemy enemy;
-
-		enemy.startPosX = xPosition;
-		enemy.startPosY = yPosition;
-
-		enemy.ColHitbox = app->physics->CreateCircle(enemy.startPosX, enemy.startPosY, 6);
-		enemy.ColHitbox->id = 5;
-		enemy.ColHitbox->listener = app->flyingenemy;
-
-		enemy.actualState = PATROLLING;
-
-		enemy.lifes = 2;
-		enemy.isAlive = true;
-		enemy.deathAnimAllowed = false;
-
-
-
-		return &enemy;
-	}
+	FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition);
+	
 
 	//// Set of animations
 	//// IDLE animations

@@ -47,6 +47,27 @@ bool FlyingEnemy::Awake()
 	return true;
 }
 
+FlyingEnemy* FlyingEnemy::CreateFlyingEnemy(int xPosition, int yPosition)
+{
+	FlyingEnemy enemy;
+
+	enemy.startPosX = xPosition;
+	enemy.startPosY = yPosition;
+
+	enemy.ColHitbox = app->physics->CreateCircle(enemy.startPosX, enemy.startPosY, 6);
+	enemy.ColHitbox->id = 5;
+	enemy.ColHitbox->listener = app->flyingenemy;
+
+	enemy.actualState = PATROLLING;
+
+	enemy.lifes = 2;
+	enemy.isAlive = true;
+	enemy.deathAnimAllowed = false;
+
+
+
+	return &enemy;
+}
 
 // Called before the first frame
 bool FlyingEnemy::Start()
@@ -55,9 +76,9 @@ bool FlyingEnemy::Start()
 	texture = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//enemy stats
-	//startPosX = 10;
-	//startPosY = 1;
-	// speed = { 1.3,0 };
+	startPosX = 100;
+	startPosY = 1;
+	 speed = { 1.3,0 };
 	
 	// id's :
 	// 0 nothing
@@ -67,21 +88,24 @@ bool FlyingEnemy::Start()
 	// 4 win
 	// 5 Flying Enemy
 	// 6 Walking Enemy
+	
+	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
+	ColHitbox->id = 5;
+	ColHitbox->listener = app->flyingenemy;
+	
+	
+	 int x_ = (int)x;
+	 int y_ = (int)y;
+	 ColHitbox->GetPosition(x_, y_);
+	 actualState = PATROLLING;
 
-	//ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
-	//ColHitbox->id = 5;
-	//ColHitbox->listener = app->flyingenemy;
-
-
-	// int x_ = (int)x;
-	// int y_ = (int)y;
-	// ColHitbox->GetPosition(x_, y_);
-	// actualState = PATROLLING;
+	//FlyingEnemy you = *CreateFlyingEnemy(10, 1);
 
 	LOG("Loading Flying Enemy");
 
 	return true;
 }
+
 
 bool FlyingEnemy::Update(float dt)
 {
@@ -106,15 +130,28 @@ bool FlyingEnemy::Update(float dt)
 	}
 	*/
 
-	iPoint pos;
-	ColHitbox->GetPosition(pos.x, pos.y);
+	iPoint directionalPoint; // point where i want it to go
+	iPoint pos = { (int)METERS_TO_PIXELS(ColHitbox->body->GetPosition().x), (int)METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) }; // position of the enemy in pixels
 
-	iPoint listMapPosition = app->map->WorldToMap(pos.x, pos.y);
-	iPoint pixMapPosition = app->map->MapToWorld(listMapPosition.x, listMapPosition.y);
 
-	DetectionRange = app->player->GetColHitbox()->body->GetPosition();
 
-	ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
+	//if (ColHitbox != nullptr)
+	//{
+	//	ColHitbox->GetPosition(pos.x, pos.y); // get the pixel position of the enemy
+	//	ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
+	//}
+	
+
+	iPoint listMapPosition = app->map->WorldToMap(pos.x, pos.y); // number of the tile where the ennemy is
+	iPoint pixMapPosition = app->map->MapToWorld(listMapPosition.x, listMapPosition.y); // position of the tile where te enemy is in pixels
+
+	 DetectionRange = app->player->GetColHitbox()->body->GetPosition();
+
+	 directionalPoint = pixMapPosition;
+
+	 //ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
+
+	
 	
 	if (isAlive == true)
 	{
@@ -126,33 +163,38 @@ bool FlyingEnemy::Update(float dt)
 		// {
 		// 	actualState = PATROLLING;
 		// }
-
+	
 		actualState = PATROLLING;
 	}
 	else
 	{
 		actualState = PATROLLING;
 	}
-
+	
+	//ColHitbox->body->ApplyLinearImpulse({ -30.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+	
 	switch (actualState)
 	{
 	case CHASING_PLAYER:
 	{
 		// chase the player
-
+	
 		// Make the pathfinding
-
+	
 		// advance one tile
-
+	
+	
+		
+	
 	}break;
 	case PATROLLING:
 	{
 		//  Maintain the position
 		
-
+	
 		
 		
-
+	
 		if (pos.x > pixMapPosition.x)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x < -1.0f)
@@ -160,7 +202,7 @@ bool FlyingEnemy::Update(float dt)
 				ColHitbox->body->ApplyLinearImpulse({ -1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
 			}			
 		}
-
+	
 		if (pos.x < pixMapPosition.x)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x > 1.0f)
@@ -168,8 +210,8 @@ bool FlyingEnemy::Update(float dt)
 				ColHitbox->body->ApplyLinearImpulse({ 1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
 			}
 		}
-
-
+	
+	
 		if (pos.y > pixMapPosition.y)
 		{
 			if (ColHitbox->body->GetLinearVelocity().y < -1.0f)
@@ -177,7 +219,7 @@ bool FlyingEnemy::Update(float dt)
 				ColHitbox->body->ApplyLinearImpulse({ 0.0f,-1.0f }, ColHitbox->body->GetPosition(), true);
 			}
 		}
-
+	
 		if (pos.y < pixMapPosition.y)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x > 1.0f)
@@ -186,17 +228,19 @@ bool FlyingEnemy::Update(float dt)
 			}
 		}
 		
-
+	
 		
-
+	
 	}break;
 	case DEATH:
 	{
-		deathAnimAllowed = true;
+		
 		// dies and become a kinematic object
+	
+	
 	}break;
 	}
-
+	
 	currentAnimation = &rightIdleAnim;
 
 	
@@ -207,7 +251,7 @@ bool FlyingEnemy::Update(float dt)
 bool FlyingEnemy::PostUpdate()
 {
 
-	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) , METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) , &currentAnimation->GetCurrentFrame());
+	//  app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) , METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) , &currentAnimation->GetCurrentFrame());
 	return true;
 }
 

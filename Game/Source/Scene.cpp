@@ -26,6 +26,28 @@ Scene::Scene(bool startEnabled) : Module()
 Scene::~Scene()
 {}
 
+FlyingEnemy* Scene::CreateFlyingEnemy(int xPosition, int yPosition)
+{
+	FlyingEnemy enemy;
+
+	enemy.startPosX = xPosition;
+	enemy.startPosY = yPosition;
+
+	enemy.ColHitbox = app->physics->CreateCircle(enemy.startPosX, enemy.startPosY, 6);
+	enemy.ColHitbox->id = 5;
+	enemy.ColHitbox->listener = app->flyingenemy;
+
+	enemy.actualState = PATROLLING;
+
+	enemy.lifes = 2;
+	enemy.isAlive = true;
+	enemy.deathAnimAllowed = false;
+
+
+
+	return &enemy;
+}
+
 // Called before render is available
 bool Scene::Awake()
 {
@@ -232,7 +254,7 @@ bool Scene::Start()
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
 
-	FlyingEnemiesList.add(app->flyingenemy->CreateFlyingEnemy(50,50));
+	
 
 	// water
 	sensor_water01 = app->physics->CreateRectangleSensor(240, 455, 250, 60);
@@ -291,8 +313,22 @@ bool Scene::Start()
 		app->player->Awake();
 	}
 
+	if (app->flyingenemy->Awake() == 0)
+	{
+		app->flyingenemy->Awake();
+	}
+
+
+
+	//FlyingEnemiesList.add(app->flyingenemy->CreateFlyingEnemy(200, 50));
+	
+	//CreateFlyingEnemy(200, 50);
+
 	return true;
 }
+
+
+
 
 // Called each loop iteration
 bool Scene::PreUpdate()
