@@ -149,7 +149,9 @@ bool Player::Awake()
 // Load assets
 bool Player::Start()
 {
-	//textures
+	LOG("Loading player");
+
+	//loading textures
 	texture = app->tex->Load("Assets/sprites/GraveRobber.png");
 
 	//player stats
@@ -167,10 +169,10 @@ bool Player::Start()
 	// 5 Flying Enemy
 	// 6 Walking Enemy
 
-	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
+	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 15);
 	ColHitbox->id = 1;
 	ColHitbox->listener = app->player;
-	
+
 	int x_ = (int)x;
 	int y_ = (int)y;
 	ColHitbox->GetPosition(x_, y_);
@@ -181,7 +183,6 @@ bool Player::Start()
 	win = false;
 	slowMoHability = false;
 
-	LOG("Loading player");
 	return true;
 }
 
@@ -245,8 +246,6 @@ bool Player::Update(float dt)
 
 	
 
-	
-	
 	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.5*app->win->GetWidth();
 
 	// x movement on air

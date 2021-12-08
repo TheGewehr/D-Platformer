@@ -67,7 +67,6 @@ void Map::Draw()
 	// L04: TODO 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
 	ListItem<MapLayer*>* mapLayerIterator = mapData.maplayers.start;
 	
-
 		for (int x = 0; x < mapData.maplayers.start->data->width; x++)
 		{
 			for (int y = 0; y < mapData.maplayers.start->data->height; y++)
@@ -79,18 +78,13 @@ void Map::Draw()
 				iPoint screenPos = MapToWorld(x, y);
 
 				app->render->DrawTexture(mapData.tilesets.start->data->texture, screenPos.x, screenPos.y, &rect);
-
 			}
 		}
-
-
 
 	//L04: TODO 9: Complete the draw function (inside the loop from TODO 5)
 	//Find which tile id is on x, y coordinates 
 	//Find out that Tile’s Rect inside the tileset Image (
 	//Find out where in the World(screen) we have to draw
-	
-
 }
 
 // L04: TODO 8: Create a method that translates x,y coordinates from map positions to world positions
@@ -101,7 +95,7 @@ iPoint Map::MapToWorld(int x, int y) const
 	ret.x = x * mapData.tileWidth;
 	ret.y = y * mapData.tileHeight;
 
-	//ret.x = app->render->camera.x+600;
+	//ret.x = app->render->camera.x + 600;
 	//ret.y = app->render->camera.y + 200;
 
 	return ret;
@@ -134,8 +128,6 @@ SDL_Rect TileSet::GetTileRect(int id) const
 
 	rect.x = margin + (tile_width + spacing) * (relativeIndex % columns);
 	rect.y = margin + (tile_height + spacing) * (relativeIndex / columns);
-
-	
 
 	return rect;
 }
@@ -202,7 +194,7 @@ bool Map::Load(const char* filename)
 		ret = LoadAllLayers(mapFile.child("map"));
 	}
 
-    if(ret == true)
+    if (ret == true)
     {
         // L03: TODO 5: LOG all the data loaded iterate all tilesets and LOG everything
 
@@ -245,7 +237,6 @@ bool Map::LoadMap(pugi::xml_node mapFile)
 bool Map::LoadTileSets(pugi::xml_node mapFile) {
 
 	bool ret = true;
-
 
 	pugi::xml_node tileset;
 	//pugi::xml_node tilesetIterator = tileset = mapFile.child("tileset");

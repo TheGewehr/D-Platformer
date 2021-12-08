@@ -30,8 +30,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
-	intro = new Intro(false);
-	scene = new Scene(false);
+	intro = new Intro();
+	scene = new Scene();
 	map = new Map();
 	physics = new Physics();
 	player = new Player();
@@ -50,7 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(player);
 	AddModule(pathfinding);
-	
+
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -441,7 +441,6 @@ bool App::SaveGame() const
 
 void App::CalculateFramerate() {
 
-
 	if (last_sec_frame_time.Read() > 1000)
 	{
 		last_sec_frame_time.Start();
@@ -454,11 +453,8 @@ void App::CalculateFramerate() {
 	last_frame_ms = frame_time.Read();
 	frames_on_last_update = prev_last_sec_frame_count;
 
-
-
 	if (Capto30 == true) 
 	{
-
 		deltaTime = 1000 / framerateCap;
 
 		int delay = deltaTime - last_frame_ms;
@@ -466,7 +462,6 @@ void App::CalculateFramerate() {
 		DelayTimer.Start();
 		if (delay > 0)
 			SDL_Delay((uint32)delay);
-
 
 		LOG("we waited %u and got back %f", delay, DelayTimer.ReadMs());
 	}
@@ -479,23 +474,24 @@ void App::DisplayFrameRateInfo() {
 	{
 		static char title[256];
 
-
 		sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu  CapedTo30:On  vSync:Off",
 			avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 
 		app->win->SetTitle(title);
 	}
-
 	else {
-
 		static char title[256];
 		sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu  CapedTo30:Off  vSync:Off",
 			avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 
 		app->win->SetTitle(title);
-
-
 	}
-
 }
 
+void App::SceneSwap(gameScene nextScene)
+{
+	currentScene = nextScene;
+
+	Start();
+
+}

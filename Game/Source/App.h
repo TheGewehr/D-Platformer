@@ -25,7 +25,16 @@ class Physics;
 class Player;
 class FlyingEnemy;
 
-//class Timer;
+// Game existing scenes
+enum gameScene
+{
+	INTRO,
+	LEVEL1,
+	LEVEL2,
+	WIN,
+	GAMEOVER,
+};
+
 //class PerfTimer;
 class PathFinding;
 
@@ -63,6 +72,8 @@ public:
     // L02: DONE 1: Create methods to request Load / Save
 	void LoadGameRequest();
 	void SaveGameRequest() const;
+
+	void SceneSwap(gameScene nextScene);
 
 	float GetDeltaTime()
 	{
@@ -112,27 +123,24 @@ private:
 	void CalculateFramerate();
 	void DisplayFrameRateInfo();
 
-
-	
-
 public:
-
 	// Modules
 	Window* win;
 	Input* input;
 	Render* render;
 	Textures* tex;
 	Audio* audio;
-	Intro* intro = nullptr;
-	Scene* scene = nullptr;
+	Intro* intro;
+	Scene* scene;
 	Map* map;
 	Physics* physics;
 	Player* player;
 	PathFinding* pathfinding;
 	FlyingEnemy* flyingenemy;
 
-private:
+	gameScene currentScene = INTRO;
 
+private:
 	int argc;
 	char** args;
 	SString title;
@@ -164,16 +172,11 @@ private:
 	mutable bool saveGameRequested;
 	bool loadGameRequested;
 
-
-
-
 	float avg_fps;
 	float seconds_since_startup;
 	uint last_frame_ms;
 	uint frames_on_last_update;
 
-
-	
 	PerfTimer ptimer;
 	PerfTimer DelayTimer;
 	uint frame_count = 0;
@@ -181,15 +184,10 @@ private:
 	Timer frame_time;
 	Timer last_sec_frame_time;
 
-
 	uint last_sec_frame_count = 0;
 	uint prev_last_sec_frame_count = 0;
 
-	
 	uint deltaTime;
-
-
-	
 };
 
 extern App* app;

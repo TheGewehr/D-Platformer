@@ -49,10 +49,10 @@
     <ClCompile Include="Source\PathFinding.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Intro.cpp">
+    <ClCompile Include="Source\FlyingEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FlyingEnemy.cpp">
+    <ClCompile Include="Source\Intro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -132,10 +132,10 @@
     <ClInclude Include="Source\PathFinding.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Intro.h">
+    <ClInclude Include="Source\FlyingEnemy.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FlyingEnemy.h">
+    <ClInclude Include="Source\Intro.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
   </ItemGroup>

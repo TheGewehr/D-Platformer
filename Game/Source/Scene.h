@@ -13,7 +13,7 @@ class Scene : public Module
 {
 public:
 
-	Scene(bool startEnabled);
+	Scene();
 
 	// Destructor
 	virtual ~Scene();
@@ -37,25 +37,25 @@ public:
 	bool PassLevelCondition();
 
 	// Win and Loss screens and consequences
-	bool WinLoseCondition();
+	void WinLoseCondition();
 
 	// Called before quitting
 	bool CleanUp();
-
-	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	
 	//Collider* playerWall[100] = { nullptr };
 	uint water_fx;
 	uint fall_fx;
 	uint win_fx;
 
-
 	int currentLevel;
 
 private:
 	SDL_Texture* map;
 
-	SDL_Texture* img;
+	SDL_Texture* introimg;
+	SDL_Texture* backgroundimg;
+	SDL_Texture* winimg;
+	SDL_Texture* loseimg;
 
 	SDL_Texture* pathTex;
 	SDL_Texture* originTex;
