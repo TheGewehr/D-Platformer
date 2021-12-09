@@ -102,7 +102,6 @@ bool Render::LoadState(pugi::xml_node& data)
 	camera.x = data.child("camera").attribute("x").as_int(0);
 	camera.y = data.child("camera").attribute("y").as_int(0);
 	
-
 	return true;
 }
 

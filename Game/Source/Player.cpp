@@ -212,7 +212,6 @@ bool Player::Update(float dt)
 	{
 		isAlive = false;
 	}
-
 	if (isAlive != false && win == false)
 	{
 		if (goRight == true)
@@ -220,13 +219,11 @@ bool Player::Update(float dt)
 			if (ColHitbox->body->GetLinearVelocity().x < 5.f)
 				ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
 		}
-
 		if (goLeft == true)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x > -5.f)
 				ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
 		}
-
 		if (qHability == true)
 		{
 			if (slowMoHability == true)
@@ -237,7 +234,6 @@ bool Player::Update(float dt)
 			{
 				slowMoHability = true;
 			}
-
 		}
 	}
 	else
@@ -248,14 +244,12 @@ bool Player::Update(float dt)
 	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 0.5 * app->win->GetWidth();
 
 	// x movement on air
-
 	if (ColHitbox->body->GetLinearVelocity().x < -3)
 	{
 		stopping = { speed.x * 0.2f,0 };
 
 		ColHitbox->body->ApplyLinearImpulse(stopping, ColHitbox->body->GetPosition(), true);
 	}
-
 	if (ColHitbox->body->GetLinearVelocity().x > 3)
 	{
 		stopping = { speed.x * 0.2f,0 };
@@ -413,7 +407,6 @@ void Player::SetPlayerSlowMo(bool b)
 // Called each loop iteration
 bool Player::PostUpdate()
 {
-
 	//Drawing player
 	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
