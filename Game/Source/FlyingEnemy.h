@@ -53,7 +53,8 @@ private:
 
 public:
 
-
+	iPoint directionPoint; // pixels
+	iPoint positionOfTheObject;
 
 	int lifes;
 	bool isAlive;
