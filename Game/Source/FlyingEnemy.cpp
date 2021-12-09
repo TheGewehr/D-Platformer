@@ -55,9 +55,9 @@ bool FlyingEnemy::Start()
 	texture = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//enemy stats
-	//startPosX = 10;
-	//startPosY = 1;
-	// speed = { 1.3,0 };
+	startPosX = 10;
+	startPosY = 1;
+	 speed = { 1.3,0 };
 	
 	// id's :
 	// 0 nothing
@@ -68,15 +68,15 @@ bool FlyingEnemy::Start()
 	// 5 Flying Enemy
 	// 6 Walking Enemy
 
-	//ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
-	//ColHitbox->id = 5;
-	//ColHitbox->listener = app->flyingenemy;
+	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
+	ColHitbox->id = 5;
+	ColHitbox->listener = app->flyingenemy;
 
 
-	// int x_ = (int)x;
-	// int y_ = (int)y;
-	// ColHitbox->GetPosition(x_, y_);
-	// actualState = PATROLLING;
+	 int x_ = (int)x;
+	 int y_ = (int)y;
+	 ColHitbox->GetPosition(x_, y_);
+	 actualState = PATROLLING;
 
 	LOG("Loading Flying Enemy");
 
@@ -85,121 +85,121 @@ bool FlyingEnemy::Start()
 
 bool FlyingEnemy::Update(float dt)
 {
-	/*
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint p = app->map->ScreenToWorld(mouseX, mouseY);
-	p = app->map->WorldToMap(p.x, p.y);
-
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (originSelected == true)
-		{
-			app->pathfinding->CreatePath(origin, p);
-			originSelected = false;
-		}
-		else
-		{
-			origin = p;
-			originSelected = true;
-		}
-	}
-	*/
-
-	iPoint pos;
-	ColHitbox->GetPosition(pos.x, pos.y);
-
-	iPoint listMapPosition = app->map->WorldToMap(pos.x, pos.y);
-	iPoint pixMapPosition = app->map->MapToWorld(listMapPosition.x, listMapPosition.y);
-
-	DetectionRange = app->player->GetColHitbox()->body->GetPosition();
-
-	ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
-	
-	if (isAlive == true)
-	{
-		// if (((DetectionRange.x < 3000) && (DetectionRange.x > -3000)) && ((DetectionRange.y < 3000) && (DetectionRange.y > -3000)))
-		// {
-		// 	actualState = CHASING_PLAYER;
-		// }
-		// else
-		// {
-		// 	actualState = PATROLLING;
-		// }
-
-		actualState = PATROLLING;
-	}
-	else
-	{
-		actualState = PATROLLING;
-	}
-
-	switch (actualState)
-	{
-	case CHASING_PLAYER:
-	{
-		// chase the player
-
-		// Make the pathfinding
-
-		// advance one tile
-
-	}break;
-	case PATROLLING:
-	{
-		//  Maintain the position
-		
-
-		
-		
-
-		if (pos.x > pixMapPosition.x)
-		{
-			if (ColHitbox->body->GetLinearVelocity().x < -1.0f)
-			{
-				ColHitbox->body->ApplyLinearImpulse({ -1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
-			}			
-		}
-
-		if (pos.x < pixMapPosition.x)
-		{
-			if (ColHitbox->body->GetLinearVelocity().x > 1.0f)
-			{
-				ColHitbox->body->ApplyLinearImpulse({ 1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
-			}
-		}
-
-
-		if (pos.y > pixMapPosition.y)
-		{
-			if (ColHitbox->body->GetLinearVelocity().y < -1.0f)
-			{
-				ColHitbox->body->ApplyLinearImpulse({ 0.0f,-1.0f }, ColHitbox->body->GetPosition(), true);
-			}
-		}
-
-		if (pos.y < pixMapPosition.y)
-		{
-			if (ColHitbox->body->GetLinearVelocity().x > 1.0f)
-			{
-				ColHitbox->body->ApplyLinearImpulse({ 0.0f, 1.0f }, ColHitbox->body->GetPosition(), true);
-			}
-		}
-		
-
-		
-
-	}break;
-	case DEATH:
-	{
-		deathAnimAllowed = true;
-		// dies and become a kinematic object
-	}break;
-	}
-
-	currentAnimation = &rightIdleAnim;
-
-	
+	///*
+	//int mouseX, mouseY;
+	//app->input->GetMousePosition(mouseX, mouseY);
+	//iPoint p = app->map->ScreenToWorld(mouseX, mouseY);
+	//p = app->map->WorldToMap(p.x, p.y);
+	//
+	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	//{
+	//	if (originSelected == true)
+	//	{
+	//		app->pathfinding->CreatePath(origin, p);
+	//		originSelected = false;
+	//	}
+	//	else
+	//	{
+	//		origin = p;
+	//		originSelected = true;
+	//	}
+	//}
+	//*/
+	//
+	//iPoint pos;
+	//ColHitbox->GetPosition(pos.x, pos.y);
+	//
+	//iPoint listMapPosition = app->map->WorldToMap(pos.x, pos.y);
+	//iPoint pixMapPosition = app->map->MapToWorld(listMapPosition.x, listMapPosition.y);
+	//
+	//DetectionRange = app->player->GetColHitbox()->body->GetPosition();
+	//
+	//ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
+	//
+	//if (isAlive == true)
+	//{
+	//	// if (((DetectionRange.x < 3000) && (DetectionRange.x > -3000)) && ((DetectionRange.y < 3000) && (DetectionRange.y > -3000)))
+	//	// {
+	//	// 	actualState = CHASING_PLAYER;
+	//	// }
+	//	// else
+	//	// {
+	//	// 	actualState = PATROLLING;
+	//	// }
+	//
+	//	actualState = PATROLLING;
+	//}
+	//else
+	//{
+	//	actualState = PATROLLING;
+	//}
+	//
+	//switch (actualState)
+	//{
+	//case CHASING_PLAYER:
+	//{
+	//	// chase the player
+	//
+	//	// Make the pathfinding
+	//
+	//	// advance one tile
+	//
+	//}break;
+	//case PATROLLING:
+	//{
+	//	//  Maintain the position
+	//	
+	//
+	//	
+	//	
+	//
+	//	if (pos.x > pixMapPosition.x)
+	//	{
+	//		if (ColHitbox->body->GetLinearVelocity().x < -1.0f)
+	//		{
+	//			ColHitbox->body->ApplyLinearImpulse({ -1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+	//		}			
+	//	}
+	//
+	//	if (pos.x < pixMapPosition.x)
+	//	{
+	//		if (ColHitbox->body->GetLinearVelocity().x > 1.0f)
+	//		{
+	//			ColHitbox->body->ApplyLinearImpulse({ 1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+	//		}
+	//	}
+	//
+	//
+	//	if (pos.y > pixMapPosition.y)
+	//	{
+	//		if (ColHitbox->body->GetLinearVelocity().y < -1.0f)
+	//		{
+	//			ColHitbox->body->ApplyLinearImpulse({ 0.0f,-1.0f }, ColHitbox->body->GetPosition(), true);
+	//		}
+	//	}
+	//
+	//	if (pos.y < pixMapPosition.y)
+	//	{
+	//		if (ColHitbox->body->GetLinearVelocity().x > 1.0f)
+	//		{
+	//			ColHitbox->body->ApplyLinearImpulse({ 0.0f, 1.0f }, ColHitbox->body->GetPosition(), true);
+	//		}
+	//	}
+	//	
+	//
+	//	
+	//
+	//}break;
+	//case DEATH:
+	//{
+	//	deathAnimAllowed = true;
+	//	// dies and become a kinematic object
+	//}break;
+	//}
+	//
+	//currentAnimation = &rightIdleAnim;
+	//
+	//
 
 	return true;
 }
