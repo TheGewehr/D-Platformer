@@ -324,7 +324,6 @@ bool App::PostUpdate()
 // Called before quitting
 bool App::CleanUp()
 {
-
 	PERF_START(ptimer);
 
 	bool ret = true;

@@ -49,6 +49,8 @@ bool Scene::Start()
 		case INTRO:
 		{
 			introimg = app->tex->Load("Assets/sprites/gamescreens/IntroScreen.png");
+			winimg = app->tex->Load("Assets/sprites/gamescreens/WinningScreen.png");
+			loseimg = app->tex->Load("Assets/sprites/gamescreens/GameOverScreen.png");
 			//app->audio->PlayMusic("");
 		}
 		break;
@@ -295,6 +297,7 @@ bool Scene::Start()
 		{
 			app->intro->CleanUp();
 			app->player->CleanUp();
+			app->audio->CleanUp();
 			win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
 			winimg = app->tex->Load("Assets/sprites/gamescreens/WinningScreen.png");
 			//app->audio->PlayMusic("");
@@ -305,6 +308,7 @@ bool Scene::Start()
 		{
 			app->intro->CleanUp();
 			app->player->CleanUp();
+			app->audio->CleanUp();
 			loseimg = app->tex->Load("Assets/sprites/gamescreens/GameOverScreen.png");
 			//app->audio->PlayMusic("");
 		}
@@ -357,6 +361,7 @@ bool Scene::Update(float dt)
 
 		case LEVEL1:
 		{
+			app->intro->CleanUp();
 			app->render->DrawTexture(backgroundimg, 0, 0, NULL);
 			app->map->Draw();
 			return true;
@@ -365,6 +370,7 @@ bool Scene::Update(float dt)
 
 		case LEVEL2:
 		{
+			app->intro->CleanUp();
 			app->render->DrawTexture(backgroundimg, 0, 0, NULL);
 			app->map->Draw();
 			return true;
@@ -416,6 +422,28 @@ bool Scene::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	// Debug keys
+	// Level 1 start
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		app->currentScene = LEVEL1;
+	}
+	// Level 2 start
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		app->currentScene = LEVEL2;
+	}
+	// Insta win
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		app->currentScene = WIN;
+	}
+	// Insta lose
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		app->currentScene = GAMEOVER;
+	}
+
 	return ret;
 }
 
@@ -435,32 +463,6 @@ bool Scene::PassLevelCondition()
 		return false;
 	}
 }
-
-// Win and Loss screens and consequences
-void Scene::WinLoseCondition()
-{
-	if (PassLevelCondition() == true)
-	{
-		// Shows winning screen
-		app->render->DrawTexture(winimg, 0, 0, NULL);
-
-		// Swaps the level if it's necessary
-		if (app->currentScene == LEVEL1) 
-		{
-			app->SceneSwap(LEVEL1);
-		}
-		else if (app->currentScene == LEVEL2)
-		{
-			app->SceneSwap(INTRO);
-		}
-	}
-	else if (app->player->GetPlayerLifes() < 1)
-	{
-		// Shows loosing screen
-		app->render->DrawTexture(loseimg, 0, 0, NULL);
-	}
-}
-
 
 // Called before quitting
 bool Scene::CleanUp()
