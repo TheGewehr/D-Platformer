@@ -139,27 +139,27 @@ public:
 	//// Set of animations
 	//// IDLE animations
 	Animation rightIdleAnim;
-	//Animation leftIdleAnim;
+	Animation leftIdleAnim;
 	//
 	//// Walking Animations
-	//Animation walkingRigthAnim;
-	//Animation walkingLeftAnim;
+	Animation walkingRigthAnim;
+	Animation walkingLeftAnim;
 	//
 	//// Running Animations
-	//Animation runningRigthAnim;
-	//Animation runningLeftAnim;
+	Animation runningRigthAnim;
+	Animation runningLeftAnim;
 	//
 	//// Jumping Animations
-	//Animation jumpingRigthAnim;
-	//Animation jumpingLeftAnim;
+	Animation jumpingRigthAnim;
+	Animation jumpingLeftAnim;
 	//
 	//// Damage Animatios
-	//Animation hitFromRightAnim;
-	//Animation hitFromLeftAnim;
+	Animation hitFromRightAnim;
+	Animation hitFromLeftAnim;
 	//
 	//// Death Animation
-	//Animation deathFromRightAnim;
-	//Animation deathFromLeftAnim;
+	Animation deathFromRightAnim;
+	Animation deathFromLeftAnim;
 
 	bool deathAnimAllowed;
 };
