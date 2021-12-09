@@ -51,6 +51,7 @@ bool Scene::Start()
 			introimg = app->tex->Load("Assets/sprites/gamescreens/IntroScreen.png");
 			winimg = app->tex->Load("Assets/sprites/gamescreens/WinningScreen.png");
 			loseimg = app->tex->Load("Assets/sprites/gamescreens/GameOverScreen.png");
+			//app->audio->PlayMusic("");
 		}
 		break;
 
@@ -281,6 +282,35 @@ bool Scene::Start()
 			LOG("CLEARING INTRODUCTION PAGE");
 			app->intro->CleanUp();
 
+			LOG("CLEARING THE MAP OF THE FIRST LEVEL");
+			app->map->CleanUp();
+
+			app->map->Load("level2.tmx");
+			water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
+			fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
+			backgroundimg = app->tex->Load("Assets/background/Background.png");
+			app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
+		}
+		break;
+
+		case WIN:
+		{
+			app->intro->CleanUp();
+			app->player->CleanUp();
+			app->audio->CleanUp();
+			win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
+			winimg = app->tex->Load("Assets/sprites/gamescreens/WinningScreen.png");
+			//app->audio->PlayMusic("");
+		}
+		break;
+
+		case GAMEOVER:
+		{
+			app->intro->CleanUp();
+			app->player->CleanUp();
+			app->audio->CleanUp();
+			loseimg = app->tex->Load("Assets/sprites/gamescreens/GameOverScreen.png");
+			//app->audio->PlayMusic("");
 		}
 		break;
 	}
@@ -453,6 +483,22 @@ bool Scene::CleanUp()
 		{
 			LOG("Unloading Background Texture");
 			app->tex->UnLoad(backgroundimg);
+			return true;
+		}
+		break;
+
+		case WIN:
+		{
+			LOG("Unloading Background Music");
+			app->audio->CleanUp();
+			return true;
+		}
+		break;
+
+		case GAMEOVER:
+		{
+			LOG("Unloading Background Music");
+			app->audio->CleanUp();
 			return true;
 		}
 		break;
