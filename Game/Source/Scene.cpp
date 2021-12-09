@@ -65,6 +65,7 @@ bool Scene::Start()
 
 	app->player->SetPlayerLifes(3);
 
+
 	// Level 1 Box2D points
 	if (currentLevel != 2)
 	{
