@@ -232,7 +232,7 @@ bool Scene::Start()
 	static_chains.getLast()->data->id = 0;
 	static_chains.getLast()->data->listener = this;
 
-	FlyingEnemiesList.add(app->flyingenemy->CreateFlyingEnemy(50,50));
+	// FlyingEnemiesList.add(app->flyingenemy->CreateFlyingEnemy(50,50));
 
 	// water
 	sensor_water01 = app->physics->CreateRectangleSensor(240, 455, 250, 60);

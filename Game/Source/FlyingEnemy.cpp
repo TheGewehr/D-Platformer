@@ -37,12 +37,12 @@ bool FlyingEnemy::Awake()
 	float deathSpeed = 0.1f;
 
 	// IDLE animation right
-	rightIdleAnim.PushBack({ 3, 15, 19, 33 });
-	rightIdleAnim.PushBack({ 4, 15, 19, 33 });
-	rightIdleAnim.PushBack({ 5, 15, 20, 33 });
-	rightIdleAnim.PushBack({ 6, 15, 19, 33 });
-	rightIdleAnim.loop = true;
-	rightIdleAnim.speed = idleSpeed;
+	//rightIdleAnim.PushBack({ 3, 15, 19, 33 });
+	//rightIdleAnim.PushBack({ 4, 15, 19, 33 });
+	//rightIdleAnim.PushBack({ 5, 15, 20, 33 });
+	//rightIdleAnim.PushBack({ 6, 15, 19, 33 });
+	//rightIdleAnim.loop = true;
+	//rightIdleAnim.speed = idleSpeed;
 
 	return true;
 }
@@ -85,6 +85,43 @@ bool FlyingEnemy::Start()
 
 bool FlyingEnemy::Update(float dt)
 {
+
+	directionPoint = { 100, 100 }; // pixels	
+
+	ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+
+	//ColHitbox->body->ApplyLinearImpulse({ -100.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+	ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
+
+	app->render->DrawCircle(positionOfTheObject.x, positionOfTheObject.y, 5, 100, 34, 22, 255, true);
+
+
+	if (directionPoint.x < positionOfTheObject.x)
+	{
+		ColHitbox->body->ApplyLinearImpulse({ -1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+
+	}
+
+	if (directionPoint.x > positionOfTheObject.x)
+	{
+
+		ColHitbox->body->ApplyLinearImpulse({ 1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+
+	}
+
+	if (directionPoint.y < positionOfTheObject.y)
+	{
+		ColHitbox->body->ApplyLinearImpulse({ 0.0f,-1.0f }, ColHitbox->body->GetPosition(), true);
+
+	}
+
+	if (directionPoint.y > positionOfTheObject.y)
+	{
+
+		ColHitbox->body->ApplyLinearImpulse({ 0.0f, 1.0f }, ColHitbox->body->GetPosition(), true);
+
+	}
+
 	///*
 	//int mouseX, mouseY;
 	//app->input->GetMousePosition(mouseX, mouseY);
@@ -207,7 +244,7 @@ bool FlyingEnemy::Update(float dt)
 bool FlyingEnemy::PostUpdate()
 {
 
-	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) , METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) , &currentAnimation->GetCurrentFrame());
+	//app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) , METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) , &currentAnimation->GetCurrentFrame());
 	return true;
 }
 
