@@ -44,7 +44,6 @@ bool Scene::Start()
 
 	app->player->SetPlayerLifes(3);
 
-
 	switch (app->currentScene)
 	{
 		case INTRO:
