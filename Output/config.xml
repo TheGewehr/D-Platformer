@@ -5,13 +5,6 @@
 		<organization>UPC</organization>
 	</app>
 	
-	/*
-	<app>
-		<title>Game Development Testbed</title>
-		<organization>UPC</organization>
-	</app>
-	*/
-	
 	<player>
 		<startPos x="251" y="273" />
 		<lifes value="3" />
