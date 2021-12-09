@@ -247,7 +247,7 @@ bool Player::Update(float dt)
 
 	
 	
-	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.5*app->win->GetWidth();
+	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.1 *app->win->GetWidth();
 
 	// x movement on air
 
