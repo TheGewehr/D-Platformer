@@ -140,9 +140,6 @@ public:
 
 	gameScene currentScene = INTRO;
 
-	#define SCREEN_HEIGHT 720
-	#define SCREEN_WIDTH 1080
-
 private:
 	int argc;
 	char** args;

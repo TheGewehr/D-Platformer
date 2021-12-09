@@ -241,7 +241,7 @@ bool Player::Update(float dt)
 
 	}
 
-	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) * app->win->GetWidth();
+	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 0.5 * app->win->GetWidth();
 
 	// x movement on air
 	if (ColHitbox->body->GetLinearVelocity().x < -3)
@@ -265,6 +265,7 @@ bool Player::Update(float dt)
 
 		if (ground != nullptr)
 		{
+
 			b2Vec2 xVel = { 0,ColHitbox->body->GetLinearVelocity().y };
 			if (!goLeft && !goRight) ColHitbox->body->SetLinearVelocity(xVel);
 
@@ -407,7 +408,7 @@ void Player::SetPlayerSlowMo(bool b)
 bool Player::PostUpdate()
 {
 	//Drawing player
-	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-24, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
 	return true;
 }
@@ -445,6 +446,7 @@ bool Player::LoadState(pugi::xml_node& data)
 
 	return true;
 }
+
 
 bool Player::SaveState(pugi::xml_node& data) const
 {
