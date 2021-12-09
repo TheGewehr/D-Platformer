@@ -203,6 +203,7 @@ bool Scene::Start()
 			// 3 holes
 			// 4 win
 
+
 			// map
 			static_chains.add(app->physics->CreateStaticChain(0, 0, map, 142));
 			static_chains.getLast()->data->id = 0;
@@ -235,7 +236,7 @@ bool Scene::Start()
 			static_chains.getLast()->data->id = 0;
 			static_chains.getLast()->data->listener = this;
 
-			FlyingEnemiesList.add(app->flyingenemy->CreateFlyingEnemy(50, 50));
+			//FlyingEnemiesList.add(app->flyingenemy->CreateFlyingEnemy(50, 50));
 
 			// water
 			sensor_water01 = app->physics->CreateRectangleSensor(240, 455, 250, 60);

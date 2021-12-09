@@ -55,9 +55,9 @@ bool FlyingEnemy::Start()
 	texture = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//enemy stats
-	//startPosX = 10;
-	//startPosY = 1;
-	// speed = { 1.3,0 };
+	startPosX = 100;
+	startPosY = 100;
+	speed = { 1.3,0 };
 	
 	// id's :
 	// 0 nothing
@@ -68,15 +68,15 @@ bool FlyingEnemy::Start()
 	// 5 Flying Enemy
 	// 6 Walking Enemy
 
-	//ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
-	//ColHitbox->id = 5;
-	//ColHitbox->listener = app->flyingenemy;
+	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
+	ColHitbox->id = 5;
+	ColHitbox->listener = app->flyingenemy;
 
 
-	// int x_ = (int)x;
-	// int y_ = (int)y;
-	// ColHitbox->GetPosition(x_, y_);
-	// actualState = PATROLLING;
+	 int x_ = (int)x;
+	 int y_ = (int)y;
+	 ColHitbox->GetPosition(x_, y_);
+	 actualState = PATROLLING;
 
 	LOG("Loading Flying Enemy");
 
@@ -86,10 +86,39 @@ bool FlyingEnemy::Start()
 bool FlyingEnemy::Update(float dt)
 {
 
-	directionPoint = {100, 100}; // pixels
-	
+	directionPoint = {100, 100}; // pixels	
 
-	ColHitbox->GetPosition(positionOfTheObject.x,positionOfTheObject.y);
+	ColHitbox->GetPosition(positionOfTheObject.x,positionOfTheObject.y); // pixels
+
+	//ColHitbox->body->ApplyLinearImpulse({ -100.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+	ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
+
+
+	if (directionPoint.x < positionOfTheObject.x)
+	{
+		ColHitbox->body->ApplyLinearImpulse({ -1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+			
+	}
+
+	if (directionPoint.x > positionOfTheObject.x)
+	{
+		
+		ColHitbox->body->ApplyLinearImpulse({ 1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+		
+	}
+
+	if (directionPoint.y < positionOfTheObject.y)
+	{
+		ColHitbox->body->ApplyLinearImpulse({ 0.0f,-1.0f }, ColHitbox->body->GetPosition(), true);
+
+	}
+
+	if (directionPoint.y > positionOfTheObject.y)
+	{
+
+		ColHitbox->body->ApplyLinearImpulse({ 0.0f, 1.0f }, ColHitbox->body->GetPosition(), true);
+
+	}
 	
 	
 	
