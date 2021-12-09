@@ -86,41 +86,7 @@ bool FlyingEnemy::Start()
 bool FlyingEnemy::Update(float dt)
 {
 
-	directionPoint = { 100, 100 }; // pixels	
-
-	ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
-
-	//ColHitbox->body->ApplyLinearImpulse({ -100.0f,0.0f }, ColHitbox->body->GetPosition(), true);
-	ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
-
-	app->render->DrawCircle(positionOfTheObject.x, positionOfTheObject.y, 5, 100, 34, 22, 255, true);
-
-
-	if (directionPoint.x < positionOfTheObject.x)
-	{
-		ColHitbox->body->ApplyLinearImpulse({ -1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
-
-	}
-
-	if (directionPoint.x > positionOfTheObject.x)
-	{
-
-		ColHitbox->body->ApplyLinearImpulse({ 1.0f,0.0f }, ColHitbox->body->GetPosition(), true);
-
-	}
-
-	if (directionPoint.y < positionOfTheObject.y)
-	{
-		ColHitbox->body->ApplyLinearImpulse({ 0.0f,-1.0f }, ColHitbox->body->GetPosition(), true);
-
-	}
-
-	if (directionPoint.y > positionOfTheObject.y)
-	{
-
-		ColHitbox->body->ApplyLinearImpulse({ 0.0f, 1.0f }, ColHitbox->body->GetPosition(), true);
-
-	}
+	
 
 	///*
 	//int mouseX, mouseY;
@@ -238,6 +204,48 @@ bool FlyingEnemy::Update(float dt)
 	//
 	//
 
+// Enemy movement 
+	
+	directionPoint = app->map->MapToWorld(4, 4); // pixels	
+	
+	ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+	
+	//ColHitbox->body->ApplyLinearImpulse({ -100.0f,0.0f }, ColHitbox->body->GetPosition(), true);
+	//ColHitbox->body->ApplyLinearImpulse({ 0.0f, -30.0f }, ColHitbox->body->GetPosition(), true);
+	
+	if (directionPoint.x < positionOfTheObject.x)
+	{
+		if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+		{
+			ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+		}
+	
+	}
+	
+	if (directionPoint.x > positionOfTheObject.x)
+	{
+		if (ColHitbox->body->GetLinearVelocity().x < 0.1f)
+		{
+			ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+		}
+	}
+	
+	if (directionPoint.y - 10 < positionOfTheObject.y)
+	{
+		if (ColHitbox->body->GetLinearVelocity().y > -0.2f)
+		{
+			ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.1f }, ColHitbox->body->GetPosition(), true);
+		}
+	}
+	
+	//if (directionPoint.y + 10 > positionOfTheObject.y)
+	//{
+	//	if (ColHitbox->body->GetLinearVelocity().x < 0.2f)
+	//	{
+	//		ColHitbox->body->ApplyLinearImpulse({ 0.0f, 0.1f }, ColHitbox->body->GetPosition(), true);
+	//	}
+	//}
+	
 	return true;
 }
 
