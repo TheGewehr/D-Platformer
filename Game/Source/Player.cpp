@@ -149,25 +149,34 @@ bool Player::Awake()
 // Load assets
 bool Player::Start()
 {
-	LOG("Loading player");
+	if (app->currentScene == LEVEL1 || app->currentScene == LEVEL2)
+	{
+		LOG("Loading player");
 
-	//loading textures
-	texture = app->tex->Load("Assets/sprites/GraveRobber.png");
+		//loading textures
+		texture = app->tex->Load("Assets/sprites/GraveRobber.png");
 
-	//player stats
-	startPosX = 10;
-	startPosY = 1;
-	speed = { 1.3,0 };
-	jumpForce = { 0,-2.6f };
+		//player stats
+		startPosX = 10;
+		startPosY = 1;
+		speed = { 1.3,0 };
+		jumpForce = { 0,-2.6f };
 
-	// id's :
-	// 0 nothing
-	// 1 player
-	// 2 water
-	// 3 holes
-	// 4 win
-	// 5 Flying Enemy
-	// 6 Walking Enemy
+		// id's :
+		// 0 nothing
+		// 1 player
+		// 2 water
+		// 3 holes
+		// 4 win
+		// 5 Flying Enemy
+		// 6 Walking Enemy
+
+		lifes = 3;
+		isAlive = true;
+		deathAnimAllowed = false;
+		win = false;
+		slowMoHability = false;
+	}
 
 	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 15);
 	ColHitbox->id = 1;
@@ -176,12 +185,6 @@ bool Player::Start()
 	int x_ = (int)x;
 	int y_ = (int)y;
 	ColHitbox->GetPosition(x_, y_);
-
-	lifes = 3;
-	isAlive = true;
-	deathAnimAllowed = false;
-	win = false;
-	slowMoHability = false;
 
 	return true;
 }
@@ -197,14 +200,12 @@ bool Player::CleanUp()
 // Update: draw background
 bool Player::Update(float dt)
 {
-	
 	b2Vec2 pos = { x,y };
-	b2Vec2 stopping = {0.0f,0.0f};
+	b2Vec2 stopping = { 0.0f,0.0f };
 
 	bool goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 	bool qHability = (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN);
-	
 
 	// x movement on ground
 	if (lifes <= 0)
@@ -230,23 +231,21 @@ bool Player::Update(float dt)
 		{
 			if (slowMoHability == true)
 			{
-				slowMoHability = false;				
+				slowMoHability = false;
 			}
 			else
 			{
-				slowMoHability = true;				
+				slowMoHability = true;
 			}
-			
+
 		}
-	}	
+	}
 	else
 	{
 
 	}
 
-	
-
-	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.5*app->win->GetWidth();
+	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 0.5 * app->win->GetWidth();
 
 	// x movement on air
 
@@ -256,20 +255,14 @@ bool Player::Update(float dt)
 
 		ColHitbox->body->ApplyLinearImpulse(stopping, ColHitbox->body->GetPosition(), true);
 	}
-	
-	if (ColHitbox->body->GetLinearVelocity().x > 3 )
+
+	if (ColHitbox->body->GetLinearVelocity().x > 3)
 	{
 		stopping = { speed.x * 0.2f,0 };
 
 		ColHitbox->body->ApplyLinearImpulse(-stopping, ColHitbox->body->GetPosition(), true);
 	}
-	
 
-	
-
-
-	
-		
 	b2Body* ground;
 
 	if (ColHitbox->body->GetContactList() != nullptr)
@@ -292,11 +285,9 @@ bool Player::Update(float dt)
 					ColHitbox->body->SetLinearDamping(0);
 				}
 			}
-			
 		}
 	}
 
-	
 	if (isAlive == true)
 	{
 		if (ColHitbox->body->GetLinearVelocity().x < 0)
@@ -307,7 +298,6 @@ bool Player::Update(float dt)
 		{
 			direction = 2;
 		}
-
 		else if (direction == 6)
 		{
 			direction = 0;
@@ -316,7 +306,6 @@ bool Player::Update(float dt)
 		{
 			direction = 1;
 		}
-
 		else if ((ColHitbox->body->GetLinearVelocity().y != 0))
 		{
 			if (direction == 0) {
@@ -332,7 +321,6 @@ bool Player::Update(float dt)
 				direction = 5;
 			}
 		}
-
 		else if ((ColHitbox->body->GetLinearVelocity().x == 0) && (ColHitbox->body->GetLinearVelocity().y == 0))
 		{
 			if (direction == 2) {
@@ -372,10 +360,8 @@ bool Player::Update(float dt)
 				direction = 1;
 			}
 		}
-		
 	}
 
-	
 	if (direction == 0)
 	{
 		currentAnimation = &rightIdleAnim;
@@ -410,7 +396,7 @@ bool Player::Update(float dt)
 	}
 
 	currentAnimation->Update();
-
+		
 	return true;
 }
 
@@ -471,7 +457,6 @@ bool Player::LoadState(pugi::xml_node& data)
 
 bool Player::SaveState(pugi::xml_node& data) const
 {
-
 	LOG("saving player pos");
 	data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().x));
 	data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().y));
@@ -507,7 +492,6 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
 
-
 				//app->player->SetPlayerLifes(3);
 			}
 		}
@@ -526,13 +510,10 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			}
 			else
 			{
-
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-
 
 				//app->player->SetPlayerLifes(3);
 			}
-
 		}
 		else if ((bodyA->id == 1) && (bodyB->id == 0))
 		{
@@ -540,21 +521,17 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			if (app->player->GetPlayerLifes() > 0)
 			{
 
-
 			}
 			else
 			{
-
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
 				app->player->deathAnimAllowed = true;
 
 				//app->player->SetPlayerLifes(3);
 			}
-
 		}
 		else if ((bodyA->id == 1) && (bodyB->id == 4))
 		{
-
 			if (app->player->GetPlayerLifes() > 0)
 			{
 				Mix_HaltMusic();

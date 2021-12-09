@@ -34,7 +34,6 @@ bool Intro::Start()
 			LOG("Loading Intro Scene");
 
 			introimg = app->tex->Load("Assets/sprites/gamescreens/IntroScreen.png");
-			introScene = true;
 			return true;
 		}
 		break;
@@ -45,7 +44,6 @@ bool Intro::Start()
 
 			winimg = app->tex->Load("Assets/sprites/gamescreens/WinningScreen.png");
 			app->render->camera.x = 0;
-			introScene = false;
 			return true;
 		}
 		break;
@@ -56,7 +54,6 @@ bool Intro::Start()
 
 			loseimg = app->tex->Load("Assets/sprites/gamescreens/GameOverScreen.png");
 			app->render->camera.x = 0;
-			introScene = false;
 			return true;
 		}
 	}
