@@ -17,7 +17,6 @@ struct SDL_Texture;
 //	DEATH
 //};
 
-
 enum FLYING_ENEMY_STATE
 {
 	PATROLLING,
@@ -29,35 +28,18 @@ class FlyingEnemy : public Module
 {
 
 private:
-	
-
 	float x, y;
 	b2Vec2 speed = { 1.3,0 };
 	float maxXspeed;
 
-	
 	b2Vec2 DetectionRange;
 
 	SDL_Texture* texture;
 	
-	
-
-	//enemy stats
-	//startPosX = 10;
-	//startPosY = 1;
-	
-
-	
-
-	
-
 public:
-
 	iPoint directionPoint; // pixels	
 
 	iPoint positionOfTheObject; // pixels	
-
-	
 
 	int lifes;
 	bool isAlive;
@@ -86,17 +68,6 @@ public:
 	void SetEnemyLifes(int l);
 	void SetEnemyState(FLYING_ENEMY_STATE state);
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
-
-	// FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition);
-
-
-	// Make a Function to Create an enemy that returns a FlyingEnemy to store in the Flying ennemy List
-	
-
-
-
-	//The player spritesheet loaded into an SDL_Texture
-
 
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
@@ -140,20 +111,9 @@ public:
 	Animation leftIdleAnim;
 	//
 	//// Walking Animations
-	Animation walkingRigthAnim;
-	Animation walkingLeftAnim;
+	Animation flyingRigthAnim;
+	Animation flyingLeftAnim;
 	//
-	//// Running Animations
-	Animation runningRigthAnim;
-	Animation runningLeftAnim;
-	//
-	//// Jumping Animations
-	Animation jumpingRigthAnim;
-	Animation jumpingLeftAnim;
-	//
-	//// Damage Animatios
-	Animation hitFromRightAnim;
-	Animation hitFromLeftAnim;
 	//
 	//// Death Animation
 	Animation deathFromRightAnim;
