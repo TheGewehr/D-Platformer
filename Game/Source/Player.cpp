@@ -153,8 +153,8 @@ bool Player::Start()
 	texture = app->tex->Load("Assets/sprites/GraveRobber.png");
 
 	//player stats
-	startPosX = 10;
-	startPosY = 1;
+	startPosX = 70;
+	startPosY = 100;
 	speed = { 1.3,0 };
 	jumpForce = { 0,-2.6f };
 
@@ -247,7 +247,7 @@ bool Player::Update(float dt)
 
 	
 	
-	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.1 *app->win->GetWidth();
+	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.7 *app->win->GetWidth();
 
 	// x movement on air
 
