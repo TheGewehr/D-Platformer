@@ -10,6 +10,7 @@
 #include "Textures.h"
 #include "Render.h"
 #include "Window.h"
+#include "Audio.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -131,8 +132,8 @@ bool WalkingEnemy::Start()
 	texture = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//enemy stats
-	startPosX = 300;
-	startPosY = 290;
+	startPosX = app->map->MapToWorld(30,6).x;
+	startPosY = app->map->MapToWorld(30, 6).y;
 	speed = { 1.3f,0 };
 
 	// id's :
@@ -145,7 +146,7 @@ bool WalkingEnemy::Start()
 	// 6 Walking Enemy
 
 	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
-	ColHitbox->id = 5;
+	ColHitbox->id = 6;
 	ColHitbox->listener = app->walkingenemy;
 
 
@@ -169,9 +170,24 @@ bool WalkingEnemy::Update(float dt)
 		isAlive = false;
 	}
 
+
+
 	if (isAlive == true)
 	{
-		
+
+		if (METERS_TO_PIXELS(app->player->GetColHitbox()->body->GetPosition().x) > 832)
+		{
+			actualStates = ATTACK;
+
+			if (app->player->isAlive == false)
+			{
+				actualStates = WALK;
+			}
+		}
+		else
+		{
+			actualStates = WALK;
+		}
 
 	}
 
@@ -186,12 +202,58 @@ bool WalkingEnemy::Update(float dt)
 	case WALK:
 	{
 		
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
 
+
+		iPoint playerPos;
+
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+
+		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
+
+		app->pathfinding->CreatePath(directionPoint, { 28,6 });
+
+		iPoint NextPos;
+
+		const DynArray<iPoint>* lastPath = app->pathfinding->GetLastPath();
+
+		if (lastPath->Count() > 1)
+		{
+			iPoint path(lastPath->At(1)->x, lastPath->At(1)->y);
+			NextPos = path;
+		}
+
+		directionPoint = NextPos;
 
 	}break;
 	case ATTACK:
 	{
-		
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+
+
+		iPoint playerPos;
+
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+
+		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
+
+		app->pathfinding->CreatePath(directionPoint, playerPos);
+
+		iPoint NextPos;
+
+		const DynArray<iPoint>* lastPath = app->pathfinding->GetLastPath();
+
+		if (lastPath->Count() > 1)
+		{
+			iPoint path(lastPath->At(1)->x, lastPath->At(1)->y);
+			NextPos = path;
+		}
+
+		directionPoint = NextPos;
 
 	}break;
 	case DIE:
@@ -202,9 +264,6 @@ bool WalkingEnemy::Update(float dt)
 	}
 
 
-
-
-
 	// Enemy movement 
 
 	if (isAlive == true)
@@ -213,13 +272,61 @@ bool WalkingEnemy::Update(float dt)
 		{
 		case WALK:
 		{
-			
+			directionPoint = app->map->MapToWorld(directionPoint.x, directionPoint.y ); // pixels
+			//directionPoint = app->map->MapToWorld(4, 4); // pixels	
+
+			directionPoint = { directionPoint.x + 13, directionPoint.y + 16 };
+
+			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+
+
+
+			if (directionPoint.x + 32 < positionOfTheObject.x)
+			{
+				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+				{
+					ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+				}
+
+			}
+
+			if (directionPoint.x > positionOfTheObject.x)
+			{
+				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+				{
+					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+				}
+			}
 
 		}break;
 		case ATTACK:
 		{
 			
+			directionPoint = app->map->MapToWorld(directionPoint.x, directionPoint.y); // pixels
+			//directionPoint = app->map->MapToWorld(4, 4); // pixels	
 
+			directionPoint = { directionPoint.x + 13, directionPoint.y + 16 };
+
+			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+
+
+
+			if (directionPoint.x + 32 < positionOfTheObject.x)
+			{
+				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+				{
+					ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+				}
+
+			}
+
+			if (directionPoint.x > positionOfTheObject.x)
+			{
+				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+				{
+					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+				}
+			}
 
 		}break;
 		case DIE:
@@ -301,16 +408,55 @@ bool WalkingEnemy::SaveState(pugi::xml_node&) const
 
 void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+
+	// id's :
+	// 0 nothing
+	// 1 player
+	// 2 water
+	// 3 holes
+	// 4 win
+	// 5 Flying Enemy
+	// 6 Walking Enemy
+
 	if (bodyB == nullptr)
 	{
 
 	}
 	else
 	{
-		if ((bodyA->id == 5) && (bodyB->id == 1))
+		if ((bodyA->id == 6) && (bodyB->id == 2))
 		{
 
-			// is hitted by the player
+			if (lifes > 0)
+			{
+				app->audio->PlayFx(app->scene->water_fx);
+				
+				lifes - 1;
+
+				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+			}
+			else
+			{
+
+			}
+
+		}
+
+		if ((bodyA->id == 6) && (bodyB->id == 3))
+		{
+
+			if (lifes > 0)
+			{
+				//app->audio->PlayFx(app->scene->fall_fx);
+				
+				lifes- 1;
+
+				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+			}
+			else
+			{
+
+			}
 
 		}
 	}

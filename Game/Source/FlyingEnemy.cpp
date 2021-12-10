@@ -171,8 +171,7 @@ bool FlyingEnemy::Update(float dt)
 
 	if (isAlive == true)
 	{
-		// bat pat
-
+		
 		if (METERS_TO_PIXELS(app->player->GetColHitbox()->body->GetPosition().x)  > 832)
 		{
 			actualState = CHASING_PLAYER;
