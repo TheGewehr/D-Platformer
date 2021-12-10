@@ -5,8 +5,10 @@
 #include "Physics.h"
 #include "Point.h"
 #include "Player.h"
+#include "PathFinding.h"
 #include "math.h"
 #include "Point.h"
+#include "map.h"
 #include "Log.h"
 
 #ifdef _DEBUG
@@ -37,6 +39,8 @@ bool Physics::Start()
 	//world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	//world->SetContactListener(App->physics);
 	// Definition of the arrays
+	pathTex = app->tex->Load("Assets/sprites/PathTexture.png");
+	originTex = app->tex->Load("Assets/sprites/Cross.png");
 
 	return true;
 }
@@ -294,6 +298,16 @@ bool Physics::PostUpdate()
 		}
 	}
 
+	if (debug == true)
+	{
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(pathTex, pos.x, pos.y);
+		}
+	}
 
 	if (!debug)
 		return true;

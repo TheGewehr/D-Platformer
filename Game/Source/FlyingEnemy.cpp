@@ -164,7 +164,7 @@ bool FlyingEnemy::Start()
 
 	//enemy stats
 	startPosX = 100;
-	startPosY = 200;
+	startPosY = 100;
 	speed = { 1.3f,0 };
 	
 	// id's :
@@ -184,7 +184,7 @@ bool FlyingEnemy::Start()
 	 int x_ = (int)x;
 	 int y_ = (int)y;
 	 ColHitbox->GetPosition(x_, y_);
-	 actualState = PATROLLING;
+	 actualState = CHASING_PLAYER;
 	 isAlive = true;
 
 	LOG("Loading Flying Enemy");
@@ -194,30 +194,15 @@ bool FlyingEnemy::Start()
 
 bool FlyingEnemy::Update(float dt)
 {
-
-	/*
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint p = app->map->ScreenToWorld(mouseX, mouseY);
-	p = app->map->WorldToMap(p.x, p.y);
-	
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	if (lifes <= 0)
 	{
-		if (originSelected == true)
-		{
-			app->pathfinding->CreatePath(origin, p);
-			originSelected = false;
-		}
-		else
-		{
-			origin = p;
-			originSelected = true;
-		}
+		actualState = DEATH;
 	}
-	*/
-	
-	
-	
+
+	if (isAlive == true)
+	{
+		// bat pat
+	}
 	
 	
 	switch (actualState)
@@ -229,6 +214,29 @@ bool FlyingEnemy::Update(float dt)
 		// Make the pathfinding
 	
 		// advance one tile
+
+		iPoint playerPos;
+		app->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
+
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+
+		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
+
+		app->pathfinding->CreatePath(directionPoint, playerPos);
+
+		iPoint NextPos;
+
+		const DynArray<iPoint>* lastPath = app->pathfinding->GetLastPath();
+
+		if (lastPath->Count() > 1)
+		{
+			iPoint path(lastPath->At(1)->x, lastPath->At(1)->y);
+			NextPos = path;
+		}
+
+		directionPoint = NextPos;
+
 	
 	}break;
 	case PATROLLING:
@@ -267,6 +275,40 @@ bool FlyingEnemy::Update(float dt)
 
 			// advance one tile
 
+			directionPoint = app->map->MapToWorld(directionPoint.x, directionPoint.y -1); // pixels
+			//directionPoint = app->map->MapToWorld(4, 4); // pixels	
+
+			directionPoint = { directionPoint.x + 13, directionPoint.y + 16 };
+
+			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+
+
+
+			if (directionPoint.x < positionOfTheObject.x)
+			{
+				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+				{
+					ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+				}
+
+			}
+
+			if (directionPoint.x > positionOfTheObject.x)
+			{
+				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+				{
+					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+				}
+			}
+
+			if (directionPoint.y + 25 < positionOfTheObject.y)
+			{
+				if (ColHitbox->body->GetLinearVelocity().y > -0.2f)
+				{
+					ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.1f }, ColHitbox->body->GetPosition(), true);
+				}
+			}
+
 		}break;
 		case PATROLLING:
 		{
@@ -298,7 +340,7 @@ bool FlyingEnemy::Update(float dt)
 				}
 			}
 
-			if (directionPoint.y - 10 < positionOfTheObject.y)
+			if (directionPoint.y + 32 < positionOfTheObject.y)
 			{
 				if (ColHitbox->body->GetLinearVelocity().y > -0.2f)
 				{
@@ -342,7 +384,7 @@ bool FlyingEnemy::Update(float dt)
 
 bool FlyingEnemy::PostUpdate()
 {
-	app->render->DrawTexture(texture, positionOfTheObject.x, positionOfTheObject.y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, positionOfTheObject.x - 5, positionOfTheObject.y, &currentAnimation->GetCurrentFrame());
 	return true;
 }
 

@@ -3,6 +3,7 @@
 #include "Module.h"
 #include "Defs.h"
 #include "Box2D/Box2D/Box2D.h"
+#include "Textures.h"
 
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y -15.0f
@@ -62,6 +63,9 @@ public:
 	b2World* world;
 	bool debug;
 private:
+
+	SDL_Texture *pathTex;
+	SDL_Texture* originTex;
 
 	b2MouseJoint* mouse_joint;
 	b2Body* ground;

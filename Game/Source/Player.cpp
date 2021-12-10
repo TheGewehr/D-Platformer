@@ -175,7 +175,7 @@ bool Player::Start()
 	int y_ = (int)y;
 	ColHitbox->GetPosition(x_, y_);
 
-	lifes = 3;
+	lifes = 4;
 	isAlive = true;
 	deathAnimAllowed = false;
 	win = false;
@@ -507,7 +507,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			else
 			{
 				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
-
+				//app->player->deathAnimAllowed = true;
 
 				//app->player->SetPlayerLifes(3);
 			}
@@ -530,7 +530,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
 
-
+				//app->player->deathAnimAllowed = true;
 				//app->player->SetPlayerLifes(3);
 			}
 
@@ -565,6 +565,33 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			else
 			{
 			}
+		}
+		else if ((bodyA->id == 1) && (bodyB->id == 5))
+		{
+			// fall and loose
+
+			if (app->player->GetPlayerLifes() > 0)
+			{
+				//app->audio->PlayFx(app->scene->fall_fx);
+
+				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+
+				if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
+				{
+					bodyA->body->ApplyLinearImpulse({ 20.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				}
+
+				if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
+				{
+					bodyA->body->ApplyLinearImpulse({ -20.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				}				
+
+			}
+			else
+			{
+				app->player->deathAnimAllowed = true;
+			}
+
 		}
 	}
 }
