@@ -237,7 +237,7 @@ bool FlyingEnemy::Update(float dt)
 
 		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
 
-		app->pathfinding->CreatePath(directionPoint, {27,10});
+		app->pathfinding->CreatePath(directionPoint, {27,11});
 
 		iPoint NextPos;
 
