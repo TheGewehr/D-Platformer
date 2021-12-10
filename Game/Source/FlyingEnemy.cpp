@@ -8,8 +8,8 @@
 #include "Scene.h"
 #include "Physics.h"
 #include "Textures.h"
-#include"Render.h"
-#include"Window.h"
+#include "Render.h"
+#include "Window.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -20,18 +20,7 @@ FlyingEnemy::FlyingEnemy()
 {
 	texture = nullptr;
 
-}
-
-
-
-FlyingEnemy::~FlyingEnemy()
-{
-
-}
-
-bool FlyingEnemy::Awake()
-{
-	float idleSpeed = 0.1f;
+	float idleSpeed = 0.4f;
 	float movement1Speed = 0.1f;
 	float movement2Speed = 0.2f;
 	float deathSpeed = 0.1f;
@@ -39,13 +28,13 @@ bool FlyingEnemy::Awake()
 	// IDLE animation right
 	rightIdleAnim.PushBack({ 6, 171, 21, 12 });
 	rightIdleAnim.PushBack({ 39, 171, 21, 12 });
-	rightIdleAnim.PushBack({73, 171, 21, 12 });
+	rightIdleAnim.PushBack({ 73, 171, 21, 12 });
 	rightIdleAnim.PushBack({ 104, 171, 21, 12 });
 	rightIdleAnim.PushBack({ 134, 171, 21, 12 });
 	rightIdleAnim.PushBack({ 165, 171, 21, 12 });
 	rightIdleAnim.PushBack({ 198, 171, 21, 12 });
 	rightIdleAnim.PushBack({ 231, 171, 21, 12 });
-	rightIdleAnim.PushBack( {263, 171, 21, 12 });
+	rightIdleAnim.PushBack({ 263, 171, 21, 12 });
 	rightIdleAnim.PushBack({ 294, 171, 21, 12 });
 	rightIdleAnim.loop = true;
 	rightIdleAnim.speed = idleSpeed;
@@ -151,6 +140,17 @@ bool FlyingEnemy::Awake()
 	//deathFromLeftAnim.PushBack({ 10, 303, 35, 33 });
 	//deathFromLeftAnim.loop = false;
 	//deathFromLeftAnim.speed = deathSpeed;
+}
+
+
+
+FlyingEnemy::~FlyingEnemy()
+{
+
+}
+
+bool FlyingEnemy::Awake()
+{
 
 	return true;
 }
@@ -329,18 +329,20 @@ bool FlyingEnemy::Update(float dt)
 	
 	
 
-	currentAnimation = &rightIdleAnim;
+	direction = 0;
+	if (direction == 0)
+	{
+		currentAnimation = &rightIdleAnim;
+	}
+
 	currentAnimation->Update();
 
-	
-	
 	return true;
 }
 
 bool FlyingEnemy::PostUpdate()
 {
-
-	app->render->DrawTexture(texture, positionOfTheObject.x, positionOfTheObject.y , &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, positionOfTheObject.x, positionOfTheObject.y, &currentAnimation->GetCurrentFrame());
 	return true;
 }
 

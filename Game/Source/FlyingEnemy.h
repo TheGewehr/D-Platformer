@@ -112,8 +112,6 @@ public:
 		}
 	}
 
-
-
 	FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition)
 	{
 		FlyingEnemy enemy;
