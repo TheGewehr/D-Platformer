@@ -413,14 +413,28 @@ void FlyingEnemy::SetEnemyState(FLYING_ENEMY_STATE state)
 
 bool FlyingEnemy::LoadState(pugi::xml_node&)
 {
-
+	// startPosX = data.child("startPos").attribute("x").as_float(0);
+	// startPosY = data.child("startPos").attribute("y").as_float(0);
+	// lifes = data.child("lifes").attribute("value").as_int();
+	// isAlive = data.child("isAlive").attribute("value").as_bool();
+	// deathAnimAllowed = data.child("deathAnimation").attribute("value").as_bool();
+	// 
+	// b2Vec2 v = { PIXEL_TO_METERS(startPosX), PIXEL_TO_METERS(startPosY) };
+	// ColHitbox->body->SetTransform(v, 0);
 
 	return true;
 }
 
 bool FlyingEnemy::SaveState(pugi::xml_node&) const
 {
+	//LOG("saving player pos");
+	//data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().x));
+	//data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().y));
+	//data.child("lifes").attribute("value").set_value(lifes);
+	//data.child("isAlive").attribute("value").set_value(isAlive);
+	//data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);
 
+	return true;
 
 	return true;
 }
