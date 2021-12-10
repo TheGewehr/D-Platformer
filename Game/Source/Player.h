@@ -31,7 +31,7 @@ private:
 	SDL_Texture* texture;
 
 	int lifes;
-	bool isAlive;
+	
 	bool win;
 
 	bool slowMoHability;	
@@ -124,4 +124,5 @@ public:
 	Animation deathFromLeftAnim;
 
 	bool deathAnimAllowed;
+	bool isAlive;
 };

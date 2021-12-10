@@ -131,8 +131,8 @@ bool FlyingEnemy::Start()
 	texture = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//enemy stats
-	startPosX = 100;
-	startPosY = 100;
+	startPosX = 300;
+	startPosY = 320;
 	speed = { 1.3f,0 };
 	
 	// id's :
@@ -152,8 +152,9 @@ bool FlyingEnemy::Start()
 	 int x_ = (int)x;
 	 int y_ = (int)y;
 	 ColHitbox->GetPosition(x_, y_);
-	 actualState = CHASING_PLAYER;
+	 actualState = PATROLLING;
 	 isAlive = true;
+	 lifes = 2;
 
 	LOG("Loading Flying Enemy");
 
@@ -170,6 +171,20 @@ bool FlyingEnemy::Update(float dt)
 	if (isAlive == true)
 	{
 		// bat pat
+
+		if (METERS_TO_PIXELS(app->player->GetColHitbox()->body->GetPosition().x)  > 832)
+		{
+			actualState = CHASING_PLAYER;
+
+			if (app->player->isAlive == false)
+			{
+				actualState = PATROLLING;
+			}
+		}
+		else
+		{
+			actualState = PATROLLING;
+		}
 	}
 	
 	
@@ -214,6 +229,27 @@ bool FlyingEnemy::Update(float dt)
 		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
 		directionPoint = app->map->WorldToMap( positionOfTheObject.x, positionOfTheObject.y );
 		
+
+		iPoint playerPos;
+
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+
+		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
+
+		app->pathfinding->CreatePath(directionPoint, {27,10});
+
+		iPoint NextPos;
+
+		const DynArray<iPoint>* lastPath = app->pathfinding->GetLastPath();
+
+		if (lastPath->Count() > 1)
+		{
+			iPoint path(lastPath->At(1)->x, lastPath->At(1)->y);
+			NextPos = path;
+		}
+
+		directionPoint = NextPos;
 	
 	}break;
 	case DEATH:
@@ -331,13 +367,8 @@ bool FlyingEnemy::Update(float dt)
 			
 
 		}break;
-		}
-
-		
-	}
-	
-	
-	
+		}		
+	}	
 
 	direction = 0;
 	if (direction == 0)
