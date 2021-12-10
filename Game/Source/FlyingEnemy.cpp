@@ -186,6 +186,11 @@ bool FlyingEnemy::Update(float dt)
 			actualState = PATROLLING;
 		}
 	}
+
+	if (app->player->GetPlayerWin() == true)
+	{
+		actualState = PATROLLING;
+	}
 	
 	
 	switch (actualState)
