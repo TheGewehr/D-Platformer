@@ -210,7 +210,6 @@ bool Player::Update(float dt)
 	{
 		isAlive = false;
 	}
-
 	if (isAlive != false && win == false)
 	{
 		if (goRight == true)
@@ -243,10 +242,6 @@ bool Player::Update(float dt)
 
 	}
 
-	
-
-	
-	
 	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.7 *app->win->GetWidth();
 
 	// x movement on air
@@ -264,12 +259,6 @@ bool Player::Update(float dt)
 
 		ColHitbox->body->ApplyLinearImpulse(-stopping, ColHitbox->body->GetPosition(), true);
 	}
-	
-
-	
-
-
-	
 		
 	b2Body* ground;
 
@@ -297,7 +286,6 @@ bool Player::Update(float dt)
 		}
 	}
 
-	
 	if (isAlive == true)
 	{
 		if (ColHitbox->body->GetLinearVelocity().x < 0)
@@ -308,7 +296,6 @@ bool Player::Update(float dt)
 		{
 			direction = 2;
 		}
-
 		else if (direction == 6)
 		{
 			direction = 0;
@@ -317,7 +304,6 @@ bool Player::Update(float dt)
 		{
 			direction = 1;
 		}
-
 		else if ((ColHitbox->body->GetLinearVelocity().y != 0))
 		{
 			if (direction == 0) {
@@ -333,7 +319,6 @@ bool Player::Update(float dt)
 				direction = 5;
 			}
 		}
-
 		else if ((ColHitbox->body->GetLinearVelocity().x == 0) && (ColHitbox->body->GetLinearVelocity().y == 0))
 		{
 			if (direction == 2) {
