@@ -170,7 +170,7 @@ bool WalkingEnemy::Update(float dt)
 		isAlive = false;
 	}
 
-
+	
 
 	if (isAlive == true)
 	{
@@ -213,7 +213,7 @@ bool WalkingEnemy::Update(float dt)
 
 		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
 
-		app->pathfinding->CreatePath(directionPoint, { 28,6 });
+		app->pathfinding->CreatePath(directionPoint, { 29,6 });
 
 		iPoint NextPos;
 
@@ -258,7 +258,8 @@ bool WalkingEnemy::Update(float dt)
 	}break;
 	case DIE:
 	{
-		
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
 
 	}break;
 	}
@@ -328,6 +329,8 @@ bool WalkingEnemy::Update(float dt)
 				}
 			}
 
+			
+
 		}break;
 		case DIE:
 		{
@@ -344,6 +347,8 @@ bool WalkingEnemy::Update(float dt)
 	}
 
 	currentAnimation->Update();
+
+	LOG("%i", lifes);
 
 	return true;
 }
@@ -431,7 +436,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 				app->audio->PlayFx(app->scene->water_fx);
 				
-				lifes - 1;
+				lifes--;
 
 				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
 			}
@@ -449,7 +454,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 				//app->audio->PlayFx(app->scene->fall_fx);
 				
-				lifes- 1;
+				lifes--;
 
 				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
 			}

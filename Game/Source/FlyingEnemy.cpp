@@ -259,6 +259,9 @@ bool FlyingEnemy::Update(float dt)
 	}break;
 	case DEATH:
 	{
+		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+
 		isAlive = false;
 		deathAnimAllowed = true;
 		ColHitbox->id = 0;
