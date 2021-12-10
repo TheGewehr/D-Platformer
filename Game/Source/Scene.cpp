@@ -270,7 +270,7 @@ bool Scene::Start()
 		int w, h;
 		uchar* data = NULL;
 
-		if (app->map->CreateWalkabilityMap(w, h, &data, 1/*random, need to change*/)) app->pathfinding->SetMap(w, h, data);
+		if (app->map->CreateWalkabilityMap(w, h, &data, 1)) app->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
 	}

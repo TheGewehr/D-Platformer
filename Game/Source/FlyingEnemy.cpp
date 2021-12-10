@@ -92,7 +92,7 @@ FlyingEnemy::FlyingEnemy()
 	deathFromRightAnim.PushBack({ 551, 300, 21, 12 });
 	deathFromRightAnim.PushBack({ 584, 300, 21, 12 });
 	deathFromRightAnim.PushBack({ 614, 299, 21, 12 });
-	deathFromRightAnim.loop = true;
+	deathFromRightAnim.loop = false;
 	deathFromRightAnim.speed = idleSpeed;
 
 	// DEATH animation left
@@ -106,7 +106,7 @@ FlyingEnemy::FlyingEnemy()
 	deathFromLeftAnim.PushBack({ 67, 300, 21, 12 });
 	deathFromLeftAnim.PushBack({ 36, 300, 21, 12 });
 	deathFromLeftAnim.PushBack({ 5, 299, 21, 12 });
-	deathFromLeftAnim.loop = true;
+	deathFromLeftAnim.loop = false;
 	deathFromLeftAnim.speed = idleSpeed;
 }
 
@@ -166,6 +166,7 @@ bool FlyingEnemy::Update(float dt)
 	if (lifes <= 0)
 	{
 		actualState = DEATH;
+		isAlive = false;
 	}
 
 	if (isAlive == true)

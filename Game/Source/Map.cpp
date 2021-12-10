@@ -394,6 +394,8 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, int navL
 			break;
 		}	
 
+		
+
 		break;
 	}
 

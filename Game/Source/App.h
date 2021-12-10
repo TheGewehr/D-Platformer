@@ -24,6 +24,7 @@ class Map;
 class Physics;
 class Player;
 class FlyingEnemy;
+class WalkingEnemy;
 
 //class Timer;
 //class PerfTimer;
@@ -130,6 +131,7 @@ public:
 	Player* player;
 	PathFinding* pathfinding;
 	FlyingEnemy* flyingenemy;
+	WalkingEnemy* walkingenemy;
 
 private:
 
