@@ -19,6 +19,8 @@
 
 WalkingEnemy::WalkingEnemy()
 {
+	name.Create("walkingenemy");
+
 	texture = nullptr;
 
 	float idleSpeed = 0.4f;
@@ -435,8 +437,9 @@ void WalkingEnemy::SetEnemyState(WALKING_ENEMY_STATE state)
 
 bool WalkingEnemy::LoadState(pugi::xml_node& data)
 {
-	positionOfTheObject.x = data.child("startPos").attribute("x").as_int();
-	positionOfTheObject.y = data.child("startPos").attribute("y").as_int();
+
+	b2Vec2 v = { PIXEL_TO_METERS(data.child("Pos").attribute("x").as_float()), PIXEL_TO_METERS(data.child("Pos").attribute("y").as_float()) };
+	
 	 lifes = data.child("lifes").attribute("value").as_int();
 	 isAlive = data.child("isAlive").attribute("value").as_bool();
 	 deathAnimAllowed = data.child("deathAnimation").attribute("value").as_bool();
@@ -450,15 +453,14 @@ bool WalkingEnemy::LoadState(pugi::xml_node& data)
 	 }break;
 	 case 1:
 	 {
-		 statesInt =ATTACK;
+		 actualStates =ATTACK;
 	 }break;
 	 case 2:
 	 {
-		 statesInt = DIE;
+		 actualStates = DIE;
 	 }
 	 }
-	 
-	 b2Vec2 v = { (float32)positionOfTheObject.x, (float32)positionOfTheObject.y };
+	
 	 ColHitbox->body->SetTransform(v, 0);
 
 	return true;
@@ -468,8 +470,8 @@ bool WalkingEnemy::SaveState(pugi::xml_node& data) const
 {
 	LOG("saving enemy ");
 
-	data.child("Pos").attribute("x").set_value(METERS_TO_PIXELS(positionOfTheObject.x));
-	data.child("Pos").attribute("y").set_value(METERS_TO_PIXELS(positionOfTheObject.y));
+	data.child("Pos").attribute("x").set_value(positionOfTheObject.x);
+	data.child("Pos").attribute("y").set_value(positionOfTheObject.y);
 	data.child("lifes").attribute("value").set_value(lifes);
 	data.child("isAlive").attribute("value").set_value(isAlive);
 	data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);

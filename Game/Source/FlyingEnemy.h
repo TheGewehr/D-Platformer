@@ -64,7 +64,7 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&) const;
+	bool SaveState(pugi::xml_node& data) const;
 	bool CleanUp();
 	int GetEnemyLifes();
 	void SetEnemyLifes(int l);

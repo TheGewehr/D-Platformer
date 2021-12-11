@@ -427,9 +427,10 @@ bool App::SaveGame() const
 
 	ListItem<Module*>* item;
 	item = modules.start;
-	//LOG("name: %s", item->data->name.GetString());
+	
 	while (item != NULL)
 	{
+		LOG("name: %s", item->data->name.GetString());
 		SString name = item->data->name;
 		LOG("name: %s", name.GetString());
 		ret = item->data->SaveState(save.child(name.GetString()));
