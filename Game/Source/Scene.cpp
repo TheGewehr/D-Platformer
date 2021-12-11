@@ -263,7 +263,7 @@ bool Scene::Start()
 	sensor_fall03->listener = this;
 
 	// win
-	sensor_win = app->physics->CreateRectangleSensor(2580, 310, 20, 85);
+	sensor_win = app->physics->CreateRectangleSensor(2550, 310, 20, 85);
 	sensor_win->id = 4;
 	sensor_win->listener = this;
 
@@ -323,10 +323,11 @@ bool Scene::Update(float dt)
 		app->SaveGameRequest();
 
 	//std::cout << "    " << app->player->xposition << "      " << app->player->yposition <<std::endl;
-	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		//app->audio->PlayFx(app->scene->ehit_fx);
 		//app->audio->PlayFx(app->scene->pdeath_fx);
+		ResetLevel();
 	}
 	
 
@@ -404,4 +405,51 @@ bool Scene::CleanUp()
 void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	
+}
+
+void Scene::ResetLevel()
+{
+	b2Vec2 v;
+	//player
+
+	v.x = PIXEL_TO_METERS(16);
+	v.y = PIXEL_TO_METERS(16);
+	app->player->SetPlayerLifes(3);
+	app->player->isAlive = true;
+	app->player->deathAnimAllowed = false;
+	app->player->SetPlayerWin(false);
+
+	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
+
+	app->player->GetColHitbox()->body->SetTransform(v, 0);
+
+	// Walking Enemy
+
+	v.x = PIXEL_TO_METERS(app->map->MapToWorld(30, 6).x);
+	v.y = PIXEL_TO_METERS(app->map->MapToWorld(30, 6).y);
+
+	app->walkingenemy->lifes = 2;
+	app->walkingenemy->isAlive = true;
+	app->walkingenemy->deathAnimAllowed = false;
+	app->walkingenemy->statesInt = 0;
+
+	
+
+	app->walkingenemy->ColHitbox->body->SetTransform(v, 0);
+
+
+	// Flying enemy
+
+	v.x = PIXEL_TO_METERS(300);
+	v.y = PIXEL_TO_METERS(320);
+
+	app->flyingenemy->lifes = 2;
+	app->flyingenemy->isAlive = true;
+	app->flyingenemy->deathAnimAllowed = false;
+	app->flyingenemy->statesInt = 0;
+
+
+
+	app->flyingenemy->ColHitbox->body->SetTransform(v, 0);
+
 }
