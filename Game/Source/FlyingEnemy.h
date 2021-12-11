@@ -21,7 +21,7 @@ enum FLYING_ENEMY_STATE
 {
 	PATROLLING,
 	CHASING_PLAYER,
-	DEATH
+	DEATH 
 };
 
 class FlyingEnemy : public Module
@@ -46,6 +46,8 @@ public:
 
 	float startPosX;
 	float startPosY;
+
+	int statesInt;
 
 	FLYING_ENEMY_STATE actualState;
 

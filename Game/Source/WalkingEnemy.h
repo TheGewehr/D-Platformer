@@ -13,9 +13,9 @@ struct SDL_Texture;
 
 enum WALKING_ENEMY_STATE
 {
-	WALK,
-	ATTACK,
-	DIE
+	WALK ,
+	ATTACK ,
+	DIE 
 };
 
 class WalkingEnemy : public Module
@@ -39,6 +39,8 @@ public:
 	bool isAlive;
 	bool canJump;
 
+	int statesInt;
+
 	float startPosX;
 	float startPosY;
 
@@ -57,7 +59,7 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&) const;
+	bool SaveState(pugi::xml_node& data) const;
 	bool CleanUp();
 	int GetEnemyLifes();
 	void SetEnemyLifes(int l);

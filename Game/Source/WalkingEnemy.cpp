@@ -370,6 +370,22 @@ bool WalkingEnemy::Update(float dt)
 		}
 	}
 
+	switch (actualStates)
+	{
+	case WALK:
+	{
+		statesInt = 0;
+	}break;
+	case ATTACK:
+	{
+		statesInt = 1;
+	}break;
+	case DIE:
+	{
+		statesInt = 2;
+	}
+	}
+
 	direction = 0;
 
 	if (direction == 0)
@@ -417,30 +433,49 @@ void WalkingEnemy::SetEnemyState(WALKING_ENEMY_STATE state)
 	actualStates = state;
 }
 
-bool WalkingEnemy::LoadState(pugi::xml_node&)
+bool WalkingEnemy::LoadState(pugi::xml_node& data)
 {
-	// startPosX = data.child("startPos").attribute("x").as_float(0);
-	// startPosY = data.child("startPos").attribute("y").as_float(0);
-	// lifes = data.child("lifes").attribute("value").as_int();
-	// isAlive = data.child("isAlive").attribute("value").as_bool();
-	// deathAnimAllowed = data.child("deathAnimation").attribute("value").as_bool();
-	// 
-	// b2Vec2 v = { PIXEL_TO_METERS(startPosX), PIXEL_TO_METERS(startPosY) };
-	// ColHitbox->body->SetTransform(v, 0);
+	positionOfTheObject.x = data.child("startPos").attribute("x").as_int();
+	positionOfTheObject.y = data.child("startPos").attribute("y").as_int();
+	 lifes = data.child("lifes").attribute("value").as_int();
+	 isAlive = data.child("isAlive").attribute("value").as_bool();
+	 deathAnimAllowed = data.child("deathAnimation").attribute("value").as_bool();
+	 statesInt = data.child("deathAnimation").attribute("value").as_int();
+
+	 switch (statesInt)
+	 {
+	 case 0:
+	 {
+		 actualStates = WALK;
+	 }break;
+	 case 1:
+	 {
+		 statesInt =ATTACK;
+	 }break;
+	 case 2:
+	 {
+		 statesInt = DIE;
+	 }
+	 }
+	 
+	 b2Vec2 v = { (float32)positionOfTheObject.x, (float32)positionOfTheObject.y };
+	 ColHitbox->body->SetTransform(v, 0);
 
 	return true;
 }
 
-bool WalkingEnemy::SaveState(pugi::xml_node&) const
+bool WalkingEnemy::SaveState(pugi::xml_node& data) const
 {
-	//LOG("saving player pos");
-	//data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().x));
-	//data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().y));
-	//data.child("lifes").attribute("value").set_value(lifes);
-	//data.child("isAlive").attribute("value").set_value(isAlive);
-	//data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);
+	LOG("saving enemy ");
 
-	return true;
+	data.child("Pos").attribute("x").set_value(METERS_TO_PIXELS(positionOfTheObject.x));
+	data.child("Pos").attribute("y").set_value(METERS_TO_PIXELS(positionOfTheObject.y));
+	data.child("lifes").attribute("value").set_value(lifes);
+	data.child("isAlive").attribute("value").set_value(isAlive);
+	data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);
+	data.child("state").attribute("value").set_value(statesInt);
+
+	
 
 	return true;
 }

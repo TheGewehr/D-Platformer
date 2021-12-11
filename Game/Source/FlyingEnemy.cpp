@@ -464,14 +464,14 @@ bool FlyingEnemy::LoadState(pugi::xml_node&)
 
 bool FlyingEnemy::SaveState(pugi::xml_node&) const
 {
-	//LOG("saving player pos");
+	//LOG("saving Flying Enemy");
 	//data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().x));
 	//data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().y));
 	//data.child("lifes").attribute("value").set_value(lifes);
 	//data.child("isAlive").attribute("value").set_value(isAlive);
 	//data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);
 
-	return true;
+	
 
 	return true;
 }
