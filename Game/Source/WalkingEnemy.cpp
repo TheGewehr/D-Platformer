@@ -156,6 +156,7 @@ bool WalkingEnemy::Start()
 	actualStates = WALK;
 	isAlive = true;
 	lifes = 2;
+	canJump = true;
 
 	LOG("Loading Flying Enemy");
 
@@ -206,12 +207,12 @@ bool WalkingEnemy::Update(float dt)
 		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
 
 
-		iPoint playerPos;
+		//iPoint playerPos;
 
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		//ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
+		//directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
 
-		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
+		//playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
 
 		app->pathfinding->CreatePath(directionPoint, { 29,6 });
 
@@ -227,6 +228,17 @@ bool WalkingEnemy::Update(float dt)
 
 		directionPoint = NextPos;
 
+		if (app->physics->debug == true)
+		{
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				app->render->DrawTexture(app->scene->pathTex, pos.x, pos.y);
+			}
+		}
+
 	}break;
 	case ATTACK:
 	{
@@ -235,6 +247,7 @@ bool WalkingEnemy::Update(float dt)
 
 
 		iPoint playerPos;
+		app->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
 
 		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
 		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
@@ -254,6 +267,17 @@ bool WalkingEnemy::Update(float dt)
 		}
 
 		directionPoint = NextPos;
+
+		if (app->physics->debug == true)
+		{
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				app->render->DrawTexture(app->scene->pathTex, pos.x, pos.y);
+			}
+		}
 
 	}break;
 	case DIE:
@@ -293,7 +317,7 @@ bool WalkingEnemy::Update(float dt)
 
 			if (directionPoint.x > positionOfTheObject.x)
 			{
-				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+				if (ColHitbox->body->GetLinearVelocity().x < 0.1f)
 				{
 					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
 				}
@@ -316,31 +340,38 @@ bool WalkingEnemy::Update(float dt)
 			{
 				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					ColHitbox->body->ApplyLinearImpulse({ -0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
 				}
-
+			
 			}
 
 			if (directionPoint.x > positionOfTheObject.x)
 			{
 				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					ColHitbox->body->ApplyLinearImpulse({ 0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
 				}
 			}
 
-			
+			if ((directionPoint.y   < positionOfTheObject.y)&& (canJump == true))
+			{
+				
+					ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.1f }, ColHitbox->body->GetPosition(), true);
+					canJump = false;
+				
+			}
 
 		}break;
 		case DIE:
 		{
-
+			
 
 		}break;
 		}
 	}
 
 	direction = 0;
+
 	if (direction == 0)
 	{
 		currentAnimation = &rightIdleAnim;
@@ -356,6 +387,9 @@ bool WalkingEnemy::Update(float dt)
 bool WalkingEnemy::PostUpdate()
 {
 	app->render->DrawTexture(texture, positionOfTheObject.x - 5, positionOfTheObject.y, &currentAnimation->GetCurrentFrame());
+
+	
+
 	return true;
 }
 
@@ -429,6 +463,14 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 	else
 	{
+		if ((bodyA->id == 6) && (bodyB->id == 0))
+		{
+
+			
+			canJump = true;
+			
+
+		}
 		if ((bodyA->id == 6) && (bodyB->id == 2))
 		{
 

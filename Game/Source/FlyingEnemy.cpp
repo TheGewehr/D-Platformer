@@ -153,8 +153,9 @@ bool FlyingEnemy::Start()
 	 int y_ = (int)y;
 	 ColHitbox->GetPosition(x_, y_);
 	 actualState = PATROLLING;
-	 isAlive = true;
-	 lifes = 2;
+	 isAlive = true; 
+	 lifes = 2; 
+
 
 	LOG("Loading Flying Enemy");
 
@@ -186,6 +187,8 @@ bool FlyingEnemy::Update(float dt)
 			actualState = PATROLLING;
 		}
 	}
+
+	
 
 	if (app->player->GetPlayerWin() == true)
 	{
@@ -225,6 +228,17 @@ bool FlyingEnemy::Update(float dt)
 
 		directionPoint = NextPos;
 
+		if (app->physics->debug == true)
+		{
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				app->render->DrawTexture(app->scene->pathTex, pos.x, pos.y);
+			}
+		}
+
 	
 	}break;
 	case PATROLLING:
@@ -255,6 +269,17 @@ bool FlyingEnemy::Update(float dt)
 		}
 
 		directionPoint = NextPos;
+
+		if (app->physics->debug == true)
+		{
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				app->render->DrawTexture(app->scene->pathTex, pos.x, pos.y);
+			}
+		}
 	
 	}break;
 	case DEATH:
@@ -392,6 +417,10 @@ bool FlyingEnemy::Update(float dt)
 bool FlyingEnemy::PostUpdate()
 {
 	app->render->DrawTexture(texture, positionOfTheObject.x - 5, positionOfTheObject.y, &currentAnimation->GetCurrentFrame());
+
+	
+
+
 	return true;
 }
 

@@ -442,6 +442,7 @@ void Player::SetPlayerWin(bool b)
 
 bool Player::LoadState(pugi::xml_node& data)
 {
+	LOG("loading player ");
 	startPosX = data.child("startPos").attribute("x").as_float(0);
 	startPosY = data.child("startPos").attribute("y").as_float(0);
 	lifes = data.child("lifes").attribute("value").as_int();
@@ -458,7 +459,7 @@ bool Player::LoadState(pugi::xml_node& data)
 bool Player::SaveState(pugi::xml_node& data) const
 {
 
-	LOG("saving player pos");
+	LOG("saving player ");
 	data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().x));
 	data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().y));
 	data.child("lifes").attribute("value").set_value(lifes);
@@ -492,7 +493,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			else
 			{
 				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
-				//app->player->deathAnimAllowed = true;
+				app->player->deathAnimAllowed = true;
 
 				//app->player->SetPlayerLifes(3);
 			}
@@ -515,7 +516,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
 
-				//app->player->deathAnimAllowed = true;
+				app->player->deathAnimAllowed = true;
 				//app->player->SetPlayerLifes(3);
 			}
 
@@ -563,12 +564,12 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ 20.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ 10.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}
 
 				if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ -20.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ -10.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}				
 
 			}

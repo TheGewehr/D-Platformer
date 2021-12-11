@@ -37,6 +37,7 @@ public:
 
 	int lifes;
 	bool isAlive;
+	bool canJump;
 
 	float startPosX;
 	float startPosY;

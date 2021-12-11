@@ -298,16 +298,7 @@ bool Physics::PostUpdate()
 		}
 	}
 
-	if (debug == true)
-	{
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTex, pos.x, pos.y);
-		}
-	}
+	
 
 	if (!debug)
 		return true;

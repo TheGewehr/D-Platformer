@@ -52,13 +52,14 @@ public:
 
 
 	int currentLevel;
+	SDL_Texture* pathTex;
 
 private:
 	SDL_Texture* map;
 
 	SDL_Texture* img;
 
-	SDL_Texture* pathTex;
+	
 	SDL_Texture* originTex;
 
 	SDL_Rect end_rect;
