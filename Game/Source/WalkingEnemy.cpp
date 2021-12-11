@@ -508,20 +508,22 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			
 
 		}
+
 		if ((bodyA->id == 6) && (bodyB->id == 2))
 		{
 
 			if (lifes > 0)
 			{
-				app->audio->PlayFx(app->scene->water_fx);
+				//app->audio->PlayFx(app->scene->water_fx);
 				
 				lifes--;
 
 				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				app->audio->PlayFx(app->scene->ehit_fx);
 			}
 			else
 			{
-
+				app->audio->PlayFx(app->scene->edeath_fx);
 			}
 
 		}
@@ -536,10 +538,30 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 				lifes--;
 
 				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				app->audio->PlayFx(app->scene->ehit_fx);
 			}
 			else
 			{
+				app->audio->PlayFx(app->scene->edeath_fx);
+			}
 
+		}
+
+		if ((bodyA->id == 6) && (bodyB->id == 7))
+		{
+
+			if (lifes > 0)
+			{
+				//app->audio->PlayFx(app->scene->fall_fx);
+
+				lifes--;
+
+				//bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				app->audio->PlayFx(app->scene->ehit_fx);
+			}
+			else
+			{
+				app->audio->PlayFx(app->scene->edeath_fx);
 			}
 
 		}

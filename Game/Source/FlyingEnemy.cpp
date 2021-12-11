@@ -10,6 +10,7 @@
 #include "Textures.h"
 #include "Render.h"
 #include "Window.h"
+#include "Audio.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -521,10 +522,24 @@ void FlyingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 	else
 	{
-		if ((bodyA->id == 5) && (bodyB->id == 1))
+		if ((bodyA->id == 5) && (bodyB->id == 7))
 		{
 
-		  // is hitted by the player
+		  // is hitted by the shield
+
+			if (lifes > 0)
+			{
+				//app->audio->PlayFx(app->scene->fall_fx);
+
+				lifes--;
+
+				//bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				app->audio->PlayFx(app->scene->ehit_fx);
+			}
+			else
+			{
+				app->audio->PlayFx(app->scene->edeath_fx);
+			}
 			
 		}
 	}

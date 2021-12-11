@@ -279,6 +279,13 @@ bool Scene::Start()
 
 	pathTex = app->tex->Load("Assets/sprites/PathTexture.png");
 	originTex = app->tex->Load("Assets/sprites/Cross.png");
+
+	hit_fx = app->audio->LoadFx("Assets/audio/fx/player_hitted.wav");
+
+	edeath_fx = app->audio->LoadFx("Assets/audio/fx/enemy_death.wav");
+	ehit_fx = app->audio->LoadFx("Assets/audio/fx/b.wav");
+	shield_fx = app->audio->LoadFx("Assets/audio/fx/no.wav");
+	pdeath_fx = app->audio->LoadFx("Assets/audio/fx/death_player.wav");
 	
 	// Uploading the assets
 	// app->map->Load("level1.tmx");
@@ -316,6 +323,12 @@ bool Scene::Update(float dt)
 		app->SaveGameRequest();
 
 	//std::cout << "    " << app->player->xposition << "      " << app->player->yposition <<std::endl;
+	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+	{
+		//app->audio->PlayFx(app->scene->ehit_fx);
+		//app->audio->PlayFx(app->scene->pdeath_fx);
+	}
+	
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 

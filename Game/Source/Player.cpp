@@ -494,7 +494,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
 				app->player->deathAnimAllowed = true;
-
+				app->audio->PlayFx(app->scene->pdeath_fx);
 				//app->player->SetPlayerLifes(3);
 			}
 		}
@@ -515,7 +515,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-
+				app->audio->PlayFx(app->scene->pdeath_fx);
 				app->player->deathAnimAllowed = true;
 				//app->player->SetPlayerLifes(3);
 			}
@@ -534,7 +534,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
 				app->player->deathAnimAllowed = true;
-
+				//app->audio->PlayFx(app->scene->pdeath_fx);
 				//app->player->SetPlayerLifes(3);
 			}
 
@@ -558,25 +558,54 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (app->player->GetPlayerLifes() > 0)
 			{
-				//app->audio->PlayFx(app->scene->fall_fx);
+				app->audio->PlayFx(app->scene->hit_fx);
 
 				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
 
 				if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ 10.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}
 
 				if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ -10.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}				
 
 			}
 			else
 			{
 				app->player->deathAnimAllowed = true;
+				app->audio->PlayFx(app->scene->pdeath_fx);
 			}
+
+		}
+		else if ((bodyA->id == 1) && (bodyB->id == 6))
+		{
+		// fall and loose
+
+		if (app->player->GetPlayerLifes() > 0)
+		{
+			app->audio->PlayFx(app->scene->hit_fx);
+
+			app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+
+			if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
+			{
+				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+			}
+
+			if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
+			{
+				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+			}
+
+		}
+		else
+		{
+			app->player->deathAnimAllowed = true;
+			app->audio->PlayFx(app->scene->pdeath_fx);
+		}
 
 		}
 	}

@@ -44,10 +44,18 @@ public:
 
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	
-	//Collider* playerWall[100] = { nullptr };
+	
 	uint water_fx;
 	uint fall_fx;
 	uint win_fx;
+
+	uint hit_fx;
+
+	uint ehit_fx;
+	uint edeath_fx;
+	uint pdeath_fx;
+
+	uint shield_fx;
 	
 
 
