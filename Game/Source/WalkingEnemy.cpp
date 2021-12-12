@@ -96,7 +96,7 @@ WalkingEnemy::WalkingEnemy()
 	deathFromRightAnim.PushBack({ 390, 148, 20, 15 });
 	deathFromRightAnim.PushBack({ 357, 148, 20, 15 });
 	deathFromRightAnim.PushBack({ 327, 148, 20, 15 });
-	deathFromRightAnim.loop = true;
+	deathFromRightAnim.loop = false;
 	deathFromRightAnim.speed = idleSpeed;
 
 	// DEATH animation left
@@ -110,7 +110,7 @@ WalkingEnemy::WalkingEnemy()
 	deathFromLeftAnim.PushBack({ 231, 148, 20, 15 });
 	deathFromLeftAnim.PushBack({ 262, 148, 20, 15 });
 	deathFromLeftAnim.PushBack({ 294, 148, 20, 15 });
-	deathFromLeftAnim.loop = true;
+	deathFromLeftAnim.loop = false;
 	deathFromLeftAnim.speed = idleSpeed;
 }
 
@@ -583,6 +583,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			}
 			else
 			{
+				deathAnimAllowed = true;
 				app->audio->PlayFx(app->scene->edeath_fx);
 			}
 
@@ -602,6 +603,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			}
 			else
 			{
+				deathAnimAllowed = true;
 				app->audio->PlayFx(app->scene->edeath_fx);
 			}
 
@@ -621,6 +623,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			}
 			else
 			{
+				deathAnimAllowed = true;
 				app->audio->PlayFx(app->scene->edeath_fx);
 			}
 
