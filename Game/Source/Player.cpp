@@ -562,12 +562,12 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ 5.0f, -0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}
 
 				if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ -5.0f, -0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}				
 
 			}
@@ -590,12 +590,12 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ 5.0f,-0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 			}
 
 			if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ -5.0f, -0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 			}
 
 		}
