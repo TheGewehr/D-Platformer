@@ -337,24 +337,49 @@ bool WalkingEnemy::Update(float dt)
 
 			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
 
+			iPoint playerPosition;
+			app->player->GetColHitbox()->GetPosition(playerPosition.x, playerPosition.y);
 
-
-			if (directionPoint.x +16 < positionOfTheObject.x)
+			if (playerPosition.x >= positionOfTheObject.x)
 			{
-				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+				if (directionPoint.x + 32 < positionOfTheObject.x)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ -0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+					if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+					{
+						ColHitbox->body->ApplyLinearImpulse({ -0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+					}
+
 				}
+
+				if (directionPoint.x + 16 > positionOfTheObject.x)
+				{
+					if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+					{
+						ColHitbox->body->ApplyLinearImpulse({ 0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+					}
+				}
+			}
+			else
+			{
+				if (directionPoint.x - 32 < positionOfTheObject.x)
+				{
+					if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+					{
+						ColHitbox->body->ApplyLinearImpulse({ -0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+					}
+
+				}
+
+				if (directionPoint.x - 16 > positionOfTheObject.x)
+				{
+					if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+					{
+						ColHitbox->body->ApplyLinearImpulse({ 0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+					}
+				}
+			}
+
 			
-			}
-
-			if (directionPoint.x -16 > positionOfTheObject.x)
-			{
-				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
-				{
-					ColHitbox->body->ApplyLinearImpulse({ 0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
-				}
-			}
 
 			if ((directionPoint.y   < positionOfTheObject.y)&& (canJump == true))
 			{
