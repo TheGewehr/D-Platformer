@@ -346,16 +346,16 @@ bool Player::Update(float dt)
 				direction = 7;
 			}
 			if (direction == 2) {
-				direction = 0;
+				direction = 6;
 			}
 			if (direction == 3) {
-				direction = 1;
+				direction = 7;
 			}
 			if (direction == 4) {
-				direction = 0;
+				direction = 6;
 			}
 			if (direction == 5) {
-				direction = 1;
+				direction = 7;
 			}
 		}
 		
@@ -562,12 +562,12 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ 5.0f, -0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}
 
 				if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ -5.0f, -0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 				}				
 
 			}
@@ -590,12 +590,12 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ 5.0f,-0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 			}
 
 			if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ -5.0f, -0.1f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
 			}
 
 		}
