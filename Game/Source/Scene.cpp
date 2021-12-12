@@ -323,7 +323,7 @@ bool Scene::Update(float dt)
 		app->SaveGameRequest();
 
 	//std::cout << "    " << app->player->xposition << "      " << app->player->yposition <<std::endl;
-	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) &&(app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN))
+	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) || (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN))
 	{
 		//app->audio->PlayFx(app->scene->ehit_fx);
 		//app->audio->PlayFx(app->scene->pdeath_fx);
