@@ -136,7 +136,7 @@ bool FlyingEnemy::Start()
 
 	//enemy stats
 	startPosX = 300;
-	startPosY = 200;
+	startPosY = 150;
 	speed = { 1.3f,0 };
 	
 	// id's :

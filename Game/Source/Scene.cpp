@@ -441,7 +441,7 @@ void Scene::ResetLevel()
 	// Flying enemy
 
 	v.x = PIXEL_TO_METERS(300);
-	v.y = PIXEL_TO_METERS(200);
+	v.y = PIXEL_TO_METERS(150);
 
 	app->flyingenemy->lifes = 2;
 	app->flyingenemy->isAlive = true;

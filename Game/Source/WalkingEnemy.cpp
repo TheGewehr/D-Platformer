@@ -309,7 +309,7 @@ bool WalkingEnemy::Update(float dt)
 
 
 
-			if (directionPoint.x + 32 < positionOfTheObject.x)
+			if (directionPoint.x + 16 < positionOfTheObject.x)
 			{
 				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
 				{
@@ -318,7 +318,7 @@ bool WalkingEnemy::Update(float dt)
 
 			}
 
-			if (directionPoint.x > positionOfTheObject.x)
+			if (directionPoint.x - 16 > positionOfTheObject.x)
 			{
 				if (ColHitbox->body->GetLinearVelocity().x < 0.1f)
 				{
@@ -339,7 +339,7 @@ bool WalkingEnemy::Update(float dt)
 
 
 
-			if (directionPoint.x + 32 < positionOfTheObject.x)
+			if (directionPoint.x +16 < positionOfTheObject.x)
 			{
 				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
 				{
@@ -348,7 +348,7 @@ bool WalkingEnemy::Update(float dt)
 			
 			}
 
-			if (directionPoint.x > positionOfTheObject.x)
+			if (directionPoint.x -16 > positionOfTheObject.x)
 			{
 				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
 				{
