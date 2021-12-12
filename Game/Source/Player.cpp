@@ -346,16 +346,16 @@ bool Player::Update(float dt)
 				direction = 7;
 			}
 			if (direction == 2) {
-				direction = 0;
+				direction = 6;
 			}
 			if (direction == 3) {
-				direction = 1;
+				direction = 7;
 			}
 			if (direction == 4) {
-				direction = 0;
+				direction = 6;
 			}
 			if (direction == 5) {
-				direction = 1;
+				direction = 7;
 			}
 		}
 		
