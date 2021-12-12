@@ -423,10 +423,70 @@ bool FlyingEnemy::Update(float dt)
 	}
 	}
 
-	direction = 0;
+	if (isAlive == true)
+	{
+		if (ColHitbox->body->GetLinearVelocity().x < 0)
+		{
+			direction = 3;
+		}
+		else if (ColHitbox->body->GetLinearVelocity().x > 0)
+		{
+			direction = 2;
+		}
+		else if ((ColHitbox->body->GetLinearVelocity().x == 0))
+		{
+			if (direction == 2) {
+				direction = 0;
+			}
+			if (direction == 3) {
+				direction = 1;
+			}
+		}
+	}
+	else
+	{
+		if (deathAnimAllowed == true)
+		{
+			if (direction == 0) {
+				direction = 4;
+			}
+			if (direction == 1) {
+				direction = 5;
+			}
+			if (direction == 2) {
+				direction = 4;
+			}
+			if (direction == 3) {
+				direction = 5;
+			}
+		}
+
+	}
+
+
 	if (direction == 0)
 	{
 		currentAnimation = &rightIdleAnim;
+	}
+	else if (direction == 1)
+	{
+		currentAnimation = &leftIdleAnim;
+	}
+	else if (direction == 2)
+	{
+		currentAnimation = &flyingRigthAnim;
+	}
+	else if (direction == 3)
+	{
+		currentAnimation = &flyingLeftAnim;
+	}
+	else if (direction == 4)
+	{
+		currentAnimation = &deathFromRightAnim;
+	}
+	else if (direction == 5)
+	{
+		currentAnimation = &deathFromLeftAnim;
 	}
 
 	currentAnimation->Update();

@@ -360,8 +360,6 @@ bool Player::Update(float dt)
 		}
 		
 	}
-
-	
 	if (direction == 0)
 	{
 		currentAnimation = &rightIdleAnim;
