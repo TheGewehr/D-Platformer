@@ -28,87 +28,88 @@ WalkingEnemy::WalkingEnemy()
 	float movement2Speed = 0.2f;
 	float deathSpeed = 0.1f;
 
+
 	// IDLE animation right
-	rightIdleAnim.PushBack({ 6, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 39, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 73, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 104, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 134, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 165, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 198, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 231, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 263, 171, 21, 12 });
-	rightIdleAnim.PushBack({ 294, 171, 21, 12 });
+	rightIdleAnim.PushBack({ 326, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 357, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 387, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 420, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 452, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 484, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 517, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 549, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 582, 51, 20, 15 });
+	rightIdleAnim.PushBack({ 614, 51, 20, 15 });
 	rightIdleAnim.loop = true;
 	rightIdleAnim.speed = idleSpeed;
 
 	// IDLE animation left
-	leftIdleAnim.PushBack({ 325, 171, 21, 12 });
-	leftIdleAnim.PushBack({ 357, 171, 21, 12 });
-	leftIdleAnim.PushBack({ 389, 171, 21, 12 });
-	leftIdleAnim.PushBack({ 421, 171, 21, 12 });
-	leftIdleAnim.PushBack({ 453, 171, 21, 12 });
-	leftIdleAnim.PushBack({ 485, 173, 21, 12 });
-	leftIdleAnim.PushBack({ 518, 172, 21, 12 });
-	leftIdleAnim.PushBack({ 550, 172, 21, 12 });
-	leftIdleAnim.PushBack({ 582, 171, 21, 12 });
-	leftIdleAnim.PushBack({ 614, 171, 21, 12 });
+	leftIdleAnim.PushBack({ 295, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 264, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 232, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 200, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 168, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 136, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 104, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 71, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 38, 51, 20, 15 });
+	leftIdleAnim.PushBack({ 6, 51, 20, 15 });
 	leftIdleAnim.loop = true;
 	leftIdleAnim.speed = idleSpeed;
 
 	// WALKING animation right
-	runRigthAnim.PushBack({ 295, 236, 21, 12 });
-	runRigthAnim.PushBack({ 262, 235, 21, 12 });
-	runRigthAnim.PushBack({ 230, 236, 21, 12 });
-	runRigthAnim.PushBack({ 197, 237, 21, 12 });
-	runRigthAnim.PushBack({ 164, 236, 21, 12 });
-	runRigthAnim.PushBack({ 134, 237, 21, 12 });
-	runRigthAnim.PushBack({ 102, 236, 21, 12 });
-	runRigthAnim.PushBack({ 71, 235, 21, 12 });
-	runRigthAnim.PushBack({ 39, 235, 21, 12 });
-	runRigthAnim.PushBack({ 6, 235, 21, 12 });
+	runRigthAnim.PushBack({ 327, 116, 20, 15 });
+	runRigthAnim.PushBack({ 359, 116, 20, 15 });
+	runRigthAnim.PushBack({ 393, 116, 20, 15 });
+	runRigthAnim.PushBack({ 423, 116, 20, 15 });
+	runRigthAnim.PushBack({ 452, 116, 20, 15 });
+	runRigthAnim.PushBack({ 483, 116, 20, 15 });
+	runRigthAnim.PushBack({ 514, 116, 20, 15 });
+	runRigthAnim.PushBack({ 547, 116, 20, 15 });
+	runRigthAnim.PushBack({ 581, 116, 20, 15 });
+	runRigthAnim.PushBack({ 614, 116, 20, 15 });
 	runRigthAnim.loop = true;
 	runRigthAnim.speed = idleSpeed;
 
 	// WALKING animation left
-	runLeftAnim.PushBack({ 325, 235, 21, 12 });
-	runLeftAnim.PushBack({ 357, 235, 21, 12 });
-	runLeftAnim.PushBack({ 389, 237, 21, 12 });
-	runLeftAnim.PushBack({ 422, 237, 21, 12 });
-	runLeftAnim.PushBack({ 455, 236, 21, 12 });
-	runLeftAnim.PushBack({ 485, 237, 21, 12 });
-	runLeftAnim.PushBack({ 517, 236, 21, 12 });
-	runLeftAnim.PushBack({ 548, 235, 21, 12 });
-	runLeftAnim.PushBack({ 580, 235, 21, 12 });
-	runLeftAnim.PushBack({ 613, 235, 21, 12 });
+	runLeftAnim.PushBack({ 294, 116, 20, 15 });
+	runLeftAnim.PushBack({ 262, 116, 20, 15 });
+	runLeftAnim.PushBack({ 228, 116, 20, 15 });
+	runLeftAnim.PushBack({ 197, 116, 20, 15 });
+	runLeftAnim.PushBack({ 168, 116, 20, 15 });
+	runLeftAnim.PushBack({ 136, 116, 20, 15 });
+	runLeftAnim.PushBack({ 105, 116, 20, 15 });
+	runLeftAnim.PushBack({ 73, 116, 20, 15 });
+	runLeftAnim.PushBack({ 39, 116, 20, 15 });
+	runLeftAnim.PushBack({ 6, 116, 20, 15 });
 	runLeftAnim.loop = true;
 	runLeftAnim.speed = idleSpeed;
 
 	// DEATH animation right
-	deathFromRightAnim.PushBack({ 324, 308, 21, 12 });
-	deathFromRightAnim.PushBack({ 356, 308, 21, 12 });
-	deathFromRightAnim.PushBack({ 388, 308, 21, 12 });
-	deathFromRightAnim.PushBack({ 421, 237, 21, 12 });
-	deathFromRightAnim.PushBack({ 455, 236, 21, 12 });
-	deathFromRightAnim.PushBack({ 486, 306, 21, 12 });
-	deathFromRightAnim.PushBack({ 519, 302, 21, 12 });
-	deathFromRightAnim.PushBack({ 551, 300, 21, 12 });
-	deathFromRightAnim.PushBack({ 584, 300, 21, 12 });
-	deathFromRightAnim.PushBack({ 614, 299, 21, 12 });
+	deathFromRightAnim.PushBack({ 614, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 582, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 550, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 518, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 485, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 452, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 421, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 390, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 357, 148, 20, 15 });
+	deathFromRightAnim.PushBack({ 327, 148, 20, 15 });
 	deathFromRightAnim.loop = true;
 	deathFromRightAnim.speed = idleSpeed;
 
 	// DEATH animation left
-	deathFromLeftAnim.PushBack({ 295, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 263, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 231, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 198, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 165, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 134, 306, 21, 12 });
-	deathFromLeftAnim.PushBack({ 101, 302, 21, 12 });
-	deathFromLeftAnim.PushBack({ 67, 300, 21, 12 });
-	deathFromLeftAnim.PushBack({ 36, 300, 21, 12 });
-	deathFromLeftAnim.PushBack({ 5, 299, 21, 12 });
+	deathFromLeftAnim.PushBack({ 6, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 39, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 71, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 103, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 135, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 167, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 198, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 231, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 262, 148, 20, 15 });
+	deathFromLeftAnim.PushBack({ 294, 148, 20, 15 });
 	deathFromLeftAnim.loop = true;
 	deathFromLeftAnim.speed = idleSpeed;
 }
@@ -388,11 +389,70 @@ bool WalkingEnemy::Update(float dt)
 	}
 	}
 
-	direction = 0;
+	if (isAlive == true)
+	{
+		if (ColHitbox->body->GetLinearVelocity().x < 0)
+		{
+			direction = 3;
+		}
+		else if (ColHitbox->body->GetLinearVelocity().x > 0)
+		{
+			direction = 2;
+		}
+		else if ((ColHitbox->body->GetLinearVelocity().x == 0))
+		{
+			if (direction == 2) {
+				direction = 0;
+			}
+			if (direction == 3) {
+				direction = 1;
+			}
+		}
+	}
+	else
+	{
+		if (deathAnimAllowed == true)
+		{
+			if (direction == 0) {
+				direction = 4;
+			}
+			if (direction == 1) {
+				direction = 5;
+			}
+			if (direction == 2) {
+				direction = 4;
+			}
+			if (direction == 3) {
+				direction = 5;
+			}
+		}
+
+	}
+
 
 	if (direction == 0)
 	{
 		currentAnimation = &rightIdleAnim;
+	}
+	else if (direction == 1)
+	{
+		currentAnimation = &leftIdleAnim;
+	}
+	else if (direction == 2)
+	{
+		currentAnimation = &runRigthAnim;
+	}
+	else if (direction == 3)
+	{
+		currentAnimation = &runLeftAnim;
+	}
+	else if (direction == 4)
+	{
+		currentAnimation = &deathFromRightAnim;
+	}
+	else if (direction == 5)
+	{
+		currentAnimation = &deathFromLeftAnim;
 	}
 
 	currentAnimation->Update();

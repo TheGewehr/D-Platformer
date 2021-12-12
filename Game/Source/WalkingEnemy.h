@@ -79,8 +79,6 @@ public:
 		}
 	}
 
-	
-
 	//// Set of animations
 	//// IDLE animations
 	Animation rightIdleAnim;
