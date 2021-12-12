@@ -359,7 +359,7 @@ bool WalkingEnemy::Update(float dt)
 			if ((directionPoint.y   < positionOfTheObject.y)&& (canJump == true))
 			{
 				
-					ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.1f }, ColHitbox->body->GetPosition(), true);
+					ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.12f }, ColHitbox->body->GetPosition(), true);
 					canJump = false;
 				
 			}
