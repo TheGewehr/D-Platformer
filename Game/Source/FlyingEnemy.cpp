@@ -427,11 +427,11 @@ bool FlyingEnemy::Update(float dt)
 	{
 		if (ColHitbox->body->GetLinearVelocity().x < 0)
 		{
-			direction = 3;
+			direction = 2;
 		}
 		else if (ColHitbox->body->GetLinearVelocity().x > 0)
 		{
-			direction = 2;
+			direction = 3;
 		}
 		else if ((ColHitbox->body->GetLinearVelocity().x == 0))
 		{
