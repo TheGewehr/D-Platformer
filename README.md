@@ -4,7 +4,7 @@
 
 Final Epidemic is a group of two students coursing the second year Bachelor's degree in Video Game Design and Development at UPC university. The integrants of the group are Alexandre Carreras and Carlos Arnau.
 
-GitHub project link: https://github.com/IconicGIT/FinalPandemic
+GitHub project link: https://github.com/TheGewehr/D-Platformer
 
 <p>&nbsp;</p>
 
