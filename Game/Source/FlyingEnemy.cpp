@@ -323,24 +323,31 @@ bool FlyingEnemy::Update(float dt)
 
 			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
 
+			
 
+			
 
-			if (directionPoint.x < positionOfTheObject.x)
-			{
-				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+				if (directionPoint.x < positionOfTheObject.x)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+					{
+						ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					}
+
 				}
 
-			}
-
-			if (directionPoint.x > positionOfTheObject.x)
-			{
-				if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+				if (directionPoint.x > positionOfTheObject.x)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					if (ColHitbox->body->GetLinearVelocity().x < 0.1f)
+					{
+						ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					}
 				}
-			}
+
+			
+				
+			
+
 
 			if (directionPoint.y + 25 < positionOfTheObject.y)
 			{

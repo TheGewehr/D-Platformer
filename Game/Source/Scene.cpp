@@ -432,6 +432,7 @@ void Scene::ResetLevel()
 	app->walkingenemy->isAlive = true;
 	app->walkingenemy->deathAnimAllowed = false;
 	app->walkingenemy->statesInt = 0;
+	app->walkingenemy->ColHitbox->body->SetAwake(true);
 
 	
 
@@ -447,6 +448,7 @@ void Scene::ResetLevel()
 	app->flyingenemy->isAlive = true;
 	app->flyingenemy->deathAnimAllowed = false;
 	app->flyingenemy->statesInt = 0;
+	app->flyingenemy->ColHitbox->body->SetAwake(true);
 
 
 
