@@ -26,9 +26,10 @@ private:
 	b2Vec2 jumpForce;
 
 	PhysBody* ColHitbox;
-	PhysBody* ColSensor;
+	PhysBody* ShieldSensor;
 
 	SDL_Texture* texture;
+	SDL_Texture* shieldTex;
 
 	int lifes;
 	
@@ -66,9 +67,9 @@ public:
 		return ColHitbox;
 	}
 
-	PhysBody* GetColSensor() const
+	PhysBody* GetShieldSensor() const
 	{
-		return ColSensor;
+		return ShieldSensor;
 	}
 
 	const float getX()
@@ -87,6 +88,8 @@ public:
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
+	Animation* currentShieldAnimation = nullptr;
+
 	int direction;
 
 	void Player::SetAnimation(Animation& toChange)
@@ -122,6 +125,10 @@ public:
 	// Death Animation
 	Animation deathFromRightAnim;
 	Animation deathFromLeftAnim;
+
+	// Shield Animation
+	Animation shieldRightAnim;
+	Animation shieldLeftAnim;
 
 	bool deathAnimAllowed;
 	bool isAlive;

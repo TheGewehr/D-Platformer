@@ -136,6 +136,17 @@ Player::Player() : Module()
 	deathFromLeftAnim.PushBack({ 10, 303, 35, 33 });
 	deathFromLeftAnim.loop = false;
 	deathFromLeftAnim.speed = deathSpeed;
+
+
+	// Shield Animations
+	shieldRightAnim.PushBack({ 0+80, 0, 123-80, 33 });
+	shieldRightAnim.loop=false;
+	shieldRightAnim.speed = 1.f;
+
+	shieldLeftAnim.PushBack({ 232-123 , 37, 123 , 33 });
+	shieldLeftAnim.loop = false;
+	shieldLeftAnim.speed = 1.f;
+
 }
 
 Player::~Player()
@@ -151,6 +162,7 @@ bool Player::Start()
 {
 	//textures
 	texture = app->tex->Load("Assets/sprites/GraveRobber.png");
+	shieldTex = app->tex->Load("Assets/sprites/Shield01.png");
 
 	//player stats
 	startPosX = 70;
@@ -170,6 +182,8 @@ bool Player::Start()
 	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
 	ColHitbox->id = 1;
 	ColHitbox->listener = app->player;
+
+	//ShieldSensor = 
 	
 	int x_ = (int)x;
 	int y_ = (int)y;
@@ -393,6 +407,11 @@ bool Player::Update(float dt)
 		currentAnimation = &deathFromLeftAnim;
 	}
 
+	//currentShieldAnimation = &shieldLeftAnim;
+	currentShieldAnimation = &shieldRightAnim;
+
+
+	currentShieldAnimation->Update();
 	currentAnimation->Update();
 
 	return true;
@@ -414,6 +433,15 @@ bool Player::PostUpdate()
 
 	//Drawing player
 	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
+
+	if (currentShieldAnimation == &shieldRightAnim)
+	{
+		app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 17, &currentShieldAnimation->GetCurrentFrame());
+	}
+	else
+	{
+		app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 10 - 123+100, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 17 , &currentShieldAnimation->GetCurrentFrame());
+	}
 
 	return true;
 }
@@ -449,6 +477,7 @@ bool Player::LoadState(pugi::xml_node& data)
 
 	b2Vec2 v = { PIXEL_TO_METERS( startPosX), PIXEL_TO_METERS(startPosY )};
 	ColHitbox->body->SetTransform(v, 0);
+	ColHitbox->body->SetLinearVelocity({ 0,0 });
 
 	return true;
 }
