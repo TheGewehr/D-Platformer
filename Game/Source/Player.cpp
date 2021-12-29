@@ -139,7 +139,7 @@ Player::Player() : Module()
 
 
 	// Shield Animations
-	shieldRightAnim.PushBack({ 0+80, 0, 123-80, 33 });
+	shieldRightAnim.PushBack({ 0+60, 0, 123-60, 33 });
 	shieldRightAnim.loop=false;
 	shieldRightAnim.speed = 1.f;
 
@@ -206,15 +206,6 @@ bool Player::Start()
 	deathAnimAllowed = false;
 	win = false;
 	slowMoHability = false;
-
-	
-
-	
-	jointDef.bodyA = ColHitbox->body;
-	jointDef.bodyB = ShieldSensor->body;
-	//jointDef.joint1 = myRevoluteJoint;
-	//jointDef.joint2 = myPrismaticJoint;
-	jointDef.ratio = 2.0f * b2_pi / PIXEL_TO_METERS(121);
 
 	LOG("Loading player");
 	return true;
@@ -484,7 +475,7 @@ bool Player::PostUpdate()
 	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
 	
-	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) -20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
+	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) -30, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
 	
 	
 
