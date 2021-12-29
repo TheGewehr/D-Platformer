@@ -484,7 +484,7 @@ bool Player::PostUpdate()
 	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
 	
-	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 17, &currentShieldAnimation->GetCurrentFrame());
+	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) -20, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
 	
 	
 
