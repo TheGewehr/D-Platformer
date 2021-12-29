@@ -36,6 +36,9 @@ private:
 	bool win;
 
 	bool slowMoHability;	
+	float angularSpeed;
+
+	b2GearJointDef jointDef;
 
 public:
 	Player();
@@ -128,7 +131,7 @@ public:
 
 	// Shield Animation
 	Animation shieldRightAnim;
-	Animation shieldLeftAnim;
+	
 
 	bool deathAnimAllowed;
 	bool isAlive;

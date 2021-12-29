@@ -143,9 +143,7 @@ Player::Player() : Module()
 	shieldRightAnim.loop=false;
 	shieldRightAnim.speed = 1.f;
 
-	shieldLeftAnim.PushBack({ 232-123 , 37, 123 , 33 });
-	shieldLeftAnim.loop = false;
-	shieldLeftAnim.speed = 1.f;
+	
 
 }
 
@@ -170,6 +168,17 @@ bool Player::Start()
 	speed = { 1.3,0 };
 	jumpForce = { 0,-2.6f };
 
+	angularSpeed = 5.0f;
+
+	int shieldPoints[8] = {
+	
+	121-90, 2-15,
+	111 - 90, 2 - 15,
+	111 - 90, 21 - 15,
+	121 - 90, 31 - 15
+
+	};
+
 	// id's :
 	// 0 nothing
 	// 1 player
@@ -183,17 +192,29 @@ bool Player::Start()
 	ColHitbox->id = 1;
 	ColHitbox->listener = app->player;
 
-	//ShieldSensor = 
+	ShieldSensor = app->physics->CreateChain(100,100, shieldPoints, 8);
+	ShieldSensor->id = 7;
+	ShieldSensor->listener = app->player;
 	
 	int x_ = (int)x;
 	int y_ = (int)y;
 	ColHitbox->GetPosition(x_, y_);
+	ShieldSensor->GetPosition(x_, y_);
 
 	lifes = 4;
 	isAlive = true;
 	deathAnimAllowed = false;
 	win = false;
 	slowMoHability = false;
+
+	
+
+	
+	jointDef.bodyA = ColHitbox->body;
+	jointDef.bodyB = ShieldSensor->body;
+	//jointDef.joint1 = myRevoluteJoint;
+	//jointDef.joint2 = myPrismaticJoint;
+	jointDef.ratio = 2.0f * b2_pi / PIXEL_TO_METERS(121);
 
 	LOG("Loading player");
 	return true;
@@ -216,7 +237,10 @@ bool Player::Update(float dt)
 
 	bool goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
-	bool qHability = (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN);
+	bool qHability = (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN);
+
+	// ShieldSensor->body->CreateFixture(*ColHitbox->body);
+	ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
 	
 
 	// x movement on ground
@@ -298,6 +322,29 @@ bool Player::Update(float dt)
 			}
 			
 		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
+	{
+		//if (ShieldSensor->body->GetAngle() - DEGTORAD * angularSpeedLeft > (-DEGTORAD) * maxAngleLeft)
+		//{
+		ShieldSensor->body->SetAngularVelocity(-angularSpeed);
+		//}
+
+		//if (fliperLeft->body->GetAngle() - DEGTORAD * angularSpeedLeft < (-DEGTORAD) * maxAngleLeft)
+		//{
+			//fliperLeft->body->SetAngularVelocity(0.0f);
+		//}
+	}
+	else if((app->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT))
+	{
+		ShieldSensor->body->SetAngularVelocity(angularSpeed);
+		//}
+		
+	}
+	else
+	{
+		ShieldSensor->body->SetAngularVelocity((0,0));
 	}
 
 	if (isAlive == true)
@@ -407,6 +454,8 @@ bool Player::Update(float dt)
 		currentAnimation = &deathFromLeftAnim;
 	}
 
+	
+
 	//currentShieldAnimation = &shieldLeftAnim;
 	currentShieldAnimation = &shieldRightAnim;
 
@@ -434,14 +483,10 @@ bool Player::PostUpdate()
 	//Drawing player
 	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
-	if (currentShieldAnimation == &shieldRightAnim)
-	{
-		app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 17, &currentShieldAnimation->GetCurrentFrame());
-	}
-	else
-	{
-		app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 10 - 123+100, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 17 , &currentShieldAnimation->GetCurrentFrame());
-	}
+	
+	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) - 10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) - 17, &currentShieldAnimation->GetCurrentFrame());
+	
+	
 
 	return true;
 }
