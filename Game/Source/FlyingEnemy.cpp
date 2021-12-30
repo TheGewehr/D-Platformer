@@ -100,16 +100,16 @@ FlyingEnemy::FlyingEnemy()
 	deathFromRightAnim.speed = idleSpeed;
 
 	// DEATH animation left
-	deathFromLeftAnim.PushBack({ 295, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 263, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 231, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 198, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 165, 308, 21, 12 });
-	deathFromLeftAnim.PushBack({ 134, 306, 21, 12 });
-	deathFromLeftAnim.PushBack({ 101, 302, 21, 12 });
-	deathFromLeftAnim.PushBack({ 67, 300, 21, 12 });
-	deathFromLeftAnim.PushBack({ 36, 300, 21, 12 });
-	deathFromLeftAnim.PushBack({ 5, 299, 21, 12 });
+	deathFromLeftAnim.PushBack({ 7, 299, 18, 12 });
+	deathFromLeftAnim.PushBack({ 37, 299, 18, 12 });
+	deathFromLeftAnim.PushBack({ 69, 299, 18, 12 });
+	deathFromLeftAnim.PushBack({ 102, 299, 18, 12 });
+	deathFromLeftAnim.PushBack({ 136, 306, 18, 12 });
+	deathFromLeftAnim.PushBack({ 167, 306, 18, 12 });
+	deathFromLeftAnim.PushBack({ 206, 307, 18, 12 });
+	deathFromLeftAnim.PushBack({ 232, 307, 18, 12 });
+	deathFromLeftAnim.PushBack({ 265, 307, 18, 12 });
+	deathFromLeftAnim.PushBack({ 296, 307, 18, 12 });
 	deathFromLeftAnim.loop = false;
 	deathFromLeftAnim.speed = idleSpeed;
 }
@@ -489,13 +489,14 @@ bool FlyingEnemy::Update(float dt)
 	}
 	else if (direction == 4)
 	{
-		currentAnimation = &deathFromRightAnim;
+		currentAnimation = &deathFromLeftAnim; //
 	}
 	else if (direction == 5)
 	{
 		currentAnimation = &deathFromLeftAnim;
 	}
 
+	//currentAnimation = &deathFromLeftAnim;
 	currentAnimation->Update();
 
 	return true;

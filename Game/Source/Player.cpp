@@ -139,7 +139,7 @@ Player::Player() : Module()
 
 
 	// Shield Animations
-	shieldRightAnim.PushBack({ 0+60, 0, 123-60, 33 });
+	shieldRightAnim.PushBack({ 0+40, 0, 123-40, 33 });
 	shieldRightAnim.loop=false;
 	shieldRightAnim.speed = 1.f;
 
@@ -172,10 +172,10 @@ bool Player::Start()
 
 	int shieldPoints[8] = {
 	
-	121-90, 2-15,
-	111 - 90, 2 - 15,
-	111 - 90, 21 - 15,
-	121 - 90, 31 - 15
+	121-80, 2-15,
+	111 - 80, 2 - 15,
+	111 - 80, 21 - 15,
+	121 - 80, 31 - 15
 
 	};
 
@@ -245,12 +245,14 @@ bool Player::Update(float dt)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x < 5.f)
 				ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
+			ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
 		}
 
 		if (goLeft == true)
 		{
 			if (ColHitbox->body->GetLinearVelocity().x > -5.f)
 				ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
+			ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
 		}
 
 		if (qHability == true)
@@ -280,6 +282,7 @@ bool Player::Update(float dt)
 		stopping = { speed.x * 0.2f,0 };
 
 		ColHitbox->body->ApplyLinearImpulse(stopping, ColHitbox->body->GetPosition(), true);
+		ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
 	}
 	
 	if (ColHitbox->body->GetLinearVelocity().x > 3 )
@@ -287,6 +290,7 @@ bool Player::Update(float dt)
 		stopping = { speed.x * 0.2f,0 };
 
 		ColHitbox->body->ApplyLinearImpulse(-stopping, ColHitbox->body->GetPosition(), true);
+		ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
 	}
 		
 	b2Body* ground;
@@ -475,7 +479,7 @@ bool Player::PostUpdate()
 	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
 	
-	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) -30, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
+	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) -40, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
 	
 	
 
