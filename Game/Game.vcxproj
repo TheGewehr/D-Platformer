@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Source\FlyingEnemy.cpp" />
     <ClCompile Include="Source\Intro.cpp" />
+    <ClCompile Include="Source\LevelManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\FlyingEnemy.h" />
     <ClInclude Include="Source\Intro.h" />
+    <ClInclude Include="Source\LevelManager.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\PathFinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />

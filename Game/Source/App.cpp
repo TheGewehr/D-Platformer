@@ -12,6 +12,7 @@
 #include "PathFinding.h"
 #include "FlyingEnemy.h"
 #include "WalkingEnemy.h"
+#include "LevelManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -26,19 +27,20 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	PERF_START(ptimer);
 	
 
-	win = new Window();
-	input = new Input();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
-	intro = new Intro(false);
-	scene = new Scene(false);
-	map = new Map();
-	physics = new Physics();
-	player = new Player();
-	pathfinding = new PathFinding();
+	win = new Window(true);
+	input = new Input(true);
+	render = new Render(true);
+	tex = new Textures(true);
+	audio = new Audio(true);
+	intro = new Intro(true);
+	scene = new Scene(true);
+	map = new Map(true);
+	physics = new Physics(true);
+	player = new Player(true);
+	pathfinding = new PathFinding(true);
 	flyingenemy = new FlyingEnemy();
 	walkingenemy = new WalkingEnemy();
+	lvlmanager = new LevelManager(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -54,7 +56,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(flyingenemy);
 	AddModule(walkingenemy);
-	
+	AddModule(lvlmanager);
+
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -79,7 +82,7 @@ App::~App()
 
 void App::AddModule(Module* module)
 {
-	module->Init();
+	module->Init(module->active);
 	modules.add(module);
 }
 

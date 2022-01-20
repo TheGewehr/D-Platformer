@@ -41,7 +41,7 @@ private:
 	b2GearJointDef jointDef;
 
 public:
-	Player();
+	Player(bool startEnabled);
 	virtual ~Player();
 
 	// Called before render is available

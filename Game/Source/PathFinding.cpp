@@ -4,8 +4,9 @@
 #include "Defs.h"
 #include "Log.h"
 
-PathFinding::PathFinding() : Module(), map(NULL), lastPath(DEFAULT_PATH_LENGTH), width(0), height(0)
+PathFinding::PathFinding(bool startEnabled) : Module(), map(NULL), lastPath(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
+	active = startEnabled;
 	name.Create("pathfinding");
 }
 

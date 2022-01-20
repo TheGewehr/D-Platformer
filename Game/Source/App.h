@@ -25,6 +25,7 @@ class Physics;
 class Player;
 class FlyingEnemy;
 class WalkingEnemy;
+class LevelManager;
 
 //class Timer;
 //class PerfTimer;
@@ -132,6 +133,7 @@ public:
 	PathFinding* pathfinding;
 	FlyingEnemy* flyingenemy;
 	WalkingEnemy* walkingenemy;
+	LevelManager* lvlmanager;
 
 private:
 

@@ -10,7 +10,7 @@ class Window : public Module
 {
 public:
 
-	Window();
+	Window(bool startenabled);
 
 	// Destructor
 	virtual ~Window();

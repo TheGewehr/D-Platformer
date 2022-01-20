@@ -20,8 +20,9 @@
 #pragma comment( lib, "../Game/Source/External/Box2D/libx86/Release/Box2D.lib" )
 #endif
 
-Physics::Physics()
+Physics::Physics(bool startEnabled)
 {
+	active = startEnabled;
 	world = NULL;
 	mouse_joint = NULL;
 	debug = false;

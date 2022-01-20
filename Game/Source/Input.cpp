@@ -9,8 +9,9 @@
 
 #define MAX_KEYS 300
 
-Input::Input() : Module()
+Input::Input(bool startEnabled) : Module()
 {
+	active = startEnabled;
 	name.Create("input");
 
 	keyboard = new KeyState[MAX_KEYS];

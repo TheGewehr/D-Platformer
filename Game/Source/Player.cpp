@@ -16,8 +16,9 @@
 #include "SDL/include/SDL.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
-Player::Player() : Module()
+Player::Player(bool startEnabled) : Module()
 {
+	active = startEnabled;
 	name.Create("player");
 
 	texture = nullptr;

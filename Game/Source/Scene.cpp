@@ -21,6 +21,7 @@
 
 Scene::Scene(bool startEnabled) : Module()
 {
+	active = startEnabled;
 	name.Create("scene");
 }
 
