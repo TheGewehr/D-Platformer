@@ -89,7 +89,7 @@ bool EntityManager::Update(float dt)
 
 		//if (item->data->EntitiesEnable == true) {
 
-			ret = item->data->Update(dt, do_logic);
+			ret = item->data->Update(dt);
 			//if (!ret)
 			//	break;
 
@@ -163,7 +163,7 @@ void EntityManager::OnCollision(PhysBody* c1, PhysBody* c2)
 {
 	for (p2List_item<Entity*>* item = entities.getFirst(); item; item = item->next)
 	{
-		if (item->data->EntitiesEnable == true) {
+		//if (item->data->EntitiesEnable == true) {
 			//Some Entities manage/have more than 1 collider
 			
 
@@ -171,11 +171,11 @@ void EntityManager::OnCollision(PhysBody* c1, PhysBody* c2)
 					item->data->OnCollision(c1, c2);
 
 			
-		}
+		//}
 	}
 
 
-	player->OnCollision(c1, c2);
+	//player->OnCollision(c1, c2);
 
 }
 
@@ -185,9 +185,9 @@ Entity* EntityManager::CreateEntity(ENTITY_TYPE type)
 	Entity* ret = nullptr;
 	switch (type) {
 
-	case ENTITY_TYPE::FLYING_ENEMY: ret = new FlyingEnemy(); break;
-	case ENTITY_TYPE::WALKING_ENEMY: ret = new WalkingEnemy(); break;
-	case ENTITY_TYPE::PLAYER: ret = new Player(); break;
+	//case ENTITY_TYPE::FLYING_ENEMY: ret = new FlyingEnemy(); break;
+	//case ENTITY_TYPE::WALKING_ENEMY: ret = new WalkingEnemy(); break;
+	case ENTITY_TYPE::PLAYER: ret = new Player(true); break;
 	//case ENTITY_TYPE::LIFE_ITEM: ret = new j2LifeItem(); break;
 	//case ENTITY_TYPE::COIN: ret = new j2Coin(); break;
 	}
