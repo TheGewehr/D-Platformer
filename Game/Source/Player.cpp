@@ -16,13 +16,13 @@
 #include "SDL/include/SDL.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
-Player::Player(bool startEnabled) : Module()
+Player::Player(bool startEnabled)// : Entity()
 {
 	active = startEnabled;
 	name.Create("player");
 
-	texture = nullptr;
-
+	EntityText = nullptr;
+	
 	float idleSpeed = 0.1f;
 	float movement1Speed = 0.1f;
 	float movement2Speed = 0.2f;
@@ -160,12 +160,12 @@ bool Player::Awake()
 bool Player::Start()
 {
 	//textures
-	texture = app->tex->Load("Assets/sprites/GraveRobber.png");
+	EntityText = app->tex->Load("Assets/sprites/GraveRobber.png");
 	shieldTex = app->tex->Load("Assets/sprites/Shield01.png");
 
 	//player stats
-	startPosX = 70;
-	startPosY = 100;
+	position.x = 70;
+	position.y = 100;
 	speed = { 1.3,0 };
 	jumpForce = { 0,-2.6f };
 
@@ -189,18 +189,18 @@ bool Player::Start()
 	// 5 Flying Enemy
 	// 6 Walking Enemy
 
-	ColHitbox = app->physics->CreateCircle(startPosX, startPosY,15);
-	ColHitbox->id = 1;
-	ColHitbox->listener = app->player;
+	EntityCollider = app->physics->CreateCircle(position.x, position.y,15);
+	EntityCollider->id = 1;
+	EntityCollider->listener = app->entitymanager;
 
 	ShieldSensor = app->physics->CreateChain(100,100, shieldPoints, 8);
 	ShieldSensor->id = 7;
-	ShieldSensor->listener = app->player;
+	ShieldSensor->listener = app->entitymanager;
 	
 	int x_ = (int)x;
 	int y_ = (int)y;
-	ColHitbox->GetPosition(x_, y_);
-	ShieldSensor->GetPosition(x_, y_);
+	EntityCollider->GetPosition(x_, y_);
+	EntityCollider->GetPosition(x_, y_);
 
 	lifes = 4;
 	isAlive = true;
@@ -231,8 +231,8 @@ bool Player::Update(float dt)
 	bool goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 	bool qHability = (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN);
 
-	// ShieldSensor->body->CreateFixture(*ColHitbox->body);
-	ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
+	// ShieldSensor->body->CreateFixture(*EntityCollider->body);
+	ShieldSensor->body->SetTransform(EntityCollider->body->GetPosition(), ShieldSensor->body->GetAngle());
 	
 
 	// x movement on ground
@@ -244,16 +244,16 @@ bool Player::Update(float dt)
 	{
 		if (goRight == true)
 		{
-			if (ColHitbox->body->GetLinearVelocity().x < 5.f)
-				ColHitbox->body->ApplyLinearImpulse(speed, ColHitbox->body->GetPosition(), true);
-			ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
+			if (EntityCollider->body->GetLinearVelocity().x < 5.f)
+				EntityCollider->body->ApplyLinearImpulse(speed, EntityCollider->body->GetPosition(), true);
+			ShieldSensor->body->SetTransform(EntityCollider->body->GetPosition(), ShieldSensor->body->GetAngle());
 		}
 
 		if (goLeft == true)
 		{
-			if (ColHitbox->body->GetLinearVelocity().x > -5.f)
-				ColHitbox->body->ApplyLinearImpulse(-speed, ColHitbox->body->GetPosition(), true);
-			ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
+			if (EntityCollider->body->GetLinearVelocity().x > -5.f)
+				EntityCollider->body->ApplyLinearImpulse(-speed, EntityCollider->body->GetPosition(), true);
+			ShieldSensor->body->SetTransform(EntityCollider->body->GetPosition(), ShieldSensor->body->GetAngle());
 		}
 
 		if (qHability == true)
@@ -274,46 +274,46 @@ bool Player::Update(float dt)
 
 	}
 
-	app->render->camera.x = METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-0.5f *app->win->GetWidth();
+	app->render->camera.x = METERS_TO_PIXELS(EntityCollider->body->GetPosition().x)-0.5f *app->win->GetWidth();
 
 	// x movement on air
 
-	if (ColHitbox->body->GetLinearVelocity().x < -3)
+	if (EntityCollider->body->GetLinearVelocity().x < -3)
 	{
 		stopping = { speed.x * 0.2f,0 };
 
-		ColHitbox->body->ApplyLinearImpulse(stopping, ColHitbox->body->GetPosition(), true);
-		ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
+		EntityCollider->body->ApplyLinearImpulse(stopping, EntityCollider->body->GetPosition(), true);
+		ShieldSensor->body->SetTransform(EntityCollider->body->GetPosition(), ShieldSensor->body->GetAngle());
 	}
 	
-	if (ColHitbox->body->GetLinearVelocity().x > 3 )
+	if (EntityCollider->body->GetLinearVelocity().x > 3 )
 	{
 		stopping = { speed.x * 0.2f,0 };
 
-		ColHitbox->body->ApplyLinearImpulse(-stopping, ColHitbox->body->GetPosition(), true);
-		ShieldSensor->body->SetTransform(ColHitbox->body->GetPosition(), ShieldSensor->body->GetAngle());
+		EntityCollider->body->ApplyLinearImpulse(-stopping, EntityCollider->body->GetPosition(), true);
+		ShieldSensor->body->SetTransform(EntityCollider->body->GetPosition(), ShieldSensor->body->GetAngle());
 	}
 		
 	b2Body* ground;
 
-	if (ColHitbox->body->GetContactList() != nullptr)
+	if (EntityCollider->body->GetContactList() != nullptr)
 	{
-		ground = ColHitbox->body->GetContactList()->contact->GetFixtureA()->GetBody();
+		ground = EntityCollider->body->GetContactList()->contact->GetFixtureA()->GetBody();
 
 		if (ground != nullptr)
 		{
 
-			b2Vec2 xVel = { 0,ColHitbox->body->GetLinearVelocity().y };
-			if (!goLeft && !goRight) ColHitbox->body->SetLinearVelocity(xVel);
+			b2Vec2 xVel = { 0,EntityCollider->body->GetLinearVelocity().y };
+			if (!goLeft && !goRight) EntityCollider->body->SetLinearVelocity(xVel);
 
 			if (isAlive != false && win == false)
 			{
 				if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 				{
-					b2Vec2 yVel = { ColHitbox->body->GetLinearVelocity().y,0 };
-					ColHitbox->body->SetLinearVelocity(yVel);
-					ColHitbox->body->ApplyLinearImpulse(jumpForce, ColHitbox->body->GetPosition(), true);
-					ColHitbox->body->SetLinearDamping(0);
+					b2Vec2 yVel = { EntityCollider->body->GetLinearVelocity().y,0 };
+					EntityCollider->body->SetLinearVelocity(yVel);
+					EntityCollider->body->ApplyLinearImpulse(jumpForce, EntityCollider->body->GetPosition(), true);
+					EntityCollider->body->SetLinearDamping(0);
 				}
 			}
 			
@@ -345,11 +345,11 @@ bool Player::Update(float dt)
 
 	if (isAlive == true)
 	{
-		if (ColHitbox->body->GetLinearVelocity().x < 0)
+		if (EntityCollider->body->GetLinearVelocity().x < 0)
 		{
 			direction = 3;
 		}
-		else if (ColHitbox->body->GetLinearVelocity().x > 0)
+		else if (EntityCollider->body->GetLinearVelocity().x > 0)
 		{
 			direction = 2;
 		}
@@ -361,7 +361,7 @@ bool Player::Update(float dt)
 		{
 			direction = 1;
 		}
-		else if ((ColHitbox->body->GetLinearVelocity().y != 0))
+		else if ((EntityCollider->body->GetLinearVelocity().y != 0))
 		{
 			if (direction == 0) {
 				direction = 4;
@@ -376,7 +376,7 @@ bool Player::Update(float dt)
 				direction = 5;
 			}
 		}
-		else if ((ColHitbox->body->GetLinearVelocity().x == 0) && (ColHitbox->body->GetLinearVelocity().y == 0))
+		else if ((EntityCollider->body->GetLinearVelocity().x == 0) && (EntityCollider->body->GetLinearVelocity().y == 0))
 		{
 			if (direction == 2) {
 				direction = 0;
@@ -477,10 +477,10 @@ bool Player::PostUpdate()
 {
 
 	//Drawing player
-	app->render->DrawTexture(texture, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x)-10, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(EntityText, METERS_TO_PIXELS(EntityCollider->body->GetPosition().x)-10, METERS_TO_PIXELS(EntityCollider->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
 
 	
-	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(ColHitbox->body->GetPosition().x) -40, METERS_TO_PIXELS(ColHitbox->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
+	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(EntityCollider->body->GetPosition().x) -40, METERS_TO_PIXELS(EntityCollider->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
 	
 	
 
@@ -510,15 +510,15 @@ void Player::SetPlayerWin(bool b)
 bool Player::LoadState(pugi::xml_node& data)
 {
 	LOG("loading player ");
-	startPosX = data.child("startPos").attribute("x").as_float(0);
-	startPosY = data.child("startPos").attribute("y").as_float(0);
+	position.x = data.child("startPos").attribute("x").as_float(0);
+	position.y = data.child("startPos").attribute("y").as_float(0);
 	lifes = data.child("lifes").attribute("value").as_int();
 	isAlive = data.child("isAlive").attribute("value").as_bool();
 	deathAnimAllowed = data.child("deathAnimation").attribute("value").as_bool();
 
-	b2Vec2 v = { PIXEL_TO_METERS( startPosX), PIXEL_TO_METERS(startPosY )};
-	ColHitbox->body->SetTransform(v, 0);
-	ColHitbox->body->SetLinearVelocity({ 0,0 });
+	b2Vec2 v = { PIXEL_TO_METERS(position.x), PIXEL_TO_METERS(position.y)};
+	EntityCollider->body->SetTransform(v, 0);
+	EntityCollider->body->SetLinearVelocity({ 0,0 });
 
 	return true;
 }
@@ -528,8 +528,8 @@ bool Player::SaveState(pugi::xml_node& data) const
 {
 
 	LOG("saving player ");
-	data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().x));
-	data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(ColHitbox->body->GetPosition().y));
+	data.child("startPos").attribute("x").set_value(METERS_TO_PIXELS(EntityCollider->body->GetPosition().x));
+	data.child("startPos").attribute("y").set_value(METERS_TO_PIXELS(EntityCollider->body->GetPosition().y));
 	data.child("lifes").attribute("value").set_value(lifes);
 	data.child("isAlive").attribute("value").set_value(isAlive);
 	data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);
@@ -555,7 +555,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 				//app->player->life
 				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, app->player->GetEntityCollider()->body->GetPosition(), true);
 
 			}
 			else
@@ -576,7 +576,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->entitymanager->player->EntityCollider->body->GetPosition(), true);
 
 			}
 			else
@@ -630,14 +630,14 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
 
-				if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
+				if (app->player->GetEntityCollider()->body->GetPosition().x > bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
 				}
 
-				if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
+				if (app->player->GetEntityCollider()->body->GetPosition().x < bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
 				}				
 
 			}
@@ -658,14 +658,14 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
 
-			if (app->player->GetColHitbox()->body->GetPosition().x > bodyB->body->GetPosition().x)
+			if (app->player->GetEntityCollider()->body->GetPosition().x > bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
 			}
 
-			if (app->player->GetColHitbox()->body->GetPosition().x < bodyB->body->GetPosition().x)
+			if (app->player->GetEntityCollider()->body->GetPosition().x < bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
 			}
 
 		}

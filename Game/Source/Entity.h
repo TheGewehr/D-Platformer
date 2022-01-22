@@ -29,7 +29,10 @@ public:
 
 	//Constructor
 
-	Entity(ENTITY_TYPE type) : name("Unknown"), manager(NULL), type(type) {}
+	Entity(ENTITY_TYPE type) : name("Unknown"), manager(NULL), type(type), id(-1), active(true), EntityCollider(nullptr)
+	{
+
+	}
 
 	//Destructor
 	virtual ~Entity() {}
@@ -56,7 +59,7 @@ public:
 	virtual void OnCollision(PhysBody* c1, PhysBody* c2) {}
 
 public:
-	iPoint positionOrigin;
+	//iPoint positionOrigin;
 	iPoint position;
 	SString name;
 	PhysBody* EntityCollider;
@@ -75,7 +78,7 @@ public:
 	
 
 	int id;
-	int EnemysFromMap;
+
 
 private:
 	EntityManager* manager;

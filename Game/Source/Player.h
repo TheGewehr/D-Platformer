@@ -6,29 +6,31 @@
 #include "Input.h"
 #include "Module.h"
 #include "Animation.h"
+#include "Entity.h"
 
 struct SDL_Texture;
+enum class ENTITY_TYPE;
 
 struct Vect2 {
 	int x, y;
 };
 
-class Player : public Module
+class Player : public Entity
 {
 
 private:
-	float startPosX;
-	float startPosY;
+	//float startPosX;
+	//float startPosY;
 
 	float x, y;
 	b2Vec2 speed;
 	float maxXspeed;
 	b2Vec2 jumpForce;
 
-	PhysBody* ColHitbox;
+	//PhysBody* ColHitbox;
 	PhysBody* ShieldSensor;
 
-	SDL_Texture* texture;
+	//SDL_Texture* texture;
 	SDL_Texture* shieldTex;
 
 	int lifes;
@@ -67,7 +69,7 @@ public:
 
 	PhysBody* GetColHitbox() const
 	{
-		return ColHitbox;
+		return EntityCollider;
 	}
 
 	PhysBody* GetShieldSensor() const

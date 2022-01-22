@@ -7,7 +7,7 @@
 #include "App.h"
 #include "Entity.h"
 
-EntityManager::EntityManager() : Module()
+EntityManager::EntityManager(bool state) : Module()
 {
 
 	name.Create("entities");
@@ -16,6 +16,8 @@ EntityManager::EntityManager() : Module()
 	player = (Player*)CreateEntity(ENTITY_TYPE::PLAYER);
 
 }
+
+
 
 EntityManager::~EntityManager()
 {

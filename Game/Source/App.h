@@ -22,10 +22,11 @@ class Intro;
 class Scene;
 class Map;
 class Physics;
-class Player;
+//class Player;
 class FlyingEnemy;
 class WalkingEnemy;
 class LevelManager;
+class EntityManager;
 
 //class Timer;
 //class PerfTimer;
@@ -134,6 +135,7 @@ public:
 	FlyingEnemy* flyingenemy;
 	WalkingEnemy* walkingenemy;
 	LevelManager* lvlmanager;
+	EntityManager* entitymanager;
 
 private:
 

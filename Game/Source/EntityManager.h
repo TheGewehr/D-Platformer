@@ -16,7 +16,7 @@ class EntityManager : public Module
 public:
 
 	//Constructor
-	EntityManager();
+	EntityManager(bool state);
 	//Destructor
 	virtual ~EntityManager();
 
@@ -52,9 +52,6 @@ public:
 	p2List<Entity*> entities;
 
 	Player* player;
-
-
-
 
 
 };

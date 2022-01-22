@@ -13,6 +13,8 @@
 #include "FlyingEnemy.h"
 #include "WalkingEnemy.h"
 #include "LevelManager.h"
+#include "EntityManager.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,11 +38,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene(true);
 	map = new Map(true);
 	physics = new Physics(true);
-	player = new Player(true);
+	//player = new Player(true);
 	pathfinding = new PathFinding(true);
 	flyingenemy = new FlyingEnemy();
 	walkingenemy = new WalkingEnemy();
 	lvlmanager = new LevelManager(true);
+	entitymanager = new EntityManager(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -52,11 +55,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(intro);
 	AddModule(scene);
 	AddModule(map);
-	AddModule(player);
+	//AddModule(player);
 	AddModule(pathfinding);
 	AddModule(flyingenemy);
 	AddModule(walkingenemy);
 	AddModule(lvlmanager);
+	AddModule(entitymanager);
 
 
 	// Render last to swap buffer
