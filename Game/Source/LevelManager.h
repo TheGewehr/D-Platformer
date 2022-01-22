@@ -6,6 +6,13 @@
 #include "Module.h"
 #include "PugiXml/src/pugixml.hpp"
 
+enum class SCENE_TYPE
+{
+	MENU = 0,
+	LVL_01,
+	WIN,
+	LOSE
+};
 
 class LevelManager : public Module
 {	
@@ -20,6 +27,7 @@ public:
 
 	// Called before the first frame
 	bool Start();
+	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
 	bool LoadState(pugi::xml_node&);
@@ -27,6 +35,8 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	
+	void ChangeScene(SCENE_TYPE scene);
+	Module* Levels = NULL;
 	SString	name;
 };
 

@@ -34,8 +34,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render(true);
 	tex = new Textures(true);
 	audio = new Audio(true);
-	intro = new Intro(true);
-	scene = new Scene(true);
+	//intro = new Intro(true);
+	//scene = new Scene(true);
 	map = new Map(true);
 	physics = new Physics(true);
 	//player = new Player(true);

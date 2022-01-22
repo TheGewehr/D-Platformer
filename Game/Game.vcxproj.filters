@@ -64,6 +64,9 @@
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Lvl_menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -157,6 +160,9 @@
       <Filter>Heather Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity.h">
+      <Filter>Heather Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lvl_menu.h">
       <Filter>Heather Files</Filter>
     </ClInclude>
   </ItemGroup>
