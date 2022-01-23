@@ -11,7 +11,7 @@ EntityManager::EntityManager(bool state) : Module()
 {
 
 	name.Create("entities");
-
+	active = state;
 	
 	player = (Player*)CreateEntity(ENTITY_TYPE::PLAYER);
 
@@ -25,7 +25,7 @@ EntityManager::~EntityManager()
 
 bool EntityManager::Awake(pugi::xml_node& config)
 {
-	active = false;
+	
 
 	bool ret = true;
 

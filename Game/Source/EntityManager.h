@@ -26,9 +26,9 @@ public:
 	//Start
 	bool Start();
 	//PreUpdate
-	bool PreUpdate();
+	bool PreUpdate() override;
 	//Update
-	bool Update(float dt);
+	bool Update(float dt) override;
 
 	//PostUpdate
 	bool PostUpdate();
