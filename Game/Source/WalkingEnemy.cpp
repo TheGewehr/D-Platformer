@@ -22,7 +22,7 @@ WalkingEnemy::WalkingEnemy()
 {
 	name.Create("walkingenemy");
 
-	texture = nullptr;
+	EntityText = nullptr;
 
 	float idleSpeed = 0.4f;
 	float movement1Speed = 0.1f;
@@ -133,11 +133,11 @@ bool WalkingEnemy::Awake()
 bool WalkingEnemy::Start()
 {
 	//textures
-	texture = app->tex->Load("Assets/sprites/Enemies.png");
+	EntityText = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//enemy stats
-	startPosX = app->map->MapToWorld(30,6).x;
-	startPosY = app->map->MapToWorld(30, 6).y;
+	position.x = app->map->MapToWorld(30,6).x;
+	position.y = app->map->MapToWorld(30, 6).y;
 	speed = { 1.3f,0 };
 
 	// id's :
@@ -149,14 +149,14 @@ bool WalkingEnemy::Start()
 	// 5 Flying Enemy
 	// 6 Walking Enemy
 
-	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
-	ColHitbox->id = 6;
-	ColHitbox->listener = app->walkingenemy;
+	EntityCollider = app->physics->CreateCircle(position.x, position.y, 6);
+	EntityCollider->id = 6;
+	EntityCollider->listener = app->entitymanager;
 
 
 	int x_ = (int)x;
 	int y_ = (int)y;
-	ColHitbox->GetPosition(x_, y_);
+	EntityCollider->GetPosition(x_, y_);
 	actualStates = WALK;
 	isAlive = true;
 	lifes = 2;
@@ -207,14 +207,14 @@ bool WalkingEnemy::Update(float dt)
 	case WALK:
 	{
 		
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y);
 
 
 		//iPoint playerPos;
 
-		//ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		//directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		//EntityCollider->GetPosition(position.x, position.y);
+		//directionPoint = app->map->WorldToMap(position.x, position.y);
 
 		//playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
 
@@ -246,15 +246,15 @@ bool WalkingEnemy::Update(float dt)
 	}break;
 	case ATTACK:
 	{
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y);
 
 
 		iPoint playerPos;
 		app->entitymanager->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
 
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y);
 
 		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
 
@@ -286,8 +286,8 @@ bool WalkingEnemy::Update(float dt)
 	}break;
 	case DIE:
 	{
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y);
 
 	}break;
 	}
@@ -306,24 +306,24 @@ bool WalkingEnemy::Update(float dt)
 
 			directionPoint = { directionPoint.x + 13, directionPoint.y + 16 };
 
-			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+			EntityCollider->GetPosition(position.x, position.y); // pixels
 
 
 
-			if (directionPoint.x + 16 < positionOfTheObject.x)
+			if (directionPoint.x + 16 < position.x)
 			{
-				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+				if (EntityCollider->body->GetLinearVelocity().x > -0.1f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					EntityCollider->body->ApplyLinearImpulse({ -0.1f,0.0f }, EntityCollider->body->GetPosition(), true);
 				}
 
 			}
 
-			if (directionPoint.x - 16 > positionOfTheObject.x)
+			if (directionPoint.x - 16 > position.x)
 			{
-				if (ColHitbox->body->GetLinearVelocity().x < 0.1f)
+				if (EntityCollider->body->GetLinearVelocity().x < 0.1f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					EntityCollider->body->ApplyLinearImpulse({ 0.1f,0.0f }, EntityCollider->body->GetPosition(), true);
 				}
 			}
 
@@ -336,56 +336,56 @@ bool WalkingEnemy::Update(float dt)
 
 			directionPoint = { directionPoint.x + 13, directionPoint.y + 16 };
 
-			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+			EntityCollider->GetPosition(position.x, position.y); // pixels
 
 			iPoint playerPosition;
 			app->entitymanager->player->GetColHitbox()->GetPosition(playerPosition.x, playerPosition.y);
 
-			if (playerPosition.x >= positionOfTheObject.x)
+			if (playerPosition.x >= position.x)
 			{
-				if (directionPoint.x + 32 < positionOfTheObject.x)
+				if (directionPoint.x + 32 < position.x)
 				{
-					if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+					if (EntityCollider->body->GetLinearVelocity().x > -0.1f)
 					{
-						ColHitbox->body->ApplyLinearImpulse({ -0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+						EntityCollider->body->ApplyLinearImpulse({ -0.2f,0.0f }, EntityCollider->body->GetPosition(), true);
 					}
 
 				}
 
-				if (directionPoint.x + 16 > positionOfTheObject.x)
+				if (directionPoint.x + 16 > position.x)
 				{
-					if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+					if (EntityCollider->body->GetLinearVelocity().x < 0.9f)
 					{
-						ColHitbox->body->ApplyLinearImpulse({ 0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+						EntityCollider->body->ApplyLinearImpulse({ 0.2f,0.0f }, EntityCollider->body->GetPosition(), true);
 					}
 				}
 			}
 			else
 			{
-				if (directionPoint.x - 32 < positionOfTheObject.x)
+				if (directionPoint.x - 32 < position.x)
 				{
-					if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+					if (EntityCollider->body->GetLinearVelocity().x > -0.1f)
 					{
-						ColHitbox->body->ApplyLinearImpulse({ -0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+						EntityCollider->body->ApplyLinearImpulse({ -0.2f,0.0f }, EntityCollider->body->GetPosition(), true);
 					}
 
 				}
 
-				if (directionPoint.x - 16 > positionOfTheObject.x)
+				if (directionPoint.x - 16 > position.x)
 				{
-					if (ColHitbox->body->GetLinearVelocity().x < 0.9f)
+					if (EntityCollider->body->GetLinearVelocity().x < 0.9f)
 					{
-						ColHitbox->body->ApplyLinearImpulse({ 0.2f,0.0f }, ColHitbox->body->GetPosition(), true);
+						EntityCollider->body->ApplyLinearImpulse({ 0.2f,0.0f }, EntityCollider->body->GetPosition(), true);
 					}
 				}
 			}
 
 			
 
-			if ((directionPoint.y   < positionOfTheObject.y)&& (canJump == true))
+			if ((directionPoint.y   < position.y)&& (canJump == true))
 			{
 				
-					ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.12f }, ColHitbox->body->GetPosition(), true);
+					EntityCollider->body->ApplyLinearImpulse({ 0.0f,-0.12f }, EntityCollider->body->GetPosition(), true);
 					canJump = false;
 				
 			}
@@ -417,15 +417,15 @@ bool WalkingEnemy::Update(float dt)
 
 	if (isAlive == true)
 	{
-		if (ColHitbox->body->GetLinearVelocity().x < 0)
+		if (EntityCollider->body->GetLinearVelocity().x < 0)
 		{
 			direction = 3;
 		}
-		else if (ColHitbox->body->GetLinearVelocity().x > 0)
+		else if (EntityCollider->body->GetLinearVelocity().x > 0)
 		{
 			direction = 2;
 		}
-		else if ((ColHitbox->body->GetLinearVelocity().x == 0))
+		else if ((EntityCollider->body->GetLinearVelocity().x == 0))
 		{
 			if (direction == 2) {
 				direction = 0;
@@ -490,7 +490,7 @@ bool WalkingEnemy::Update(float dt)
 
 bool WalkingEnemy::PostUpdate()
 {
-	app->render->DrawTexture(texture, positionOfTheObject.x - 5, positionOfTheObject.y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(EntityText, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
 
 	
 
@@ -547,7 +547,7 @@ bool WalkingEnemy::LoadState(pugi::xml_node& data)
 	 }
 	 }
 	
-	 ColHitbox->body->SetTransform(v, 0);
+	 EntityCollider->body->SetTransform(v, 0);
 
 	return true;
 }
@@ -556,8 +556,8 @@ bool WalkingEnemy::SaveState(pugi::xml_node& data) const
 {
 	LOG("saving enemy ");
 
-	data.child("Pos").attribute("x").set_value(positionOfTheObject.x);
-	data.child("Pos").attribute("y").set_value(positionOfTheObject.y);
+	data.child("Pos").attribute("x").set_value(position.x);
+	data.child("Pos").attribute("y").set_value(position.y);
 	data.child("lifes").attribute("value").set_value(lifes);
 	data.child("isAlive").attribute("value").set_value(isAlive);
 	data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);
@@ -604,7 +604,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 				
 				lifes--;
 
-				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, EntityCollider->body->GetPosition(), true);
 				app->audio->PlayFx(app->scene->ehit_fx);
 			}
 			else
@@ -624,7 +624,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 				
 				lifes--;
 
-				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, EntityCollider->body->GetPosition(), true);
 				app->audio->PlayFx(app->scene->ehit_fx);
 			}
 			else
@@ -644,7 +644,7 @@ void WalkingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				lifes--;
 
-				//bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				//bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, EntityCollider->body->GetPosition(), true);
 				app->audio->PlayFx(app->scene->ehit_fx);
 			}
 			else

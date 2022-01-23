@@ -133,7 +133,7 @@ public:
 	//Player* player;
 	PathFinding* pathfinding;
 	//FlyingEnemy* flyingenemy;
-	WalkingEnemy* walkingenemy;
+	//WalkingEnemy* walkingenemy;
 	LevelManager* lvlmanager;
 	EntityManager* entitymanager;
 

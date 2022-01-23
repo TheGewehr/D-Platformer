@@ -7,6 +7,7 @@
 #include "Module.h"
 #include "Textures.h"
 #include "Animation.h"
+#include "Entity.h"
 
 struct SDL_Texture;
 
@@ -18,7 +19,7 @@ enum WALKING_ENEMY_STATE
 	DIE 
 };
 
-class WalkingEnemy : public Module
+class WalkingEnemy : public Entity
 {
 
 private:
@@ -28,12 +29,12 @@ private:
 
 	b2Vec2 DetectionRange;
 
-	SDL_Texture* texture;
+	//SDL_Texture* texture;
 
 public:
 	iPoint directionPoint; // pixels	
 
-	iPoint positionOfTheObject; // pixels	
+	//iPoint positionOfTheObject; // pixels	
 
 	int lifes;
 	bool isAlive;
@@ -41,12 +42,12 @@ public:
 
 	int statesInt;
 
-	float startPosX;
-	float startPosY;
+	//float startPosX;
+	//float startPosY;
 
 	WALKING_ENEMY_STATE actualStates;
 
-	PhysBody* ColHitbox;
+	//PhysBody* ColHitbox;
 
 	WalkingEnemy();
 	virtual ~WalkingEnemy();

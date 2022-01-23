@@ -41,7 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//player = new Player(true);
 	pathfinding = new PathFinding(true);
 	//flyingenemy = new FlyingEnemy();
-	walkingenemy = new WalkingEnemy();
+	//walkingenemy = new WalkingEnemy();
 	lvlmanager = new LevelManager(true);
 	entitymanager = new EntityManager(true);
 
@@ -58,7 +58,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(player);
 	AddModule(pathfinding);
 	//AddModule(flyingenemy);
-	AddModule(walkingenemy);
+	//AddModule(walkingenemy);
 	AddModule(lvlmanager);
 	AddModule(entitymanager);
 
