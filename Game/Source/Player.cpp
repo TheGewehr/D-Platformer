@@ -13,10 +13,11 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include "EntityManager.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
-Player::Player(bool startEnabled)// : Entity()
+Player::Player(bool startEnabled) : Entity()
 {
 	active = startEnabled;
 	name.Create("player");
@@ -472,6 +473,11 @@ void Player::SetPlayerSlowMo(bool b)
 	slowMoHability = b;
 }
 
+b2Vec2 Player::GetPosition()
+{
+	return {x,y};
+}
+
 // Called each loop iteration
 bool Player::PostUpdate()
 {
@@ -539,6 +545,10 @@ bool Player::SaveState(pugi::xml_node& data) const
 
 void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+	Vect2 a;
+	EntityCollider->GetPosition(a.x, a.y);
+	b2Vec2 playerpos(a.x, a.y);
+
 	if (bodyB == nullptr)
 	{
 
@@ -547,21 +557,22 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	{
 		if ((bodyA->id == 1) && (bodyB->id == 2))
 		{
-
-			if (app->player->GetPlayerLifes() > 0)
+			
+			
+			if (GetPlayerLifes() > 0)
 			{
 				// fall in water loose one life
 				app->audio->PlayFx(app->scene->water_fx);
 				//app->player->life
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+				SetPlayerLifes(GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, app->player->GetEntityCollider()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, playerpos, true);
 
 			}
 			else
 			{
 				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
-				app->player->deathAnimAllowed = true;
+				deathAnimAllowed = true;
 				app->audio->PlayFx(app->scene->pdeath_fx);
 				//app->player->SetPlayerLifes(3);
 			}
@@ -570,11 +581,11 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		{
 			// fall and loose
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (GetPlayerLifes() > 0)
 			{
 				app->audio->PlayFx(app->scene->fall_fx);
 
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+				SetPlayerLifes(GetPlayerLifes() - 1);
 
 				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->entitymanager->player->EntityCollider->body->GetPosition(), true);
 
@@ -584,7 +595,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
 				app->audio->PlayFx(app->scene->pdeath_fx);
-				app->player->deathAnimAllowed = true;
+				deathAnimAllowed = true;
 				//app->player->SetPlayerLifes(3);
 			}
 
@@ -592,7 +603,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		else if ((bodyA->id == 1) && (bodyB->id == 0))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (GetPlayerLifes() > 0)
 			{
 
 
@@ -601,7 +612,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-				app->player->deathAnimAllowed = true;
+				deathAnimAllowed = true;
 				//app->audio->PlayFx(app->scene->pdeath_fx);
 				//app->player->SetPlayerLifes(3);
 			}
@@ -610,11 +621,11 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		else if ((bodyA->id == 1) && (bodyB->id == 4))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (GetPlayerLifes() > 0)
 			{
 				Mix_HaltMusic();
 				app->audio->PlayFx(app->scene->win_fx);
-				app->player->SetPlayerWin(true);
+				SetPlayerWin(true);
 			}
 			else
 			{
@@ -624,26 +635,26 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		{
 			// fall and loose
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (GetPlayerLifes() > 0)
 			{
 				app->audio->PlayFx(app->scene->hit_fx);
 
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+				SetPlayerLifes(GetPlayerLifes() - 1);
 
-				if (app->player->GetEntityCollider()->body->GetPosition().x > bodyB->body->GetPosition().x)
+				if (GetPosition().x > bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, playerpos, true);
 				}
 
-				if (app->player->GetEntityCollider()->body->GetPosition().x < bodyB->body->GetPosition().x)
+				if (playerpos.x < bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
+					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, playerpos, true);
 				}				
 
 			}
 			else
 			{
-				app->player->deathAnimAllowed = true;
+				deathAnimAllowed = true;
 				app->audio->PlayFx(app->scene->pdeath_fx);
 			}
 
@@ -652,26 +663,26 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		{
 		// fall and loose
 
-		if (app->player->GetPlayerLifes() > 0)
+		if (GetPlayerLifes() > 0)
 		{
 			app->audio->PlayFx(app->scene->hit_fx);
 
-			app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+			SetPlayerLifes(GetPlayerLifes() - 1);
 
-			if (app->player->GetEntityCollider()->body->GetPosition().x > bodyB->body->GetPosition().x)
+			if (playerpos.x > bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, playerpos, true);
 			}
 
-			if (app->player->GetEntityCollider()->body->GetPosition().x < bodyB->body->GetPosition().x)
+			if (playerpos.x < bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, app->player->GetEntityCollider()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, playerpos, true);
 			}
 
 		}
 		else
 		{
-			app->player->deathAnimAllowed = true;
+			deathAnimAllowed = true;
 			app->audio->PlayFx(app->scene->pdeath_fx);
 		}
 

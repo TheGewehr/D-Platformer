@@ -34,6 +34,11 @@ public:
 
 	}
 
+	Entity() : name("Unknown"), manager(NULL), type(type), id(-1), active(true), EntityCollider(nullptr)
+	{
+
+	}
+
 	//Destructor
 	virtual ~Entity() {}
 

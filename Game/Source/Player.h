@@ -63,6 +63,7 @@ public:
 	void SetPlayerWin(bool b);
 	bool GetPlayerSlowMo();
 	void SetPlayerSlowMo(bool b);
+	b2Vec2 GetPosition();
 
 	
 
