@@ -150,7 +150,9 @@ Player::Player(bool startEnabled) : Entity()
 }
 
 Player::~Player()
-{}
+{
+	
+}
 
 bool Player::Awake()
 {

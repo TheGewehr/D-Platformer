@@ -9,11 +9,12 @@
 
 EntityManager::EntityManager(bool state) : Module()
 {
+	player = (Player*)CreateEntity(ENTITY_TYPE::PLAYER);
 
 	name.Create("entities");
 	active = state;
 	
-	player = (Player*)CreateEntity(ENTITY_TYPE::PLAYER);
+	
 
 }
 
@@ -21,6 +22,11 @@ EntityManager::EntityManager(bool state) : Module()
 
 EntityManager::~EntityManager()
 {
+	for (p2List_item<Entity*>* item = entities.getFirst(); item; item = item->next)
+	{
+		DestroyEntity(item->data);
+	}
+
 }
 
 bool EntityManager::Awake(pugi::xml_node& config)
@@ -43,7 +49,7 @@ bool EntityManager::Awake(pugi::xml_node& config)
 
 bool EntityManager::Start()
 {
-
+	
 
 	bool ret = true;
 	for (p2List_item<Entity*>* item = entities.getFirst(); item; item = item->next)
@@ -129,6 +135,11 @@ bool EntityManager::CleanUp()
 		//if (!ret)
 		//	break;
 
+	}
+
+	for (p2List_item<Entity*>* item = entities.getFirst(); item; item = item->next)
+	{
+		DestroyEntity(item->data);
 	}
 	return ret;
 }

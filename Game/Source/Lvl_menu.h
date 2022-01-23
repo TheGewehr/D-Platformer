@@ -41,7 +41,7 @@ public:
 	//Collider* playerWall[100] = { nullptr };
 
 private:
-
+	SDL_Texture* image;
 	
 };
 

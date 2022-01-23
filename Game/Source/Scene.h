@@ -47,6 +47,7 @@ public:
 	void ResetLevel();
 	
 	
+
 	uint water_fx;
 	uint fall_fx;
 	uint win_fx;

@@ -24,11 +24,43 @@ Scene::Scene(bool startEnabled) : Module()
 {
 	active = startEnabled;
 	name.Create("scene");
+
+	pugi::xml_document configFile;
+	pugi::xml_node config;
+	pugi::xml_node configApp;
+
+	config = app->LoadConfig(configFile).child("map");
+	
+	app->pathfinding = new PathFinding(true);
+	app->physics = new Physics(true);
+	app->map = new Map(true);
+	app->entitymanager = new EntityManager(true);
+
+	app->AddModule(app->pathfinding);
+	app->AddModule(app->physics);
+	app->AddModule(app->map);
+	app->AddModule(app->entitymanager);
+
+	app->map->Awake(config);
+
+	
+	app->pathfinding->Start();
+	app->physics->Start();
+	app->map->Start();
+	Start();
+	app->entitymanager->Start();
+
+	
 }
 
 // Destructor
 Scene::~Scene()
-{}
+{
+	delete(app->pathfinding);
+	delete(app->physics);
+	delete(app->map);
+	delete(app->entitymanager);
+}
 
 // Called before render is available
 bool Scene::Awake()
@@ -401,12 +433,19 @@ bool Scene::CleanUp()
 {
 	//LOG("Freeing scene");
 
+	app->DeleteModule(app->pathfinding);
+	app->DeleteModule(app->physics);
+	app->DeleteModule(app->map);
+	app->DeleteModule(app->entitymanager);
+
+	app->entitymanager->CleanUp();
+	
 	return true;
 }
 
 void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	if (bodyB == nullptr)
+	/*if (bodyB == nullptr)
 	{
 
 	}
@@ -490,7 +529,7 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		}
 
-	}
+	}*/
 }
 
 void Scene::ResetLevel()

@@ -57,6 +57,7 @@ public:
 	// Add a new module to handle
 	void AddModule(Module* module);
 
+	void DeleteModule(Module* module);
 	// Exposing some properties for reading
 	int GetArgc() const;
 	const char* GetArgv(int index) const;
@@ -86,13 +87,14 @@ public:
 	bool	Capto30;
 	uint framerateCap;
 
-private:
+
 
 	// Load config file
 	// NOTE: It receives config document
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
 	pugi::xml_node LoadSave(pugi::xml_document&) const;
 
+private:
 	// Call modules before each loop iteration
 	void PrepareUpdate();
 

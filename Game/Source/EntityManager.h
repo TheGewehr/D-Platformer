@@ -13,6 +13,7 @@ enum class ENTITY_TYPE;
 
 class EntityManager : public Module
 {
+	friend class Scene;
 public:
 
 	//Constructor

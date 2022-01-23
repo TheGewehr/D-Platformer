@@ -38,6 +38,7 @@ public:
 	void ChangeScene(SCENE_TYPE scene);
 	Module* Levels = NULL;
 	SString	name;
+	SCENE_TYPE scene_;
 };
 
 #endif // __MODULE_H__

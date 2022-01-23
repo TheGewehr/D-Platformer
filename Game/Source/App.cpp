@@ -35,15 +35,15 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(true);
 	audio = new Audio(true);
 	//intro = new Intro(true);
-	scene = new Scene(true);
-	map = new Map(true);
-	physics = new Physics(true);
+	//scene = new Scene(true);
+	//map = new Map(false);
+	//physics = new Physics(false);
 	//player = new Player(true);
-	pathfinding = new PathFinding(true);
-	flyingenemy = new FlyingEnemy();
-	walkingenemy = new WalkingEnemy();
+	//pathfinding = new PathFinding(false);
+	//flyingenemy = new FlyingEnemy();
+	//walkingenemy = new WalkingEnemy();
 	lvlmanager = new LevelManager(true);
-	entitymanager = new EntityManager(true);
+	//entitymanager = new EntityManager(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -51,16 +51,16 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(physics);
+	//AddModule(physics);
 	//AddModule(intro);
-	AddModule(scene);
-	AddModule(map);
+	//AddModule(scene);
+	//AddModule(map);
 	//AddModule(player);
-	AddModule(pathfinding);
-	AddModule(flyingenemy);
-	AddModule(walkingenemy);
+	//AddModule(pathfinding);
+	//(flyingenemy);
+	//AddModule(walkingenemy);
 	AddModule(lvlmanager);
-	AddModule(entitymanager);
+	//AddModule(entitymanager);
 
 
 	// Render last to swap buffer
@@ -88,6 +88,19 @@ void App::AddModule(Module* module)
 {
 	module->Init(module->active);
 	modules.add(module);
+}
+
+void App::DeleteModule(Module* module)
+{
+	for (int i = 0; i > modules.count(); i++)
+	{
+		if (module->name == modules.At(i)->data->name)
+		{
+			delete(modules.At(i)->data);
+			modules.At(i)->data->active = false;
+			modules.del(modules.At(i));
+		}
+	}
 }
 
 // Called before render is available
@@ -152,8 +165,13 @@ bool App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active)
+		{
+			ret = item->data->Start();
+		}
+		
 		item = item->next;
+		
 	}
 
 
@@ -196,7 +214,7 @@ bool App::Update()
 		}
 	}
 
-	
+	if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) ret = false;
 
 	long elapsedTime = (float)(end - init);
 	(float)SDL_GetPerformanceFrequency();

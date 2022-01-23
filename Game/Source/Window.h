@@ -46,7 +46,7 @@ private:
 	SString title;
 	uint width;
 	uint height;
-	uint scale;
+	float scale;
 };
 
 #endif // __WINDOW_H__

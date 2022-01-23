@@ -3,7 +3,7 @@
 #include "Module.h"
 #include "Lvl_menu.h"
 #include "Scene.h"
-
+#include "EntityManager.h"
 #include "Defs.h"
 #include "Log.h"
 #include "Input.h"
@@ -12,7 +12,8 @@
 
 LevelManager::LevelManager(bool state) : Module()
 {
-	name.Create("renderer");
+	active = state;
+	name.Create("levelmanager");
 }
 
 LevelManager::~LevelManager()
@@ -22,21 +23,27 @@ LevelManager::~LevelManager()
 
 bool LevelManager::Awake()
 {
-	Levels = new Menu(true);
+	
 	
 	return true;
 }
 
 bool LevelManager::Start()
 {
+	Levels = new Menu(true);
 	return true;
 }
 
 bool LevelManager::PreUpdate()
 {
+
 	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
-		
+		ChangeScene(SCENE_TYPE::LVL_01);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		ChangeScene(SCENE_TYPE::MENU);
 	}
 	Levels->PreUpdate();
 	return true;
@@ -79,11 +86,16 @@ void LevelManager::ChangeScene(SCENE_TYPE scene)
 {
 	if (scene == SCENE_TYPE::MENU) 
 	{
+		Levels->CleanUp();
+		
 		Levels = new Menu(true);
 	}
 	else if (scene == SCENE_TYPE::LVL_01)
 	{
+		Levels->CleanUp();
+		
 		Levels = new Scene(true);
+		// initiate necessary things for gameplay
 	}
-	
+	scene_ = scene;
 }
