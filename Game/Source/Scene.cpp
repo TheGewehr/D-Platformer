@@ -13,12 +13,15 @@
 #include "WalkingEnemy.h"
 #include "FlyingEnemy.h"
 #include "EntityManager.h"
+#include "Entity.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
 
 #include "Defs.h"
 #include "Log.h"
+
+enum class ENTITY_TYPE;
 
 Scene::Scene(bool startEnabled) : Module()
 {
@@ -527,17 +530,32 @@ void Scene::ResetLevel()
 
 	// Flying enemy
 
-	v.x = PIXEL_TO_METERS(300);
-	v.y = PIXEL_TO_METERS(150);
 
-	app->flyingenemy->lifes = 2;
-	app->flyingenemy->isAlive = true;
-	app->flyingenemy->deathAnimAllowed = false;
-	app->flyingenemy->statesInt = 0;
-	app->flyingenemy->ColHitbox->body->SetAwake(true);
+	for (p2List_item<Entity*>* item = app->entitymanager->entities.getFirst(); item; item = item->next)
+	{
+
+		//if (item->data->type != ENTITY_TYPE::WALKING_ENEMY && item->data->type != ENTITY_TYPE::FLYING_ENEMY) {
+
+		if (item->data->type == ENTITY_TYPE::FLYING_ENEMY)
+		{
+			v.x = PIXEL_TO_METERS(300);
+			v.y = PIXEL_TO_METERS(150);
+
+			//item->data->
+			//app->flyingenemy->isAlive = true;
+			//app->flyingenemy->deathAnimAllowed = false;
+			//app->flyingenemy->statesInt = 0;
+			//app->flyingenemy->ColHitbox->body->SetAwake(true);
+			//
+			//
+			//
+			//app->flyingenemy->ColHitbox->body->SetTransform(v, 0);
+		}
+		//	if (!ret)
+		//		break;
+		//}
 
 
-
-	app->flyingenemy->ColHitbox->body->SetTransform(v, 0);
+	}
 
 }
