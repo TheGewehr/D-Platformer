@@ -77,6 +77,7 @@ public:
 	
 	p2List<PhysBody*> colliders;
 	
+	
 
 
 	ENTITY_TYPE type;

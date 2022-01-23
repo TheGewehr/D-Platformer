@@ -6,6 +6,7 @@
 #include "Point.h"
 #include "Player.h"
 #include "PathFinding.h"
+#include "EntityManager.h"
 #include "math.h"
 #include "Point.h"
 #include "map.h"
@@ -50,7 +51,7 @@ bool Physics::Start()
 bool Physics::PreUpdate()
 {
 	// slow motion
-	if (app->player->GetPlayerSlowMo() == false)
+	if (app->entitymanager->player->GetPlayerSlowMo() == false)
 	{
 		world->Step(app->GetDeltaTime(), 6, 2);
 	}
@@ -418,6 +419,7 @@ void PhysBody::GetPosition(int& x, int& y) const
 	x = METERS_TO_PIXELS(pos.x) - (width);
 	y = METERS_TO_PIXELS(pos.y) - (height);
 }
+
 
 float PhysBody::GetRotation() const
 {

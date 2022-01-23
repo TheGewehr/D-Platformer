@@ -545,10 +545,6 @@ bool Player::SaveState(pugi::xml_node& data) const
 
 void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	Vect2 a;
-	EntityCollider->GetPosition(a.x, a.y);
-	b2Vec2 playerpos(a.x, a.y);
-
 	if (bodyB == nullptr)
 	{
 
@@ -566,7 +562,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 				//app->player->life
 				SetPlayerLifes(GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, playerpos, true);
+				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, EntityCollider->GetPosition_(), true);
 
 			}
 			else
@@ -643,12 +639,12 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				if (GetPosition().x > bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, playerpos, true);
+					bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, EntityCollider->GetPosition_(), true);
 				}
 
-				if (playerpos.x < bodyB->body->GetPosition().x)
+				if (EntityCollider->GetPosition_().x < bodyB->body->GetPosition().x)
 				{
-					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, playerpos, true);
+					bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, EntityCollider->GetPosition_(), true);
 				}				
 
 			}
@@ -669,14 +665,14 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			SetPlayerLifes(GetPlayerLifes() - 1);
 
-			if (playerpos.x > bodyB->body->GetPosition().x)
+			if (EntityCollider->GetPosition_().x > bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, playerpos, true);
+				bodyA->body->ApplyLinearImpulse({ 5.0f, 0.0f }, EntityCollider->GetPosition_(), true);
 			}
 
-			if (playerpos.x < bodyB->body->GetPosition().x)
+			if (EntityCollider->GetPosition_().x < bodyB->body->GetPosition().x)
 			{
-				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, playerpos, true);
+				bodyA->body->ApplyLinearImpulse({ -5.0f, 0.0f }, EntityCollider->GetPosition_(), true);
 			}
 
 		}

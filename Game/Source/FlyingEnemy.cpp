@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include "EntityManager.h"
 #include "SDL/include/SDL.h"
 
 FlyingEnemy::FlyingEnemy()
@@ -177,11 +178,11 @@ bool FlyingEnemy::Update(float dt)
 	if (isAlive == true)
 	{
 		
-		if (METERS_TO_PIXELS(app->player->GetColHitbox()->body->GetPosition().x)  > 832)
+		if (METERS_TO_PIXELS(app->entitymanager->player->GetColHitbox()->body->GetPosition().x)  > 832)
 		{
 			actualState = CHASING_PLAYER;
 
-			if (app->player->isAlive == false)
+			if (app->entitymanager->player->isAlive == false)
 			{
 				actualState = PATROLLING;
 			}
@@ -194,7 +195,7 @@ bool FlyingEnemy::Update(float dt)
 
 	
 
-	if (app->player->GetPlayerWin() == true)
+	if (app->entitymanager->player->GetPlayerWin() == true)
 	{
 		actualState = PATROLLING;
 	}
@@ -211,7 +212,7 @@ bool FlyingEnemy::Update(float dt)
 		// advance one tile
 
 		iPoint playerPos;
-		app->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
+		app->entitymanager->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
 
 		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
 		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);

@@ -130,7 +130,7 @@ public:
 	Scene* scene = nullptr;
 	Map* map;
 	Physics* physics;
-	Player* player;
+	//Player* player;
 	PathFinding* pathfinding;
 	FlyingEnemy* flyingenemy;
 	WalkingEnemy* walkingenemy;

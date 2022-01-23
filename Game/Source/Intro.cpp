@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Physics.h"
 #include "Map.h"
+#include "EntityManager.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
@@ -111,6 +112,8 @@ bool Intro::CleanUp()
 
 void Intro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+	
+
 	if (bodyB == nullptr)
 	{
 
@@ -120,14 +123,14 @@ void Intro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		if ((bodyA->id == 1) && (bodyB->id == 2))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 				// fall in water loose one life
 				app->audio->PlayFx(water_fx);
 				//app->player->life
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+				app->entitymanager->player->SetPlayerLifes(app->entitymanager->player->GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -3.5f }, app->entitymanager->player->EntityCollider->GetPosition_(), true);
 
 			}
 			else
@@ -142,13 +145,13 @@ void Intro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		{
 			// fall and loose
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 				app->audio->PlayFx(fall_fx);
 
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+				app->entitymanager->player->SetPlayerLifes(app->entitymanager->player->GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->entitymanager->player->EntityCollider->GetPosition_(), true);
 
 			}
 			else
@@ -164,7 +167,7 @@ void Intro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		else if ((bodyA->id == 1) && (bodyB->id == 0))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 
 
@@ -173,7 +176,7 @@ void Intro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-				app->player->deathAnimAllowed = true;
+				app->entitymanager->player->deathAnimAllowed = true;
 
 				//app->player->SetPlayerLifes(3);
 			}
@@ -182,11 +185,11 @@ void Intro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		else if ((bodyA->id == 1) && (bodyB->id == 4))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 				Mix_HaltMusic();
 				app->audio->PlayFx(win_fx);
-				app->player->SetPlayerWin(true);
+				app->entitymanager->player->SetPlayerWin(true);
 
 			}
 			else

@@ -12,6 +12,7 @@
 #include "PathFinding.h"
 #include "WalkingEnemy.h"
 #include "FlyingEnemy.h"
+#include "EntityManager.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
@@ -44,7 +45,7 @@ bool Scene::Start()
 	app->physics->world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	app->physics->world->SetContactListener(app->physics);
 
-	app->player->SetPlayerLifes(3);
+	app->entitymanager->player->SetPlayerLifes(3);
 
 	// Level 1 Box2D points
 	if (currentLevel != 2)
@@ -297,9 +298,9 @@ bool Scene::Start()
 	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
 	win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
 
-	if (app->player->Awake() == 0)
+	if (app->entitymanager->player->Awake() == 0)
 	{
-		app->player->Awake();
+		app->entitymanager->player->Awake();
 	}
 
 	return true;
@@ -365,9 +366,9 @@ bool Scene::PostUpdate()
 // Used to pass to the second level
 bool Scene::PassLevelCondition()
 {
-	if (app->player->GetPlayerWin() == true)
+	if (app->entitymanager->player->GetPlayerWin() == true)
 	{
-		if (app->player->GetPlayerLifes() > 0)
+		if (app->entitymanager->player->GetPlayerLifes() > 0)
 		{
 			return true;
 		}
@@ -387,7 +388,7 @@ bool Scene::WinLoseCondition()
 		// Destroy all the chains
 		return currentLevel = 2;
 	}
-	else if (app->player->GetPlayerLifes() < 1)
+	else if (app->entitymanager->player->GetPlayerLifes() < 1)
 	{
 		// Show loosing screen
 		// Press x to restart the level
@@ -414,14 +415,14 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		if ((bodyA->id == 1) && (bodyB->id == 2))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 				// fall in water loose one life
 				app->audio->PlayFx(water_fx);
 				//app->player->life
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+				app->entitymanager->player->SetPlayerLifes(app->entitymanager->player->GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -3.5f}, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -3.5f}, app->entitymanager->player->EntityCollider->GetPosition_(), true);
 
 			}
 			else
@@ -436,13 +437,13 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		{
 			// fall and loose
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 				app->audio->PlayFx(fall_fx);
 
-				app->player->SetPlayerLifes(app->player->GetPlayerLifes() - 1);
+				app->entitymanager->player->SetPlayerLifes(app->entitymanager->player->GetPlayerLifes() - 1);
 
-				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->player->GetColHitbox()->body->GetPosition(), true);
+				bodyA->body->ApplyLinearImpulse({ 0, -5.5f }, app->entitymanager->player->EntityCollider->GetPosition_(), true);
 
 			}
 			else
@@ -458,7 +459,7 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		else if ((bodyA->id == 1) && (bodyB->id == 0))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 
 
@@ -467,7 +468,7 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-				app->player->deathAnimAllowed = true;
+				app->entitymanager->player->deathAnimAllowed = true;
 
 				//app->player->SetPlayerLifes(3);
 			}
@@ -476,11 +477,11 @@ void Scene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		else if ((bodyA->id == 1) && (bodyB->id == 4))
 		{
 
-			if (app->player->GetPlayerLifes() > 0)
+			if (app->entitymanager->player->GetPlayerLifes() > 0)
 			{
 				Mix_HaltMusic();
 				app->audio->PlayFx(win_fx);
-				app->player->SetPlayerWin(true);
+				app->entitymanager->player->SetPlayerWin(true);
 
 			}
 			else
@@ -499,14 +500,14 @@ void Scene::ResetLevel()
 
 	v.x = PIXEL_TO_METERS(16);
 	v.y = PIXEL_TO_METERS(16);
-	app->player->SetPlayerLifes(3);
-	app->player->isAlive = true;
-	app->player->deathAnimAllowed = false;
-	app->player->SetPlayerWin(false);
+	app->entitymanager->player->SetPlayerLifes(3);
+	app->entitymanager->player->isAlive = true;
+	app->entitymanager->player->deathAnimAllowed = false;
+	app->entitymanager->player->SetPlayerWin(false);
 
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
-	app->player->GetColHitbox()->body->SetTransform(v, 0);
+	app->entitymanager->player->GetColHitbox()->body->SetTransform(v, 0);
 
 	// Walking Enemy
 

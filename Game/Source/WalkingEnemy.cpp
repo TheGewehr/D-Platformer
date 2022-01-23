@@ -10,6 +10,7 @@
 #include "Textures.h"
 #include "Render.h"
 #include "Window.h"
+#include "EntityManager.h"
 #include "Audio.h"
 #include <stdio.h>
 #include <iostream>
@@ -179,11 +180,11 @@ bool WalkingEnemy::Update(float dt)
 	if (isAlive == true)
 	{
 
-		if (METERS_TO_PIXELS(app->player->GetColHitbox()->body->GetPosition().x) > 832)
+		if (METERS_TO_PIXELS(app->entitymanager->player->GetColHitbox()->body->GetPosition().x) > 832)
 		{
 			actualStates = ATTACK;
 
-			if (app->player->isAlive == false)
+			if (app->entitymanager->player->isAlive == false)
 			{
 				actualStates = WALK;
 			}
@@ -195,7 +196,7 @@ bool WalkingEnemy::Update(float dt)
 
 	}
 
-	if (app->player->GetPlayerWin() == true)
+	if (app->entitymanager->player->GetPlayerWin() == true)
 	{
 		actualStates = WALK;
 	}
@@ -250,7 +251,7 @@ bool WalkingEnemy::Update(float dt)
 
 
 		iPoint playerPos;
-		app->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
+		app->entitymanager->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
 
 		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
 		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
@@ -338,7 +339,7 @@ bool WalkingEnemy::Update(float dt)
 			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
 
 			iPoint playerPosition;
-			app->player->GetColHitbox()->GetPosition(playerPosition.x, playerPosition.y);
+			app->entitymanager->player->GetColHitbox()->GetPosition(playerPosition.x, playerPosition.y);
 
 			if (playerPosition.x >= positionOfTheObject.x)
 			{
