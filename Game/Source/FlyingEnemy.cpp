@@ -17,6 +17,8 @@
 #include <math.h>
 #include "EntityManager.h"
 #include "SDL/include/SDL.h"
+#include "LevelManager.h"
+
 
 FlyingEnemy::FlyingEnemy()
 {
@@ -239,7 +241,7 @@ bool FlyingEnemy::Update(float dt)
 			for (uint i = 0; i < path->Count(); ++i)
 			{
 				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-				app->render->DrawTexture(app->scene->pathTex, pos.x, pos.y);
+				app->render->DrawTexture(app->lvlmanager->pathTex, pos.x, pos.y);
 			}
 		}
 
@@ -281,7 +283,7 @@ bool FlyingEnemy::Update(float dt)
 			for (uint i = 0; i < path->Count(); ++i)
 			{
 				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-				app->render->DrawTexture(app->scene->pathTex, pos.x, pos.y);
+				app->render->DrawTexture(app->lvlmanager->pathTex, pos.x, pos.y);
 			}
 		}
 	
@@ -597,16 +599,16 @@ void FlyingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (lifes > 0)
 			{
-				//app->audio->PlayFx(app->scene->fall_fx);
+				//app->audio->PlayFx(app->lvlmanager->fall_fx);
 
 				lifes--;
 
 				//bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, EntityCollider->body->GetPosition(), true);
-				app->audio->PlayFx(app->scene->ehit_fx);
+				app->audio->PlayFx(app->lvlmanager->ehit_fx);
 			}
 			else
 			{
-				app->audio->PlayFx(app->scene->edeath_fx);
+				app->audio->PlayFx(app->lvlmanager->edeath_fx);
 			}
 			
 		}

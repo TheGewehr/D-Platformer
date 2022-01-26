@@ -14,6 +14,7 @@
 #include "FlyingEnemy.h"
 #include "EntityManager.h"
 #include "Entity.h"
+#include "LevelManager.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
@@ -314,24 +315,16 @@ bool Scene::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	pathTex = app->tex->Load("Assets/sprites/PathTexture.png");
+	
 	originTex = app->tex->Load("Assets/sprites/Cross.png");
 
-	hit_fx = app->audio->LoadFx("Assets/audio/fx/player_hitted.wav");
-
-	edeath_fx = app->audio->LoadFx("Assets/audio/fx/enemy_death.wav");
-	ehit_fx = app->audio->LoadFx("Assets/audio/fx/b.wav");
-	shield_fx = app->audio->LoadFx("Assets/audio/fx/no.wav");
-	pdeath_fx = app->audio->LoadFx("Assets/audio/fx/death_player.wav");
 	
 	// Uploading the assets
 	// app->map->Load("level1.tmx");
 
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	img = app->tex->Load("Assets/background/Background.png");
-	water_fx = app->audio->LoadFx("Assets/audio/fx/Fall_in_water.wav");
-	fall_fx = app->audio->LoadFx("Assets/audio/fx/mixkit-lose-life-falling-2029.wav");
-	win_fx = app->audio->LoadFx("Assets/audio/fx/uno.wav");
+	
 
 	if (app->entitymanager->player->Awake() == 0)
 	{
@@ -362,8 +355,8 @@ bool Scene::Update(float dt)
 	//std::cout << "    " << app->player->xposition << "      " << app->player->yposition <<std::endl;
 	if ((app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) || (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN))
 	{
-		//app->audio->PlayFx(app->scene->ehit_fx);
-		//app->audio->PlayFx(app->scene->pdeath_fx);
+		//app->audio->PlayFx(app->lvlmanager->ehit_fx);
+		//app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 		ResetLevel();
 	}
 	

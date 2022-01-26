@@ -16,6 +16,7 @@
 #include "EntityManager.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include "LevelManager.h"
 
 Player::Player(bool startEnabled) : Entity()
 {
@@ -560,7 +561,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			if (GetPlayerLifes() > 0)
 			{
 				// fall in water loose one life
-				app->audio->PlayFx(app->scene->water_fx);
+				app->audio->PlayFx(app->lvlmanager->water_fx);
 				//app->player->life
 				SetPlayerLifes(GetPlayerLifes() - 1);
 
@@ -571,7 +572,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
 				deathAnimAllowed = true;
-				app->audio->PlayFx(app->scene->pdeath_fx);
+				app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 				//app->player->SetPlayerLifes(3);
 			}
 		}
@@ -581,7 +582,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (GetPlayerLifes() > 0)
 			{
-				app->audio->PlayFx(app->scene->fall_fx);
+				app->audio->PlayFx(app->lvlmanager->fall_fx);
 
 				SetPlayerLifes(GetPlayerLifes() - 1);
 
@@ -592,7 +593,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			{
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
-				app->audio->PlayFx(app->scene->pdeath_fx);
+				app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 				deathAnimAllowed = true;
 				//app->player->SetPlayerLifes(3);
 			}
@@ -611,7 +612,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				//app->player->currentAnimation=&app->player->deathFromRightAnim;
 				deathAnimAllowed = true;
-				//app->audio->PlayFx(app->scene->pdeath_fx);
+				//app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 				//app->player->SetPlayerLifes(3);
 			}
 
@@ -622,7 +623,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			if (GetPlayerLifes() > 0)
 			{
 				Mix_HaltMusic();
-				app->audio->PlayFx(app->scene->win_fx);
+				app->audio->PlayFx(app->lvlmanager->win_fx);
 				SetPlayerWin(true);
 			}
 			else
@@ -635,7 +636,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 			if (GetPlayerLifes() > 0)
 			{
-				app->audio->PlayFx(app->scene->hit_fx);
+				app->audio->PlayFx(app->lvlmanager->hit_fx);
 
 				SetPlayerLifes(GetPlayerLifes() - 1);
 
@@ -653,7 +654,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			else
 			{
 				deathAnimAllowed = true;
-				app->audio->PlayFx(app->scene->pdeath_fx);
+				app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 			}
 
 		}
@@ -663,7 +664,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if (GetPlayerLifes() > 0)
 		{
-			app->audio->PlayFx(app->scene->hit_fx);
+			app->audio->PlayFx(app->lvlmanager->hit_fx);
 
 			SetPlayerLifes(GetPlayerLifes() - 1);
 
@@ -681,7 +682,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		else
 		{
 			deathAnimAllowed = true;
-			app->audio->PlayFx(app->scene->pdeath_fx);
+			app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 		}
 
 		}

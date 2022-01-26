@@ -6,6 +6,8 @@
 #include "Module.h"
 #include "PugiXml/src/pugixml.hpp"
 
+#include "SDL/include/SDL.h"
+
 enum class SCENE_TYPE
 {
 	MENU = 0,
@@ -39,6 +41,20 @@ public:
 	Module* Levels = NULL;
 	SString	name;
 	SCENE_TYPE scene_;
+
+	SDL_Texture * pathTex;
+
+	uint water_fx;
+	uint fall_fx;
+	uint win_fx;
+
+	uint hit_fx;
+
+	uint ehit_fx;
+	uint edeath_fx;
+	uint pdeath_fx;
+
+	uint shield_fx;
 };
 
 #endif // __MODULE_H__
