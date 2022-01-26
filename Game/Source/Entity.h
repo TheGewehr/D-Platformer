@@ -75,7 +75,7 @@ public:
 
 	SDL_Texture* EntityText = nullptr;
 	
-	p2List<PhysBody*> colliders;
+	//p2List<PhysBody*> colliders;
 	
 	
 

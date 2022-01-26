@@ -23,7 +23,7 @@ FlyingEnemy::FlyingEnemy()
 
 	name.Create("flyingenemy");
 
-	texture = nullptr;
+	//EntityText = nullptr;
 
 	float idleSpeed = 0.4f;
 	float movement1Speed = 0.1f;
@@ -133,11 +133,11 @@ bool FlyingEnemy::Awake()
 bool FlyingEnemy::Start()
 {
 	//textures
-	texture = app->tex->Load("Assets/sprites/Enemies.png");
+	EntityText = app->tex->Load("Assets/sprites/Enemies.png");
 
 	//enemy stats
-	startPosX = 300;
-	startPosY = 150;
+	position.x = 300;
+	position.y = 150;
 	speed = { 1.3f,0 };
 	
 	// id's :
@@ -149,14 +149,13 @@ bool FlyingEnemy::Start()
 	// 5 Flying Enemy
 	// 6 Walking Enemy
 
-	ColHitbox = app->physics->CreateCircle(startPosX, startPosY, 6);
-	ColHitbox->id = 5;
-	ColHitbox->listener = app->flyingenemy;
+	EntityCollider = app->physics->CreateCircle(position.x, position.y, 6);
+	EntityCollider->id = 5;
+	EntityCollider->listener = app->entitymanager;
 
 
-	 int x_ = (int)x;
-	 int y_ = (int)y;
-	 ColHitbox->GetPosition(x_, y_);
+	
+	 EntityCollider->GetPosition(position.x, position.y);
 	 actualState = PATROLLING;
 	 isAlive = true; 
 	 lifes = 2; 
@@ -214,8 +213,8 @@ bool FlyingEnemy::Update(float dt)
 		iPoint playerPos;
 		app->entitymanager->player->GetColHitbox()->GetPosition(playerPos.x, playerPos.y);
 
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y);
 
 		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
 
@@ -250,14 +249,14 @@ bool FlyingEnemy::Update(float dt)
 	{
 		//  Maintain the position
 
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap( positionOfTheObject.x, positionOfTheObject.y );
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y );
 		
 
 		iPoint playerPos;
 
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y);
 
 		playerPos = app->map->WorldToMap(playerPos.x + 15, playerPos.y + 15);
 
@@ -289,12 +288,12 @@ bool FlyingEnemy::Update(float dt)
 	}break;
 	case DEATH:
 	{
-		ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y);
-		directionPoint = app->map->WorldToMap(positionOfTheObject.x, positionOfTheObject.y);
+		EntityCollider->GetPosition(position.x, position.y);
+		directionPoint = app->map->WorldToMap(position.x, position.y);
 
 		isAlive = false;
 		deathAnimAllowed = true;
-		ColHitbox->id = 0;
+		EntityCollider->id = 0;
 		
 	}break;
 	}
@@ -322,26 +321,26 @@ bool FlyingEnemy::Update(float dt)
 
 			directionPoint = { directionPoint.x + 13, directionPoint.y + 16 };
 
-			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+			EntityCollider->GetPosition(position.x, position.y); // pixels
 
 			
 
 			
 
-				if (directionPoint.x < positionOfTheObject.x)
+				if (directionPoint.x < position.x)
 				{
-					if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+					if (EntityCollider->body->GetLinearVelocity().x > -0.1f)
 					{
-						ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+						EntityCollider->body->ApplyLinearImpulse({ -0.1f,0.0f }, EntityCollider->body->GetPosition(), true);
 					}
 
 				}
 
-				if (directionPoint.x > positionOfTheObject.x)
+				if (directionPoint.x > position.x)
 				{
-					if (ColHitbox->body->GetLinearVelocity().x < 0.1f)
+					if (EntityCollider->body->GetLinearVelocity().x < 0.1f)
 					{
-						ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+						EntityCollider->body->ApplyLinearImpulse({ 0.1f,0.0f }, EntityCollider->body->GetPosition(), true);
 					}
 				}
 
@@ -350,11 +349,11 @@ bool FlyingEnemy::Update(float dt)
 			
 
 
-			if (directionPoint.y + 25 < positionOfTheObject.y)
+			if (directionPoint.y + 25 < position.y)
 			{
-				if (ColHitbox->body->GetLinearVelocity().y > -0.2f)
+				if (EntityCollider->body->GetLinearVelocity().y > -0.2f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.1f }, ColHitbox->body->GetPosition(), true);
+					EntityCollider->body->ApplyLinearImpulse({ 0.0f,-0.1f }, EntityCollider->body->GetPosition(), true);
 				}
 			}
 
@@ -368,40 +367,40 @@ bool FlyingEnemy::Update(float dt)
 
 			directionPoint = { directionPoint.x + 13, directionPoint.y + 16 };
 
-			ColHitbox->GetPosition(positionOfTheObject.x, positionOfTheObject.y); // pixels
+			EntityCollider->GetPosition(position.x, position.y); // pixels
 
 
 
-			if (directionPoint.x < positionOfTheObject.x)
+			if (directionPoint.x < position.x)
 			{
-				if (ColHitbox->body->GetLinearVelocity().x > -0.1f)
+				if (EntityCollider->body->GetLinearVelocity().x > -0.1f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ -0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					EntityCollider->body->ApplyLinearImpulse({ -0.1f,0.0f }, EntityCollider->body->GetPosition(), true);
 				}
 
 			}
 
-			if (directionPoint.x > positionOfTheObject.x)
+			if (directionPoint.x > position.x)
 			{
-				if (ColHitbox->body->GetLinearVelocity().x < 0.1f)
+				if (EntityCollider->body->GetLinearVelocity().x < 0.1f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ 0.1f,0.0f }, ColHitbox->body->GetPosition(), true);
+					EntityCollider->body->ApplyLinearImpulse({ 0.1f,0.0f }, EntityCollider->body->GetPosition(), true);
 				}
 			}
 
-			if (directionPoint.y + 32 < positionOfTheObject.y)
+			if (directionPoint.y + 32 < position.y)
 			{
-				if (ColHitbox->body->GetLinearVelocity().y > -0.2f)
+				if (EntityCollider->body->GetLinearVelocity().y > -0.2f)
 				{
-					ColHitbox->body->ApplyLinearImpulse({ 0.0f,-0.1f }, ColHitbox->body->GetPosition(), true);
+					EntityCollider->body->ApplyLinearImpulse({ 0.0f,-0.1f }, EntityCollider->body->GetPosition(), true);
 				}
 			}
 
-			//if (directionPoint.y + 10 > positionOfTheObject.y)
+			//if (directionPoint.y + 10 > position.y)
 			//{
-			//	if (ColHitbox->body->GetLinearVelocity().x < 0.2f)
+			//	if (EntityCollider->body->GetLinearVelocity().x < 0.2f)
 			//	{
-			//		ColHitbox->body->ApplyLinearImpulse({ 0.0f, 0.1f }, ColHitbox->body->GetPosition(), true);
+			//		EntityCollider->body->ApplyLinearImpulse({ 0.0f, 0.1f }, EntityCollider->body->GetPosition(), true);
 			//	}
 			//}
 
@@ -433,15 +432,15 @@ bool FlyingEnemy::Update(float dt)
 
 	if (isAlive == true)
 	{
-		if (ColHitbox->body->GetLinearVelocity().x < 0)
+		if (EntityCollider->body->GetLinearVelocity().x < 0)
 		{
 			direction = 2;
 		}
-		else if (ColHitbox->body->GetLinearVelocity().x > 0)
+		else if (EntityCollider->body->GetLinearVelocity().x > 0)
 		{
 			direction = 3;
 		}
-		else if ((ColHitbox->body->GetLinearVelocity().x == 0))
+		else if ((EntityCollider->body->GetLinearVelocity().x == 0))
 		{
 			if (direction == 2) {
 				direction = 0;
@@ -505,7 +504,7 @@ bool FlyingEnemy::Update(float dt)
 
 bool FlyingEnemy::PostUpdate()
 {
-	app->render->DrawTexture(texture, positionOfTheObject.x - 5, positionOfTheObject.y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(EntityText, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
 
 	
 
@@ -562,7 +561,7 @@ bool FlyingEnemy::LoadState(pugi::xml_node& data)
 	}
 	}
 
-	ColHitbox->body->SetTransform(v, 0);
+	EntityCollider->body->SetTransform(v, 0);
 
 	return true;
 }
@@ -571,8 +570,8 @@ bool FlyingEnemy::SaveState(pugi::xml_node& data) const
 {
 	LOG("saving enemy ");
 
-	data.child("Pos").attribute("x").set_value(positionOfTheObject.x);
-	data.child("Pos").attribute("y").set_value(positionOfTheObject.y);
+	data.child("Pos").attribute("x").set_value(position.x);
+	data.child("Pos").attribute("y").set_value(position.y);
 	data.child("lifes").attribute("value").set_value(lifes);
 	data.child("isAlive").attribute("value").set_value(isAlive);
 	data.child("deathAnimation").attribute("value").set_value(deathAnimAllowed);
@@ -602,7 +601,7 @@ void FlyingEnemy::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 				lifes--;
 
-				//bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, ColHitbox->body->GetPosition(), true);
+				//bodyA->body->ApplyLinearImpulse({ 0, -0.5f }, EntityCollider->body->GetPosition(), true);
 				app->audio->PlayFx(app->scene->ehit_fx);
 			}
 			else

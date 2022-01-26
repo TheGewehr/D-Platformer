@@ -7,6 +7,7 @@
 #include "Module.h"
 #include "Textures.h"
 #include "Animation.h"
+#include "Entity.h"
 
 struct SDL_Texture;
 
@@ -24,7 +25,7 @@ enum FLYING_ENEMY_STATE
 	DEATH 
 };
 
-class FlyingEnemy : public Module
+class FlyingEnemy : public Entity
 {
 
 private:
@@ -39,7 +40,7 @@ private:
 public:
 	iPoint directionPoint; // pixels	
 
-	iPoint positionOfTheObject; // pixels	
+//	iPoint positionOfTheObject; // pixels	
 
 	int lifes;
 	bool isAlive;
@@ -51,7 +52,7 @@ public:
 
 	FLYING_ENEMY_STATE actualState;
 
-	PhysBody* ColHitbox;
+	//PhysBody* ColHitbox;
 
 	FlyingEnemy();
 	virtual ~FlyingEnemy();
@@ -85,27 +86,27 @@ public:
 		}
 	}
 
-	FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition)
-	{
-		FlyingEnemy enemy;
-
-		enemy.startPosX = xPosition;
-		enemy.startPosY = yPosition;
-
-		enemy.ColHitbox = app->physics->CreateCircle(enemy.startPosX, enemy.startPosY, 6);
-		enemy.ColHitbox->id = 5;
-		enemy.ColHitbox->listener = app->flyingenemy;
-
-		enemy.actualState = PATROLLING;
-
-		enemy.lifes = 2;
-		enemy.isAlive = true;
-		enemy.deathAnimAllowed = false;
-
-
-
-		return &enemy;
-	}
+	//FlyingEnemy* CreateFlyingEnemy(int xPosition, int yPosition)
+	//{
+	//	FlyingEnemy enemy;
+	//
+	//	enemy.startPosX = xPosition;
+	//	enemy.startPosY = yPosition;
+	//
+	//	enemy.ColHitbox = app->physics->CreateCircle(enemy.startPosX, enemy.startPosY, 6);
+	//	enemy.ColHitbox->id = 5;
+	//	enemy.ColHitbox->listener = app->flyingenemy;
+	//
+	//	enemy.actualState = PATROLLING;
+	//
+	//	enemy.lifes = 2;
+	//	enemy.isAlive = true;
+	//	enemy.deathAnimAllowed = false;
+	//
+	//
+	//
+	//	return &enemy;
+	//}
 
 	//// Set of animations
 	//// IDLE animations

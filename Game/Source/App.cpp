@@ -39,7 +39,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//map = new Map(false);
 	//physics = new Physics(false);
 	//player = new Player(true);
+
 	//pathfinding = new PathFinding(false);
+
 	//flyingenemy = new FlyingEnemy();
 	//walkingenemy = new WalkingEnemy();
 	lvlmanager = new LevelManager(true);
@@ -56,8 +58,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(scene);
 	//AddModule(map);
 	//AddModule(player);
+
 	//AddModule(pathfinding);
 	//(flyingenemy);
+	
+	//AddModule(flyingenemy);
+
 	//AddModule(walkingenemy);
 	AddModule(lvlmanager);
 	//AddModule(entitymanager);

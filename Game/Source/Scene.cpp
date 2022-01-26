@@ -13,12 +13,15 @@
 #include "WalkingEnemy.h"
 #include "FlyingEnemy.h"
 #include "EntityManager.h"
+#include "Entity.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
 
 #include "Defs.h"
 #include "Log.h"
+
+enum class ENTITY_TYPE;
 
 Scene::Scene(bool startEnabled) : Module()
 {
@@ -552,31 +555,33 @@ void Scene::ResetLevel()
 
 	v.x = PIXEL_TO_METERS(app->map->MapToWorld(30, 6).x);
 	v.y = PIXEL_TO_METERS(app->map->MapToWorld(30, 6).y);
-
-	app->walkingenemy->lifes = 2;
-	app->walkingenemy->isAlive = true;
-	app->walkingenemy->deathAnimAllowed = false;
-	app->walkingenemy->statesInt = 0;
-	app->walkingenemy->ColHitbox->body->SetAwake(true);
-
 	
-
-	app->walkingenemy->ColHitbox->body->SetTransform(v, 0);
+	app->entitymanager->walkingEnemies->lifes = 2;
+	app->entitymanager->walkingEnemies->isAlive = true;
+	app->entitymanager->walkingEnemies->deathAnimAllowed = false;
+	app->entitymanager->walkingEnemies->statesInt = 0;
+	app->entitymanager->walkingEnemies->EntityCollider->body->SetAwake(true);
+	
+	
+	
+	app->entitymanager->walkingEnemies->EntityCollider->body->SetTransform(v, 0);
 
 
 	// Flying enemy
 
+
 	v.x = PIXEL_TO_METERS(300);
 	v.y = PIXEL_TO_METERS(150);
 
-	app->flyingenemy->lifes = 2;
-	app->flyingenemy->isAlive = true;
-	app->flyingenemy->deathAnimAllowed = false;
-	app->flyingenemy->statesInt = 0;
-	app->flyingenemy->ColHitbox->body->SetAwake(true);
-
-
-
-	app->flyingenemy->ColHitbox->body->SetTransform(v, 0);
+	
+	app->entitymanager->flyingEnemies->isAlive = true;
+	app->entitymanager->flyingEnemies->deathAnimAllowed = false;
+	app->entitymanager->flyingEnemies->statesInt = 0;
+	app->entitymanager->flyingEnemies->EntityCollider->body->SetAwake(true);
+	
+	
+	
+	app->entitymanager->flyingEnemies->EntityCollider->body->SetTransform(v, 0);
+	
 
 }

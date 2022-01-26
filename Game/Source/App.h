@@ -134,8 +134,8 @@ public:
 	Physics* physics;
 	//Player* player;
 	PathFinding* pathfinding;
-	FlyingEnemy* flyingenemy;
-	WalkingEnemy* walkingenemy;
+	//FlyingEnemy* flyingenemy;
+	//WalkingEnemy* walkingenemy;
 	LevelManager* lvlmanager;
 	EntityManager* entitymanager;
 

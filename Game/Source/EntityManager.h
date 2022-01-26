@@ -7,6 +7,8 @@
 
 class Entity;
 class Player;
+class FlyingEnemy;
+class WalkingEnemy;
 enum class ENTITY_TYPE;
 
 
@@ -53,6 +55,9 @@ public:
 	p2List<Entity*> entities;
 
 	Player* player;
+
+	FlyingEnemy* flyingEnemies;
+	WalkingEnemy* walkingEnemies;
 
 
 };

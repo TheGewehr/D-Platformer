@@ -14,7 +14,11 @@ EntityManager::EntityManager(bool state) : Module()
 	name.Create("entities");
 	active = state;
 	
-	
+
+	player = (Player*)CreateEntity(ENTITY_TYPE::PLAYER);
+	flyingEnemies = (FlyingEnemy*)CreateEntity(ENTITY_TYPE::FLYING_ENEMY);
+	walkingEnemies = (WalkingEnemy*)CreateEntity(ENTITY_TYPE::WALKING_ENEMY);
+
 
 }
 
@@ -196,9 +200,10 @@ Entity* EntityManager::CreateEntity(ENTITY_TYPE type)
 	Entity* ret = nullptr;
 	switch (type) {
 
-	//case ENTITY_TYPE::FLYING_ENEMY: ret = new FlyingEnemy(); break;
-	//case ENTITY_TYPE::WALKING_ENEMY: ret = new WalkingEnemy(); break;
 	case ENTITY_TYPE::PLAYER: ret = new Player(true); break;
+	case ENTITY_TYPE::FLYING_ENEMY: ret = new FlyingEnemy(); break;
+	case ENTITY_TYPE::WALKING_ENEMY: ret = new WalkingEnemy(); break;
+	
 	//case ENTITY_TYPE::LIFE_ITEM: ret = new j2LifeItem(); break;
 	//case ENTITY_TYPE::COIN: ret = new j2Coin(); break;
 	}
