@@ -139,6 +139,8 @@ public:
 	LevelManager* lvlmanager;
 	EntityManager* entitymanager;
 
+	List<Module*> modules;
+
 private:
 
 	int argc;
@@ -146,7 +148,7 @@ private:
 	SString title;
 	SString organization;
 
-	List<Module *> modules;
+	
 
 	float degtorad = 0.0174532925199432957f;
 	float radtodeg = 57.295779513082320876f;

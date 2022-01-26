@@ -39,11 +39,16 @@ Scene::Scene(bool startEnabled) : Module()
 	app->physics = new Physics(true);
 	app->map = new Map(true);
 	app->entitymanager = new EntityManager(true);
+	List<Module*> a;
+	a.add(app->entitymanager);
+	a.add(app->physics);
+	a.add(app->pathfinding);
+	a.add(app->map);
 
-	app->AddModule(app->pathfinding);
-	app->AddModule(app->physics);
-	app->AddModule(app->map);
-	app->AddModule(app->entitymanager);
+	
+	app->modules.InsertAfter(0, a);
+	
+	
 
 	app->map->Awake(config);
 
