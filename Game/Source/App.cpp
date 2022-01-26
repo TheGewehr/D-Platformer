@@ -14,6 +14,7 @@
 #include "WalkingEnemy.h"
 #include "LevelManager.h"
 #include "EntityManager.h"
+#include "GuiManager.h"
 
 
 #include "Defs.h"
@@ -34,6 +35,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render(true);
 	tex = new Textures(true);
 	audio = new Audio(true);
+
+	guiManager = new GuiManager(true);
 	//intro = new Intro(true);
 	//scene = new Scene(true);
 	//map = new Map(false);
@@ -68,6 +71,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(lvlmanager);
 	//AddModule(entitymanager);
 
+	//
+	//AddModule(guiManager);
+	//
 
 	// Render last to swap buffer
 	AddModule(render);

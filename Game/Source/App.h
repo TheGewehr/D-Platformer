@@ -27,6 +27,7 @@ class FlyingEnemy;
 class WalkingEnemy;
 class LevelManager;
 class EntityManager;
+class GuiManager;
 
 //class Timer;
 //class PerfTimer;
@@ -138,6 +139,7 @@ public:
 	//WalkingEnemy* walkingenemy;
 	LevelManager* lvlmanager;
 	EntityManager* entitymanager;
+	GuiManager* guiManager;
 
 	List<Module*> modules;
 
