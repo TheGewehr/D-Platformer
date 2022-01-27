@@ -20,8 +20,9 @@ public:
 	int mouseX, mouseY;
 	unsigned int click;
 
-	bool canClick = true;
 	bool drawBasic = false;
+
+	
 };
 
 #endif // __GUIBUTTON_H__

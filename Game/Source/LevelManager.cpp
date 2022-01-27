@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Input.h"
 #include "Audio.h"
+#include "GuiManager.h"
 #include "SDL/include/SDL.h"
 
 LevelManager::LevelManager(bool state) : Module()
@@ -72,6 +73,9 @@ bool LevelManager::Update(float dt)
 bool LevelManager::PostUpdate()
 {
 	Levels->PostUpdate();
+
+	//Draw GUI
+	app->guiManager->Draw();
 	return true;
 }
 

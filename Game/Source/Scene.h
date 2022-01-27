@@ -6,6 +6,7 @@
 #include "Point.h"
 #include "Defs.h"
 #include "FlyingEnemy.h"
+#include "GuiButton.h"
 
 struct SDL_Texture;
 
@@ -77,7 +78,6 @@ private:
 	PhysBody* sensor_win = nullptr;
 
 	
-
 
 
 };

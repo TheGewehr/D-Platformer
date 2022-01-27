@@ -15,6 +15,7 @@
 #include "EntityManager.h"
 #include "Entity.h"
 #include "LevelManager.h"
+#include "GuiManager.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #include <iostream>
@@ -86,8 +87,12 @@ bool Scene::Start()
 	app->physics->world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	app->physics->world->SetContactListener(app->physics);
 
+	
 	app->entitymanager->player->SetPlayerLifes(3);
 
+	// Creating buttons 
+	
+	
 	// Level 1 Box2D points
 	if (currentLevel != 2)
 	{

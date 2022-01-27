@@ -212,6 +212,8 @@ bool Player::Start()
 	win = false;
 	slowMoHability = false;
 
+	currentShieldAnimation = &shieldRightAnim;
+	currentAnimation = &rightIdleAnim;
 	LOG("Loading player");
 	return true;
 }
@@ -570,7 +572,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			}
 			else
 			{
-				//app->player->currentAnimation = &app->player->deathFromLeftAnim;
+				currentAnimation = &deathFromLeftAnim;
 				deathAnimAllowed = true;
 				app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 				//app->player->SetPlayerLifes(3);
@@ -592,7 +594,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			else
 			{
 
-				//app->player->currentAnimation=&app->player->deathFromRightAnim;
+				currentAnimation= &deathFromRightAnim;
 				app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 				deathAnimAllowed = true;
 				//app->player->SetPlayerLifes(3);
@@ -610,7 +612,7 @@ void Player::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			else
 			{
 
-				//app->player->currentAnimation=&app->player->deathFromRightAnim;
+				currentAnimation= &deathFromRightAnim;
 				deathAnimAllowed = true;
 				//app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 				//app->player->SetPlayerLifes(3);

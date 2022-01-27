@@ -76,6 +76,7 @@ public:
 	}
 
 public:
+	bool canClick = true;
 
 	uint id;
 	GuiControlType type;

@@ -15,7 +15,7 @@ EntityManager::EntityManager(bool state) : Module()
 	active = state;
 	
 
-	player = (Player*)CreateEntity(ENTITY_TYPE::PLAYER);
+	//player = (Player*)CreateEntity(ENTITY_TYPE::PLAYER);
 	flyingEnemies = (FlyingEnemy*)CreateEntity(ENTITY_TYPE::FLYING_ENEMY);
 	walkingEnemies = (WalkingEnemy*)CreateEntity(ENTITY_TYPE::WALKING_ENEMY);
 

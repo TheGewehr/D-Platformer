@@ -6,6 +6,7 @@
 #include "List.h"
 #include "Point.h"
 #include "Defs.h"
+#include "GuiButton.h"
 
 struct SDL_Texture;
 
@@ -38,11 +39,20 @@ public:
 
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
+	// Define multiple Gui Event methods
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 	//Collider* playerWall[100] = { nullptr };
+
+	bool drawOptions;
 
 private:
 	SDL_Texture* image;
+
 	
+	GuiButton* btn1;
+	GuiButton* btn2;
+	GuiButton* btn3;
 };
 
 #endif // __SCENE2_H__

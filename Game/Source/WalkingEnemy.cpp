@@ -154,6 +154,7 @@ bool WalkingEnemy::Start()
 	EntityCollider->id = 6;
 	EntityCollider->listener = app->entitymanager;
 
+	currentAnimation = &rightIdleAnim;
 
 	int x_ = (int)x;
 	int y_ = (int)y;

@@ -72,11 +72,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(entitymanager);
 
 	//
-	//AddModule(guiManager);
+	AddModule(guiManager);
 	//
 
 	// Render last to swap buffer
 	AddModule(render);
+
+	end_app = false;
 
 	PERF_PEEK(ptimer);
 }
@@ -240,8 +242,9 @@ bool App::Update()
 		SDL_Delay(fabs(floor((long)frameSpeed - elapsedTime)));
 	}
 
-	DisplayFrameRateInfo();
+	if (end_app == true) ret = false;
 
+	DisplayFrameRateInfo();
 	FinishUpdate();
 	return ret;
 }

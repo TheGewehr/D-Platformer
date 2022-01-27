@@ -142,6 +142,8 @@ public:
 	GuiManager* guiManager;
 
 	List<Module*> modules;
+	
+	bool end_app;
 
 private:
 

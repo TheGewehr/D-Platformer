@@ -155,7 +155,7 @@ bool FlyingEnemy::Start()
 	EntityCollider->id = 5;
 	EntityCollider->listener = app->entitymanager;
 
-
+	currentAnimation = &rightIdleAnim;
 	
 	 EntityCollider->GetPosition(position.x, position.y);
 	 actualState = PATROLLING;
