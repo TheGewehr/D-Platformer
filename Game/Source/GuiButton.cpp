@@ -11,6 +11,9 @@ GuiButton::GuiButton(uint id, SDL_Rect bounds, const char* text) : GuiControl(Gu
 
 	canClick = true;
 	drawBasic = false;
+	btn_01 = { 950, 441, 122, 37 };
+	btn_02 = { 950, 487, 122, 37 };
+	btn_03 = { 950, 541, 122, 37 };
 }
 
 GuiButton::~GuiButton()
@@ -58,23 +61,23 @@ bool GuiButton::Draw(Render* render)
 
 	case GuiControlState::DISABLED:
 	{
-		render->DrawRectangle(bounds, 0, 0, 0, 0);
+		render->DrawTexture(texture, bounds.x, bounds.y, &btn_01);
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
-		render->DrawRectangle(bounds, 255, 0, 0, 255);
+		render->DrawTexture(texture, bounds.x, bounds.y, &btn_01);
 
 	} break;
 
 	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		render->DrawRectangle(bounds, 255, 255, 255, 160);
+		render->DrawTexture(texture, bounds.x, bounds.y, &btn_02);
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		render->DrawRectangle(bounds, 255, 255, 255, 255);
+		render->DrawTexture(texture, bounds.x, bounds.y, &btn_03);
 	} break;
 
 	/******/

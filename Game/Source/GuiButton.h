@@ -21,7 +21,9 @@ public:
 	unsigned int click;
 
 	bool drawBasic = false;
-
+	SDL_Rect btn_01;
+	SDL_Rect btn_02;
+	SDL_Rect btn_03;
 	
 };
 

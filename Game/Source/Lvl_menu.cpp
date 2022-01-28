@@ -12,7 +12,8 @@ Menu::Menu(bool startEnabled)
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 	image = app->tex->Load("Assets/sprites/gameScreens/introScreen.png");
-
+	
+	
 	Start();
 }
 
@@ -31,9 +32,9 @@ bool Menu::Start()
 	app->render->camera.y = 0;
 
 
-	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { app->render->camera.w / 2, 240, 160, 40 }, this);
-	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { app->render->camera.w / 2, 320, 160, 40 }, this);
-	btn3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Test2", { app->render->camera.w / 2, 400, 160, 40 }, this);
+	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->render->camera.w - 122) / 2, 240, 122, 37 }, this);
+	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->render->camera.w - 122) / 2, 320, 122, 37 }, this);
+	btn3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Test2", { (app->render->camera.w -122 ) / 2, 400, 122, 37 }, this);
 
 	drawOptions = false;
 
@@ -55,6 +56,7 @@ bool Menu::Update(float dt)
 bool Menu::PostUpdate()
 {
 	app->render->DrawTexture(image, 0, 0);
+	
 	
 	return true;
 }
@@ -87,7 +89,7 @@ bool Menu::OnGuiMouseClickEvent(GuiControl* control)
 			app->guiManager->AbleGuiControl(btn2, false);
 			app->guiManager->AbleGuiControl(btn3, false);
 
-			drawOptions = true;
+			app->guiManager->drawOptions = true;
 
 			// create options buttons
 		}

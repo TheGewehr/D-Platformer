@@ -48,7 +48,8 @@ public:
 
 private:
 	SDL_Texture* image;
-
+	SDL_Texture* options;
+	SDL_Rect options_;
 	
 	GuiButton* btn1;
 	GuiButton* btn2;

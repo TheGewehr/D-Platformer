@@ -42,6 +42,8 @@ public:
 	float updateMsCycle = 0.0f;
 	bool doLogic = false;
 
+	bool drawOptions;
+	SDL_Rect options_;
 	SDL_Texture* texture;
 
 };

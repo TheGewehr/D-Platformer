@@ -1,6 +1,7 @@
 #include "GuiManager.h"
 #include "App.h"
 #include "Textures.h"
+#include "LevelManager.h"
 
 #include "GuiButton.h"
 #include "Audio.h"
@@ -9,12 +10,14 @@ GuiManager::GuiManager(bool state) :Module()
 {
 	active = state;
 	name.Create("guiManager");
+	options_ = { 376, 2, 389, 185 };
 }
 
 GuiManager::~GuiManager() {}
 
 bool GuiManager::Start()
 {
+	texture = app->tex->Load("Assets/sprites/gui.png");
 	return true;
 }
 
@@ -40,7 +43,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	//Set the observer
 
 	control->SetObserver(observer);
-	//control->SetTexture(texture);
+	control->SetTexture(texture);
 
 	// Created GuiControls are added to the list of controls
 	if (control != nullptr) controls.add(control);
@@ -119,6 +122,7 @@ bool GuiManager::Draw() {
 		control = control->next;
 	}
 
+	if (drawOptions) app->render->DrawTexture(texture, (app->render->camera.w - options_.w) / 2, 225, &options_);
 	return true;
 
 }

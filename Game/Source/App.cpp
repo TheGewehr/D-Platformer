@@ -56,6 +56,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(guiManager);
 	//AddModule(physics);
 	//AddModule(intro);
 	//AddModule(scene);
@@ -72,7 +73,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(entitymanager);
 
 	//
-	AddModule(guiManager);
+	
 	//
 
 	// Render last to swap buffer
