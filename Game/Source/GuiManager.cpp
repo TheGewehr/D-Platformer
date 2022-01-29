@@ -10,7 +10,7 @@ GuiManager::GuiManager(bool state) :Module()
 {
 	active = state;
 	name.Create("guiManager");
-	options_ = { 376, 2, 389, 185 };
+	
 }
 
 GuiManager::~GuiManager() {}
@@ -33,15 +33,18 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::BUTTON:
 		control = new GuiButton(id, bounds, text);
 		break;
-
-		// More Gui Controls can go here
+	case GuiControlType::CHECKBOX:
+		control = new GuiBox(id, bounds);
+		break;
+	case GuiControlType::SLIDER:
+		control = new GuiSlider(id, bounds);
+		break;
 
 	default:
 		break;
 	}
 
 	//Set the observer
-
 	control->SetObserver(observer);
 	control->SetTexture(texture);
 
@@ -122,7 +125,7 @@ bool GuiManager::Draw() {
 		control = control->next;
 	}
 
-	if (drawOptions) app->render->DrawTexture(texture, (app->render->camera.w - options_.w) / 2, 225, &options_);
+	
 	return true;
 
 }

@@ -29,15 +29,18 @@ bool Render::Awake(pugi::xml_node& config)
 	LOG("Create SDL rendering context");
 	bool ret = true;
 
-	Uint32 flags = SDL_RENDERER_ACCELERATED;
+	uint32 flags_ = flags;
 
-	if(config.child("vsync").attribute("value").as_bool(true) == true)
+	if(config.child("vsync").attribute("value").as_bool() == true)
 	{
-		flags |= SDL_RENDERER_PRESENTVSYNC;
+		flags_ |= SDL_RENDERER_PRESENTVSYNC;
+		
 		LOG("Using vsync");
 	}
 
-	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
+	vsync = config.child("vsync").attribute("value").as_bool();
+
+	renderer = SDL_CreateRenderer(app->win->window, -1, flags_);
 
 	if(renderer == NULL)
 	{
@@ -51,7 +54,7 @@ bool Render::Awake(pugi::xml_node& config)
 		camera.x = 0;
 		camera.y = 0;
 	}
-
+	flags = (SDL_RendererFlags)flags_;
 	return ret;
 }
 
@@ -255,4 +258,21 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+
+void Render::ChangeVsync(bool vsync)
+{
+	uint32 flags_;
+	SDL_RenderClear(renderer);
+	if (vsync)
+	{
+		flags_ |= SDL_RENDERER_PRESENTVSYNC;
+		
+	}
+	else if (!vsync)
+	{
+		flags_ = SDL_RENDERER_ACCELERATED;
+	}
+
+	flags = (SDL_RendererFlags)flags_;
 }

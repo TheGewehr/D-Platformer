@@ -51,9 +51,15 @@ private:
 	SDL_Texture* options;
 	SDL_Rect options_;
 	
+
 	GuiButton* btn1;
 	GuiButton* btn2;
 	GuiButton* btn3;
+	GuiButton* gui_close;
+	GuiBox* gui_fullscreen;
+	GuiBox* gui_vsync;
+	GuiSlider* gui_music;
+	GuiSlider* gui_fx;
 };
 
 #endif // __SCENE2_H__
