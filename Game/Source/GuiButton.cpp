@@ -225,6 +225,7 @@ bool GuiSlider::Update(float dt)
 			{
 				if (id == 7)
 				{
+					//app->audio->audio_mult = 5;
 					app->audio->audio_mult = ((float)pos_x - (float)bounds.x) / 125.0f;
 				}
 				else if (id == 8)

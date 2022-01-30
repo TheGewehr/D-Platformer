@@ -17,6 +17,8 @@ Audio::Audio(bool startEnabled) : Module()
 	active = startEnabled;
 	music = NULL;
 	name.Create("audio");
+	audio_mult=1.0f;
+	fx_mult=1.0f;
 }
 
 // Destructor
@@ -93,6 +95,10 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 	if(!active)
 		return false;
 
+	float volumeM = 128.f * audio_mult;
+
+	Mix_VolumeMusic((int)volumeM);
+
 	if(music != NULL)
 	{
 		if(fade_time > 0.0f)
@@ -165,6 +171,20 @@ unsigned int Audio::LoadFx(const char* path)
 // Play WAV
 bool Audio::PlayFx(unsigned int id, int repeat)
 {
+
+	float volumeC = 128.f * fx_mult;
+
+	//for (ListItem<Mix_Chunk*> *i = fx.getFirst();i == nullptr;i->next)
+	//{
+	//	if (i->data!=nullptr)
+	//	{
+	//		Mix_VolumeChunk(i->data, 5);
+	//	}
+	//	
+	//}
+	
+	//Mix_VolumeChunk(, (int)volumeC);
+
 	bool ret = false;
 
 	if(!active)
