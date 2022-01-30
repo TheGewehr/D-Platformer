@@ -399,7 +399,7 @@ bool Scene::Update(float dt)
 
 	//app->guiManager->DestroyGuiControl(gui_lifes03);
 	//app->guiManager->DestroyGuiControl(gui_lifes04);
-	if (app->entitymanager->player->GetPlayerLifes() == 3)
+	if (app->entitymanager->player->GetPlayerLifes() == 4)
 	{
 		//if (gui_lifes04 != nullptr)
 		//{

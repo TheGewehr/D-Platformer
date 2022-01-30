@@ -60,11 +60,11 @@ public:
 	bool Update(float dt);
 	bool Draw(Render* render);
 
-	int mouseX, mouseY;
-	unsigned int click;
+	//int mouseX, mouseY;
+	//unsigned int click;
 
 	//bool drawBasic = false;
-	bool box_info;
+	//bool box_info;
 
 	SDL_Rect gui_slider;
 	SDL_Rect gui_btn;

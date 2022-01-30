@@ -184,6 +184,8 @@ GuiSlider::GuiSlider(uint id, SDL_Rect bounds) : GuiControl(GuiControlType::SLID
 
 	canClick = true;
 	//drawBasic = false;
+	focused = false;
+	//box_info = false;
 }
 
 GuiSlider::~GuiSlider()

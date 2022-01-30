@@ -34,7 +34,7 @@ bool Menu::Start()
 
 	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->render->camera.w - 122) / 2, 240, 122, 37 }, this);
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->render->camera.w - 122) / 2, 320, 122, 37 }, this);
-	btn3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Test2", { (app->render->camera.w -122 ) / 2, 400, 122, 37 }, this);
+	btn3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Test3", { (app->render->camera.w -122 ) / 2, 400, 122, 37 }, this);
 
 	drawOptions = false;
 
@@ -104,16 +104,18 @@ bool Menu::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else if (control->id == 4)
 		{
-			drawOptions = false;
+			//drawOptions = false;
 			app->guiManager->DestroyGuiControl(gui_close);
 			app->guiManager->DestroyGuiControl(gui_vsync);
 			app->guiManager->DestroyGuiControl(gui_fullscreen);
 			app->guiManager->DestroyGuiControl(gui_music);
 			app->guiManager->DestroyGuiControl(gui_fx);
+
 			btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->render->camera.w - 122) / 2, 240, 122, 37 }, this);
 			btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->render->camera.w - 122) / 2, 320, 122, 37 }, this);
-			btn3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Test2", { (app->render->camera.w - 122) / 2, 400, 122, 37 }, this);
-			
+			btn3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Test3", { (app->render->camera.w - 122) / 2, 400, 122, 37 }, this);
+
+			drawOptions = false;
 		}
 		
 
