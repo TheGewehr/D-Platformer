@@ -60,7 +60,7 @@ Scene::Scene(bool startEnabled) : Module()
 	Start();
 	app->entitymanager->Start();
 
-	gui_pause = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Checkbox01", { -app->render->camera.w, 0, 25, 25 }, this);
+	
 }
 
 // Destructor
@@ -341,13 +341,38 @@ bool Scene::Start()
 		app->entitymanager->player->Awake();
 	}
 
+	gui_lifes01 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay", { -app->render->camera.w, 0, 25, 25 }, this);
+	gui_lifes02 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay.", { -app->render->camera.w + 50, 0, 25, 25 }, this);
+	gui_lifes03 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay..", { -app->render->camera.w + 100, 0, 25, 25 }, this);
+	gui_lifes04 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay...", { -app->render->camera.w + 150, 0, 25, 25 }, this);
+
+	//if (app->entitymanager->player->GetPlayerLifes()==4)
+	//{
+	//	gui_lifes04 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay", { -app->render->camera.w + 150, 0, 25, 25 }, this);
+	//}
+	//if (app->entitymanager->player->GetPlayerLifes()==3)
+	//{
+	//	gui_lifes03 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay", { -app->render->camera.w + 100, 0, 25, 25 }, this);
+	//}
+	//if (app->entitymanager->player->GetPlayerLifes()==2)
+	//{
+	//	gui_lifes02 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay", { -app->render->camera.w + 50, 0, 25, 25 }, this);
+	//}
+	//if (app->entitymanager->player->GetPlayerLifes()==1)
+	//{
+	//	gui_lifes01 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::DISPLAY, 9, "LifesDisplay", { -app->render->camera.w, 0, 25, 25 }, this);
+	//}
+
 	return true;
 }
 
 // Called each loop iteration
 bool Scene::PreUpdate()
 {
-	gui_pause->SetPos(app->render->camera.x, 0);
+	gui_lifes01->SetPos(app->render->camera.x, 430);
+	gui_lifes02->SetPos(app->render->camera.x+50, 430);
+	gui_lifes03->SetPos(app->render->camera.x+100, 430);
+	gui_lifes04->SetPos(app->render->camera.x+150, 430);
 
 	return true;
 }
@@ -371,6 +396,58 @@ bool Scene::Update(float dt)
 		//app->audio->PlayFx(app->lvlmanager->pdeath_fx);
 		ResetLevel();
 	}
+
+	//app->guiManager->DestroyGuiControl(gui_lifes03);
+	//app->guiManager->DestroyGuiControl(gui_lifes04);
+	if (app->entitymanager->player->GetPlayerLifes() == 3)
+	{
+		//if (gui_lifes04 != nullptr)
+		//{
+		//	app->guiManager->DestroyGuiControl(gui_lifes04);
+		//}
+		gui_lifes04->id = 9;
+		gui_lifes03->id = 9;
+		gui_lifes02->id = 9;
+		gui_lifes01->id = 9;
+	}
+	if (app->entitymanager->player->GetPlayerLifes() == 3)
+	{
+		//if (gui_lifes04 != nullptr)
+		//{
+		//	app->guiManager->DestroyGuiControl(gui_lifes04);
+		//}
+		gui_lifes04->id = 10;
+		gui_lifes03->id = 9;
+		gui_lifes02->id = 9;
+		gui_lifes01->id = 9;
+	}
+	if (app->entitymanager->player->GetPlayerLifes() == 2)
+	{
+		gui_lifes04->id = 10;
+		gui_lifes03->id = 10;
+		gui_lifes02->id = 9;
+		gui_lifes01->id = 9;
+	}
+	if (app->entitymanager->player->GetPlayerLifes() == 1)
+	{
+		gui_lifes04->id = 10;
+		gui_lifes03->id = 10;
+		gui_lifes02->id = 10;
+		gui_lifes01->id = 9;
+	}
+	if (app->entitymanager->player->GetPlayerLifes() == 0)
+	{
+		gui_lifes04->id = 10;
+		gui_lifes03->id = 10;
+		gui_lifes02->id = 10;
+		gui_lifes01->id = 10;
+	}
+	else
+	{
+	
+	}
+
+	//app->entitymanager->player->GetPlayerLifes();
 	
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
@@ -547,7 +624,7 @@ void Scene::ResetLevel()
 
 	v.x = PIXEL_TO_METERS(16);
 	v.y = PIXEL_TO_METERS(16);
-	app->entitymanager->player->SetPlayerLifes(3);
+	app->entitymanager->player->SetPlayerLifes(4);
 	app->entitymanager->player->isAlive = true;
 	app->entitymanager->player->deathAnimAllowed = false;
 	app->entitymanager->player->SetPlayerWin(false);
@@ -578,7 +655,7 @@ void Scene::ResetLevel()
 	v.x = PIXEL_TO_METERS(300);
 	v.y = PIXEL_TO_METERS(150);
 
-	
+	app->entitymanager->flyingEnemies->lifes = 2;
 	app->entitymanager->flyingEnemies->isAlive = true;
 	app->entitymanager->flyingEnemies->deathAnimAllowed = false;
 	app->entitymanager->flyingEnemies->statesInt = 0;

@@ -90,6 +90,12 @@ bool GuiButton::Draw(Render* render)
 		default:
 			break;
 		}
+
+		if (id == 9)
+		{
+			section = { 0,0,50,50 };
+			app->render->DrawTexture(texture, bounds.x, bounds.y, &section);
+		}
 	}
 	else if (id == 4)	app->render->DrawTexture(texture, bounds.x, bounds.y, &gui_close);
 	return false;
@@ -108,7 +114,7 @@ GuiBox::GuiBox(uint id, SDL_Rect bounds) : GuiControl(GuiControlType::CHECKBOX, 
 	gui_case = { 1251, 203, 20, 20 };
 	gui_check = { 1251, 246, 16, 16 };
 	canClick = true;
-	drawBasic = false;
+	//drawBasic = false;
 	
 	if (id == 5) box_info = app->vSyncBool;
 	else if (id == 6) box_info = app->win->fullscreen;
@@ -177,7 +183,7 @@ GuiSlider::GuiSlider(uint id, SDL_Rect bounds) : GuiControl(GuiControlType::SLID
 	gui_btn = { 1204, 203, 25, 25 };
 
 	canClick = true;
-	drawBasic = false;
+	//drawBasic = false;
 }
 
 GuiSlider::~GuiSlider()
@@ -243,3 +249,4 @@ bool GuiSlider::Draw(Render* render)
 
 	return false;
 }
+

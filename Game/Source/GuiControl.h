@@ -21,7 +21,8 @@ enum class GuiControlType
 	DROPDOWNBOX,
 	INPUTBOX,
 	VALUEBOX,
-	SPINNER
+	SPINNER,
+	DISPLAY
 };
 
 enum class GuiControlState

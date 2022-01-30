@@ -78,7 +78,10 @@ private:
 	PhysBody* sensor_water03 = nullptr;
 	PhysBody* sensor_win = nullptr;
 
-	GuiButton* gui_pause;
+	GuiButton* gui_lifes01;
+	GuiButton* gui_lifes02;
+	GuiButton* gui_lifes03;
+	GuiButton* gui_lifes04;
 	GuiButton* gui_close;
 	GuiButton* gui_goMenu;
 

@@ -131,6 +131,19 @@ bool Menu::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		
 	}
+	case GuiControlType::DISPLAY:
+	{
+		if (control->id == 9)
+		{
+			
+		}
+		else 
+		{
+			
+		}
+
+	}
+
 
 	default: break;
 	}

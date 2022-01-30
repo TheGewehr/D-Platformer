@@ -45,6 +45,7 @@ public:
 	bool drawOptions;
 	SDL_Rect options_;
 	SDL_Texture* texture;
+	SDL_Texture* heartTexture;
 
 };
 

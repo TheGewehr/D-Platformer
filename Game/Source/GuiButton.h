@@ -42,7 +42,7 @@ public:
 	int mouseX, mouseY;
 	unsigned int click;
 
-	bool drawBasic = false;
+	//bool drawBasic = false;
 	bool box_info;
 	
 	SDL_Rect gui_case;
@@ -63,7 +63,7 @@ public:
 	int mouseX, mouseY;
 	unsigned int click;
 
-	bool drawBasic = false;
+	//bool drawBasic = false;
 	bool box_info;
 
 	SDL_Rect gui_slider;
@@ -73,4 +73,6 @@ public:
 	int pos_x;
 
 };
+
 #endif // __GUIBUTTON_H__
+

@@ -19,6 +19,7 @@ GuiManager::~GuiManager() {}
 bool GuiManager::Start()
 {
 	texture = app->tex->Load("Assets/sprites/gui.png");
+	heartTexture = app->tex->Load("Assets/sprites/Heart.png");
 	return true;
 }
 
@@ -40,6 +41,9 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::SLIDER:
 		control = new GuiSlider(id, bounds);
 		break;
+	case GuiControlType::DISPLAY:
+		control = new GuiButton(id, bounds,text);
+		break;
 
 	default:
 		break;
@@ -47,7 +51,17 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 
 	//Set the observer
 	control->SetObserver(observer);
-	control->SetTexture(texture);
+	//control->SetTexture(texture);
+
+	if ((id == 9)|| (id == 10) || (id == 11) || (id == 12 ) )
+	{
+		control->SetTexture(heartTexture);
+		control->section = {0,0,50,50};
+	}
+	else
+	{
+		control->SetTexture(texture);
+	}
 
 	// Created GuiControls are added to the list of controls
 	if (control != nullptr) controls.add(control);
@@ -107,7 +121,7 @@ bool GuiManager::UpdateAll(float dt, bool doLogic) {
 
 		while (control != nullptr)
 		{
-			control->data->Update(dt);
+			control->data->Update(dt);//
 			control = control->next;
 		}
 
