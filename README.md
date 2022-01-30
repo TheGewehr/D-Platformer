@@ -2,7 +2,7 @@
 
 ## Welcome to Flea World
 
-Final Epidemic is a group of two students coursing the second year Bachelor's degree in Video Game Design and Development at UPC university. The integrants of the group are Alexandre Carreras.
+YAY is a group of two students coursing the second year Bachelor's degree in Video Game Design and Development at UPC university. The integrants of the group are Alexandre Carreras and Albert Chica
 
 GitHub project link: https://github.com/TheGewehr/D-Platformer
 
@@ -12,6 +12,7 @@ GitHub project link: https://github.com/TheGewehr/D-Platformer
 
 
 - **Alexandre Carreras** [[ _TheGewehr_ ](https://github.com/TheGewehr)]
+- **Albert Chica** 
 
 <p>&nbsp;</p>
 
@@ -43,30 +44,17 @@ Debug Controls:
 
 ## DEV Diary
 
-We got a lot of problems creating the first version of our game. 
-So that made us restart the project and redo everythng we already
-had but this time with the Box2D library. This task was relatively
-simple but time consuming, forcing the team to work much more for
-this version of the game that the previous one. 
-The result is the expected, time control and pathfinder enemies
-that make richer the playable level of the game. Each of them
-the features has been thinked twice so the playablilty is the
-expected. The player will have a bad time not being killed
-by the enemies while it jumps throught the level to get to 
-the win point.
+The developpement was smooth and everything was going well, but some functionalities were very dificult to implement, such as the GUI. Some of the implementations 
+are imcomplete or still not work correctly, such as the sound. When you enter the options menu, and then you play you have a terrible bug, that is triggered by the scene manager, modules going wrong...
+But if we do some trial, the game still playable.
+Once we enter the menu, we have 3 buttons, 1rst to play, 2nd to open the options menu and then the 3rd, to quit.
 
-## Future of the team
+The game plays as the last release but this time we added some functionalityes such as the shield and the win screen.
 
-Unfortunatly Final Epidemic will be diluded beacose of 
-developpement problems due to organization. Once this release
-is published, each of the team members will persue his own 
-project. This one will be entirely owned by TheGewehr AKA TheVeteran
-and another one will be created in the _carlosarnau_ account
-
-Don't be sad, it is a change for the good of both of us
 
 ## Final Note
 
-Stay updated on our projects, we will be releasing the final version
-of our respective projects before the 1rst of february 2022, see you then 
-and enjoy this release ;-)
+It is a bit messy, sorry about that :-(
+If you have any question, let us know.
+Thanks for this semester, we hope you the best ;-)
+
