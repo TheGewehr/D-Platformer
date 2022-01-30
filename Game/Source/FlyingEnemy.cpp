@@ -506,8 +506,12 @@ bool FlyingEnemy::Update(float dt)
 
 bool FlyingEnemy::PostUpdate()
 {
-	app->render->DrawTexture(EntityText, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
+	if (app->entitymanager->player->GetPlayerWin() == false)
+	{
+		app->render->DrawTexture(EntityText, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
 
+
+	}
 	
 
 

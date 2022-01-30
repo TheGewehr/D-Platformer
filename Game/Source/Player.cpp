@@ -489,10 +489,14 @@ bool Player::PostUpdate()
 {
 
 	//Drawing player
-	app->render->DrawTexture(EntityText, METERS_TO_PIXELS(EntityCollider->body->GetPosition().x)-10, METERS_TO_PIXELS(EntityCollider->body->GetPosition().y)-17, &currentAnimation->GetCurrentFrame());
+	if (win==false)
+	{
+		app->render->DrawTexture(EntityText, METERS_TO_PIXELS(EntityCollider->body->GetPosition().x) - 10, METERS_TO_PIXELS(EntityCollider->body->GetPosition().y) - 17, &currentAnimation->GetCurrentFrame());
 
-	
-	app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(EntityCollider->body->GetPosition().x) -40, METERS_TO_PIXELS(EntityCollider->body->GetPosition().y) -17, &currentShieldAnimation->GetCurrentFrame(),1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
+
+		app->render->DrawTexture(shieldTex, METERS_TO_PIXELS(EntityCollider->body->GetPosition().x) - 40, METERS_TO_PIXELS(EntityCollider->body->GetPosition().y) - 17, &currentShieldAnimation->GetCurrentFrame(), 1, ShieldSensor->body->GetAngle() / 0.0174532925199432957f);
+
+	}
 	
 	
 

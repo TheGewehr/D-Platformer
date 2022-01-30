@@ -492,9 +492,12 @@ bool WalkingEnemy::Update(float dt)
 
 bool WalkingEnemy::PostUpdate()
 {
-	app->render->DrawTexture(EntityText, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
-
 	
+
+	if (app->entitymanager->player->GetPlayerWin() == false)
+	{
+		app->render->DrawTexture(EntityText, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
+	}
 
 	return true;
 }

@@ -85,6 +85,8 @@ private:
 	GuiButton* gui_close;
 	GuiButton* gui_goMenu;
 
+	SDL_Texture* winTexture;
+
 
 };
 

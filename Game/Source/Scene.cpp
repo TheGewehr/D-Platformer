@@ -93,6 +93,7 @@ bool Scene::Start()
 	// Creating buttons 
 	
 	
+	
 	// Level 1 Box2D points
 	if (currentLevel != 2)
 	{
@@ -334,6 +335,7 @@ bool Scene::Start()
 
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	img = app->tex->Load("Assets/background/Background.png");
+	winTexture= app->tex->Load("Assets/sprites/WinningScreen(1).png");
 	
 
 	if (app->entitymanager->player->Awake() == 0)
@@ -464,6 +466,17 @@ bool Scene::Update(float dt)
 	//  app->win->SetTitle(title.GetString());
 
 	//app->collisions->AddCollider();
+
+	if (app->entitymanager->player->GetPlayerWin()==true)
+	{
+		SDL_Rect U = { 0, 0, 1080, 480 };
+		app->render->DrawTexture(winTexture, app->render->camera.x, app->render->camera.y, &U); 
+		gui_lifes04->id = 10;
+		gui_lifes03->id = 10;
+		gui_lifes02->id = 10;
+		gui_lifes01->id = 10;
+
+	}
 
 	return true;
 }
