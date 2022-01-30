@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Log.h"
 #include "Player.h"
+#include "Module.h"
 #include "Input.h"
 #include "p2List.h"
 #include "Scene.h"
