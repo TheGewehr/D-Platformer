@@ -55,6 +55,7 @@ public:
 	uint pdeath_fx;
 
 	uint shield_fx;
+	bool stop_phys;
 };
 
 #endif // __MODULE_H__

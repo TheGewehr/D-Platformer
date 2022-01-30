@@ -11,6 +11,7 @@
 #include "Point.h"
 #include "map.h"
 #include "Log.h"
+#include "LevelManager.h"
 
 #ifdef _DEBUG
 
@@ -52,11 +53,15 @@ bool Physics::Start()
 bool Physics::PreUpdate()
 {
 	// slow motion
-	if (app->entitymanager->player->GetPlayerSlowMo() == false)
+	if (app->lvlmanager->stop_phys)
+	{
+
+	}
+	else if (app->entitymanager->player->GetPlayerSlowMo() == false)
 	{
 		world->Step(app->GetDeltaTime(), 6, 2);
 	}
-	else
+	else 
 	{
 		world->Step(app->GetDeltaTime()*0.2f, 6, 2);
 	}

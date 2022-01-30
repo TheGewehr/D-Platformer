@@ -30,7 +30,7 @@
 	</flyingenemy>
 	<renderer>
 		<vsync value="false" />
-		<camera x="1780" y="0" />
+		<camera x="-524" y="0" />
 	</renderer>
 	<window>
 		<resolution width="1080" height="720" scale="1" />

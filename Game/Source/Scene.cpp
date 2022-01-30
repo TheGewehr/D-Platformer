@@ -49,7 +49,7 @@ Scene::Scene(bool startEnabled) : Module()
 	
 	app->modules.InsertAfter(0, a);
 	
-	
+	stop_phys = false; 
 
 	app->map->Awake(config);
 
@@ -60,7 +60,7 @@ Scene::Scene(bool startEnabled) : Module()
 	Start();
 	app->entitymanager->Start();
 
-	
+	gui_pause = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Checkbox01", { -app->render->camera.w, 0, 25, 25 }, this);
 }
 
 // Destructor
@@ -347,6 +347,8 @@ bool Scene::Start()
 // Called each loop iteration
 bool Scene::PreUpdate()
 {
+	gui_pause->SetPos(app->render->camera.x, 0);
+
 	return true;
 }
 

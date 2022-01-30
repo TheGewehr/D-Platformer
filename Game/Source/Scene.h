@@ -54,6 +54,7 @@ public:
 
 
 	int currentLevel;
+	bool stop_phys;
 
 private:
 	SDL_Texture* map;
@@ -77,7 +78,9 @@ private:
 	PhysBody* sensor_water03 = nullptr;
 	PhysBody* sensor_win = nullptr;
 
-	
+	GuiButton* gui_pause;
+	GuiButton* gui_close;
+	GuiButton* gui_goMenu;
 
 
 };

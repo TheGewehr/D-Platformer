@@ -44,7 +44,7 @@ bool LevelManager::Start()
 	ehit_fx = app->audio->LoadFx("Assets/audio/fx/b.wav");
 	shield_fx = app->audio->LoadFx("Assets/audio/fx/no.wav");
 	pdeath_fx = app->audio->LoadFx("Assets/audio/fx/death_player.wav");
-
+	stop_phys = false;
 	Levels = new Menu(true);
 	return true;
 }

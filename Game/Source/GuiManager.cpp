@@ -10,6 +10,7 @@ GuiManager::GuiManager(bool state) :Module()
 {
 	active = state;
 	name.Create("guiManager");
+	controls.clear();
 	
 }
 

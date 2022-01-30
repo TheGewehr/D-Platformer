@@ -96,7 +96,7 @@ bool Menu::OnGuiMouseClickEvent(GuiControl* control)
 			gui_vsync = (GuiBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 5, "checkbox01", { (app->render->camera.w - 90) / 2, 280, 25, 25 }, this);
 			gui_fullscreen = (GuiBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 6, "checkbox02", { (app->render->camera.w + 50) / 2, 280, 25, 25 }, this);
 			gui_music = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Slider01", { (app->render->camera.w - 130) / 2, 330, 131, 12 }, this);
-			gui_fx = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 7, "Slider02", { (app->render->camera.w - 130) / 2, 360, 131, 12 }, this);
+			gui_fx = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 8, "Slider02", { (app->render->camera.w - 130) / 2, 360, 131, 12 }, this);
 		}
 		else if (control->id == 3)
 		{

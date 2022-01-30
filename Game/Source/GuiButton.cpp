@@ -95,6 +95,12 @@ bool GuiButton::Draw(Render* render)
 	return false;
 }
 
+void GuiButton::SetPos(int x, int y)
+{
+	bounds.x = x;
+	bounds.y = y;
+}
+
 GuiBox::GuiBox(uint id, SDL_Rect bounds) : GuiControl(GuiControlType::CHECKBOX, id)
 {
 	this->bounds = bounds;
