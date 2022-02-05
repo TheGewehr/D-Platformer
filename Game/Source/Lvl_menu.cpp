@@ -57,7 +57,8 @@ bool Menu::PostUpdate()
 {
 	app->render->DrawTexture(image, 0, 0);
 	if (drawOptions) app->render->DrawTexture(options, (app->render->camera.w - options_.w) / 2, 225, &options_);
-	
+
+	app->lvlmanager->ChangeScene(SCENE_TYPE::LVL_01);
 	return true;
 }
 
